@@ -89,22 +89,23 @@
 
 foreach (var c in classes)
 {
-
-
     var className= c.Name;
 	var cClassname= GetCamelcaseClassName(c.Name);
+
+
 	var controllerName = cClassname + "Controller";
 	var detailsControllerName = cClassname + "DetailsController";
 	var modifyControllerName = "modify" + cClassname + "Controller";
+
 	var modalsServiceName = cClassname + "ModalService";
+
 	var serviceName = cClassname + "Services";
-	var ServiceName = className + "Services";
 
 
 //this.GenerateAngularController(controllerName, serviceName, className, cClassname, modalsServiceName);
 //this.GenerateMVCIndexController(controllerName, serviceName, className, cClassname, modalsServiceName);
-this.GenerateListComponent(appPath, c, serviceName, className, cClassname, modalsServiceName);
-this.GenerateListComponentTemplate(appPath, c, serviceName, className, cClassname, modalsServiceName);
+this.GenerateListComponent(appPath, className, cClassname, serviceName, modalsServiceName);
+//this.GenerateListComponentTemplate(appPath, className, cClassname, serviceName, modalsServiceName);
 //this.GenerateDetailsController(detailsControllerName, serviceName, className, cClassname, modalsServiceName);
 //
 //

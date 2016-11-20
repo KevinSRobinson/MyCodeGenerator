@@ -11,3 +11,12 @@ C:\SourceCode\YouthRebuild\CodeGenerator\bin\Debug\Data.pdb
 C:\SourceCode\YouthRebuild\CodeGenerator\obj\Debug\CodeGenerator.dll
 C:\SourceCode\YouthRebuild\CodeGenerator\obj\Debug\CodeGenerator.pdb
 C:\SourceCode\YouthRebuild\CodeGenerator\obj\Debug\CodeGenerator.csprojResolveAssemblyReference.cache
+C:\Repos\CodeGenerator\MyCodeGenerator\obj\Debug\CodeGenerator.csprojResolveAssemblyReference.cache
+C:\Repos\CodeGenerator\MyCodeGenerator\obj\Debug\CodeGenerator.dll
+C:\Repos\CodeGenerator\MyCodeGenerator\obj\Debug\CodeGenerator.pdb
+C:\Repos\CodeGenerator\MyCodeGenerator\bin\Debug\CodeGenerator.dll
+C:\Repos\CodeGenerator\MyCodeGenerator\bin\Debug\CodeGenerator.pdb
+C:\Repos\CodeGenerator\MyCodeGenerator\bin\Debug\Data.dll
+C:\Repos\CodeGenerator\MyCodeGenerator\bin\Debug\EntityFramework.dll
+C:\Repos\CodeGenerator\MyCodeGenerator\bin\Debug\Data.pdb
+C:\Repos\CodeGenerator\MyCodeGenerator\bin\Debug\EntityFramework.xml

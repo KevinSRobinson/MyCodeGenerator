@@ -13,24 +13,9 @@ namespace Data.Repositories
 
     public interface IUnitOfWork : IDisposable
     {
-        IWhereIVolunteerRepository WhereIVolunteers { get; }
-
         IOrganisationRepository Organisations { get; }
-
-        IReviewRepository Reviews { get; }
-
-        IPlanOfActionRepository PlanOfActions { get; }
-
-        ISelfAssessmentRepository SelfAssessments { get; }
-
         IUserRepository Users { get; }
-
-        IAwardRepository Awards { get; }
-
-        IValidateSkillRepository ValidateSkills { get; }
-
-        IOpportunityRepository Opportunitys { get; }
-
+        
         void Save();
     }
 
@@ -51,51 +36,18 @@ namespace Data.Repositories
         }
 
 
-        public IWhereIVolunteerRepository WhereIVolunteers
-        {
-            get { return new WhereIVolunteerRepository(_context); }
-        }
 
         public IOrganisationRepository Organisations
         {
             get { return new OrganisationRepository(_context); }
         }
 
-        public IReviewRepository Reviews
-        {
-            get { return new ReviewRepository(_context); }
-        }
-
-        public IPlanOfActionRepository PlanOfActions
-        {
-            get { return new PlanOfActionRepository(_context); }
-        }
-
-        public ISelfAssessmentRepository SelfAssessments
-        {
-            get { return new SelfAssessmentRepository(_context); }
-        }
 
         public IUserRepository Users
         {
             get { return new UserRepository(_context); }
         }
-
-        public IAwardRepository Awards
-        {
-            get { return new AwardRepository(_context); }
-        }
-
-        public IValidateSkillRepository ValidateSkills
-        {
-            get { return new ValidateSkillRepository(_context); }
-        }
-
-        public IOpportunityRepository Opportunitys
-        {
-            get { return new OpportunityRepository(_context); }
-        }
-
+              
         public void Save()
         {
             _context.SaveChanges();

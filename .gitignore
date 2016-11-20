@@ -4,3 +4,5 @@ Data/obj/
 Web/obj/
 Data/bin/
 Data/Migrations/
+packages/
+Web/bin/

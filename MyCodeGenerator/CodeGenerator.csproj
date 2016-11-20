@@ -74,8 +74,6 @@
     <None Include="Client\Views\IndexView.ttinclude" />
     <None Include="Client\Views\IndexViewMVC.ttinclude" />
     <None Include="Client\webpackConfig.ttinclude" />
-    <None Include="CodeTemplates\DbHelper.ttinclude" />
-    <None Include="CodeTemplates\Manager.ttinclude" />
     <None Include="Data\GenericRepository.ttinclude" />
     <None Include="Data\Repositories.ttinclude" />
     <None Include="Data\UnitOfWork.ttinclude" />
@@ -83,7 +81,6 @@
     <None Include="Dtos\Dtos.ttinclude" />
     <None Include="General\T4Helper.ttinclude" />
     <None Include="General\VisualStudioHelper.ttinclude" />
-    <None Include="MultipleOutputHelper.ttinclude" />
     <None Include="packages.config" />
     <None Include="Server\ApiBase.ttinclude" />
     <None Include="Server\WebApi.ttinclude" />

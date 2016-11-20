@@ -41,28 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivityLogDto.cs" />
-    <Compile Include="AlertDto.cs" />
-    <Compile Include="AwardDto.cs" />
-    <Compile Include="DtoManagers\AwardDtoManager.cs" />
-    <Compile Include="DtoManagers\OpportunityDtoManager.cs" />
     <Compile Include="DtoManagers\OrganisationDtoManager.cs" />
-    <Compile Include="DtoManagers\PlanOfActionDtoManager.cs" />
-    <Compile Include="DtoManagers\ReviewDtoManager.cs" />
-    <Compile Include="DtoManagers\SelfAssessmentDtoManager.cs" />
     <Compile Include="DtoManagers\UserDtoManager.cs" />
-    <Compile Include="DtoManagers\ValidateSkillDtoManager.cs" />
-    <Compile Include="DtoManagers\WhereIVolunteerDtoManager.cs" />
-    <Compile Include="ErrorLogDto.cs" />
-    <Compile Include="OpportunityDto.cs" />
     <Compile Include="OrganisationDto.cs" />
-    <Compile Include="PlanOfActionDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReviewDto.cs" />
-    <Compile Include="SelfAssessmentDto.cs" />
     <Compile Include="UserDto.cs" />
-    <Compile Include="ValidateSkillDto.cs" />
-    <Compile Include="WhereIVolunteerDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
