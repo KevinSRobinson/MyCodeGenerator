@@ -1,0 +1,22 @@
+<#@ template language="C#" debug="false" hostspecific="true" #>
+<#@ assembly name="System" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ include file="Core.ttinclude" #>
+<#@ include file="Server/WebApi.ttinclude" #>
+<#@ include file="Server/ApiBase.ttinclude" #>
+
+<#  
+string webapiPath = "C:/Repos/CodeGenerator/Web/Apis/";
+
+foreach (var codeClass in GetClasses()) {
+	this.GenerateApiBase(webapiPath);
+	this.GenerateWebApis(webapiPath, codeClass);            
+}
+#>

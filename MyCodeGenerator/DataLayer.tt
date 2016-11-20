@@ -1,0 +1,69 @@
+<#@ template language="C#" debug="false" hostspecific="true" #>
+<#@ output extension=".js" #>
+<#@ assembly name="System" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+
+<#@ include file="Core.tt" #>
+<#@ include file="DataLayer/Dtos/DtoManagers.ttinclude" #>
+<#@ include file="DataLayer/Dtos/Dtos.ttinclude" #>
+<#@ include file="DataLayer/UnitOfWork.ttinclude" #>
+<#@ include file="DataLayer/Repositories.ttinclude" #>
+<#@ include file="DataLayer/GenericRepository.ttinclude" #>
+
+
+<# this.GenerateUnitOfWork(basePath, classNames, efContext, targetNamespace);  #>
+
+
+
+<#   foreach (var c in classes){
+
+if(c.Name != efContext && c.Name != "Repository") {
+
+    var className= c.Name;
+	var cClassname= GetCamelcaseClassName(c.Name);
+	var controllerName = cClassname + "Controller";
+	var detailsControllerName = cClassname + "DetailsController";
+	var modifyControllerName = "modify" + cClassname + "Controller";
+	var modalsServiceName = cClassname + "ModalService";
+	var serviceName = cClassname + "Services";
+	var ServiceName = className + "Services";
+    var dto = cClassname + "Dto";
+	var DtoType = className + "Dto";
+#>
+	
+
+
+<#
+/////////////////////////////////
+// DTOs
+/////////////////////////////////
+#>
+
+<#
+	this.GenerateDtoManagers(basePath, c, className, cClassname, dto, DtoType);
+	this.GenerateDto(basePath, c, className, cClassname, dto);
+#>
+
+
+<#
+/////////////////////////////////
+//Data
+/////////////////////////////////
+#>
+
+<#
+	this.GenerateGenericRespository(basePath, targetNamespace, efContext);
+	this.GenerateRespositories(basePath, targetNamespace, className, efContext);
+#>
+
+<#}
+
+}#>

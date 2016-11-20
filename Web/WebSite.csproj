@@ -131,7 +131,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Apis\ApiBase.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -142,6 +141,24 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="angular\.gitignore" />
+    <Content Include="angular\app.js" />
+    <Content Include="angular\app.run.js" />
+    <Content Include="angular\auth0-variables.js" />
+    <Content Include="angular\components\auth\auth.service.js" />
+    <Content Include="angular\components\home\home.controller.js" />
+    <Content Include="angular\components\home\home.html" />
+    <Content Include="angular\components\login\login.controller.js" />
+    <Content Include="angular\components\login\login.html" />
+    <Content Include="angular\index.html" />
+    <Content Include="aurelia\index.html" />
+    <Content Include="aurelia\src\app.html" />
+    <Content Include="aurelia\src\app.js" />
+    <Content Include="aurelia\src\private-route.html" />
+    <Content Include="aurelia\src\private-route.js" />
+    <Content Include="aurelia\src\public-route.html" />
+    <Content Include="aurelia\src\public-route.js" />
+    <Content Include="aurelia\src\utils\tokenUtils.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Index.html" />
@@ -153,9 +170,13 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Apis\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="angular\bower.json" />
+    <Content Include="angular\README.md" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>

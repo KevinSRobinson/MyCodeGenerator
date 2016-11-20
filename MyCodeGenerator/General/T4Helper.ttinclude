@@ -5,6 +5,15 @@
 <#@ import namespace="System.Globalization" #>
 <#@ import namespace="EnvDTE" #>
 <#+
+ public string GetDtoClassName(CodeClass codeClass)
+    {
+       return codeClass.Name + "Dto";
+    }
+
+ public string GetDtoCamelcaseClassName(CodeClass codeClass)
+    {
+       return GetCamelcaseClassName(codeClass.Name) + "Dto";
+    }
 
 public void CreateDirectoryFullPath(string outputFilePath){
 			var di = Directory.CreateDirectory(outputFilePath);                          
@@ -143,12 +152,19 @@ public void CreateDirectoryFullPath(string outputFilePath){
         returnString = returnString.Replace(" ", "");
         return returnString;
     }
+
+ public string GetCamelcaseClassName(CodeClass codeClass)
+    {
+        return GetCamelcaseClassName(codeClass.Name);
+    }
 	 public string GetCamelcaseClassName(string className)
     {
         string returnString = className.ToLower();
         returnString = Char.ToLowerInvariant(className[0]) + className.Substring(1);
         return returnString;
     }
+
+
     private static string CharToUpper(string input, int position)
     {
         return input.First().ToString().ToUpper() + input.Substring(position+1);

@@ -1,10 +1,14 @@
-﻿
-<#+ 
-  // Note: You can call this method from the outside of the template,
-  //       please add parameters as needed.	
-  // To include this templaate just drag this file on another editor
-  // then call this.Template_NewTemplate1_Render()
-  void GenerateWebApis(string webapiPath, CodeClass c, string className, string cClassname, string dto, string DtoType){			
+﻿<#+ 
+/////////////////////////////////////////////////
+    // This Template Generates the Api Controller
+
+    void GenerateWebApis(string webapiPath, CodeClass c){			
+
+        var dtoName = GetDtoCamelcaseClassName(c);
+        var dtoType = GetDtoClassName(c);
+        var className = c.Name;
+        var classType = GetCamelcaseClassName(c);
+
 		#>
 		
 		using System;
@@ -14,7 +18,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Results;
 using Data;
-using Dtos;
+using dtoNames;
 
 namespace Api
 {
@@ -35,7 +39,7 @@ namespace Api
 			}
 		#endregion
        
-	    private void Map<#=className#>(ref <#=className#> <#=cClassname#>, ref <#=DtoType#> <#=dto#>)
+	    private void Map<#=className#>(ref <#=className#> <#=classType#>, ref <#=dtoType#> <#=dtoName#>)
         {
          
 	<#+ 
@@ -43,7 +47,7 @@ namespace Api
 					if (meb.Kind == vsCMElement.vsCMElementProperty) {
 						var prop = meb as CodeProperty;
 							var type = prop.Type.AsString;
-							WriteLine(cClassname + "." + meb.Name + " = " + dto + "." + meb.Name + ";");						
+							WriteLine(classType + "." + meb.Name + " = " + dtoName + "." + meb.Name + ";");						
 						};			
 					};#>   
     
@@ -55,8 +59,8 @@ namespace Api
         {
             try
             {
-               var  <#=cClassname#>s = _unitOfWork.<#=className#>s.GetAll();
-               var results =  <#=cClassname#>s.Select(x => new <#=className#>Dto()
+               var  <#=classType#>s = _unitOfWork.<#=className#>s.GetAll();
+               var results =  <#=classType#>s.Select(x => new <#=className#>dtoName()
                 {
 					<#+ 
 				   foreach (CodeElement meb in c.Members) {
@@ -79,20 +83,20 @@ namespace Api
 
 		[HttpPost]
 		[Route("api/Add<#=className#>")]
-		public IHttpActionResult Add<#=className#>(<#=DtoType#> <#=dto#>)
+		public IHttpActionResult Add<#=className#>(<#=dtoType#> <#=dtoName#>)
         {
             try
             {
-                var <#=cClassname#> = new <#=className#> ();
+                var <#=classType#> = new <#=className#> ();
 
-				Map<#=className#>(ref  <#=cClassname#> , ref <#=dto#>);
+				Map<#=className#>(ref  <#=classType#> , ref <#=dtoName#>);
 				 
 
-                _unitOfWork.<#=className#>s.Add(<#=cClassname#>);
+                _unitOfWork.<#=className#>s.Add(<#=classType#>);
                 _unitOfWork.Save();
 
-                <#=dto#>.Id = <#=cClassname#>.Id;
-                return Ok(<#=dto#>);
+                <#=dtoName#>.Id = <#=classType#>.Id;
+                return Ok(<#=dtoName#>);
             }
             catch (Exception ex)
             {
@@ -102,12 +106,12 @@ namespace Api
 
 		[HttpPost]
 		[Route("api/Modify<#=className#>")]
-        public IHttpActionResult Modify<#=className#>(<#=DtoType#> <#=dto#>)
+        public IHttpActionResult Modify<#=className#>(<#=dtoType#> <#=dtoName#>)
         {
             try
             {
-                var <#=cClassname#>= _unitOfWork.<#=className#>s.GetById(<#=dto#>.Id);
-                 Map<#=className#>(ref <#=cClassname#>, ref <#=dto#>);
+                var <#=classType#>= _unitOfWork.<#=className#>s.GetById(<#=dtoName#>.Id);
+                 Map<#=className#>(ref <#=classType#>, ref <#=dtoName#>);
 
 				<#+ 
 				   foreach (CodeElement meb in c.Members) {
@@ -115,13 +119,13 @@ namespace Api
 							var prop = meb as CodeProperty;
 							var type = prop.Type.AsString;
 							
-							WriteLine(cClassname + "." + meb.Name + " = " + dto + "." + meb.Name + ";");						
+							WriteLine(classType + "." + meb.Name + " = " + dtoName + "." + meb.Name + ";");						
 						};			
 					};#>
 					
                 _unitOfWork.Save();
                 
-                return Ok(<#=dto#>);
+                return Ok(<#=dtoName#>);
             }
             catch (Exception ex)
             {
@@ -133,9 +137,9 @@ namespace Api
 		[Route("api/Get<#=className#>s/{id}")]
         public IHttpActionResult Get<#=className#>(int id)
         {
-            var <#=cClassname#> = _unitOfWork.<#=className#>s.GetById(id);
+            var <#=classType#> = _unitOfWork.<#=className#>s.GetById(id);
 
-            var <#=dto#> = new <#=className#>Dto()
+            var <#=dtoName#> = new <#=className#>dtoName()
             {
 
 				<#+ 
@@ -143,12 +147,12 @@ namespace Api
 				if (meb.Kind == vsCMElement.vsCMElementProperty) {
 					var prop = meb as CodeProperty;
 						var type = prop.Type.AsString;
-						WriteLine(meb.Name + "=" + cClassname + "." + meb.Name + ",");						
+						WriteLine(meb.Name + "=" + classType + "." + meb.Name + ",");						
 					};			
 				};#>
             };
 
-            return Ok(<#=dto#>);
+            return Ok(<#=dtoName#>);
         }
     }
 }
@@ -156,8 +160,8 @@ namespace Api
 		
 		<#+
 
-	 CreateDirectoryFullPath(webapiPath + "/Apis");
-	CreateFile(webapiPath + "/Apis/" + className + "ApiController.cs");
+	 CreateDirectoryFullPath(webapiPath);
+	CreateFile(webapiPath + className + "ApiController.cs");
     }
 #>
 

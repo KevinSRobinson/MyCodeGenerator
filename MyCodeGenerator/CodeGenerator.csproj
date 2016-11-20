@@ -74,16 +74,18 @@
     <None Include="Client\Views\IndexView.ttinclude" />
     <None Include="Client\Views\IndexViewMVC.ttinclude" />
     <None Include="Client\webpackConfig.ttinclude" />
-    <None Include="Data\GenericRepository.ttinclude" />
-    <None Include="Data\Repositories.ttinclude" />
-    <None Include="Data\UnitOfWork.ttinclude" />
-    <None Include="Dtos\DtoManagers.ttinclude" />
-    <None Include="Dtos\Dtos.ttinclude" />
+    <None Include="DataLayer\GenericRepository.ttinclude" />
+    <None Include="DataLayer\Repositories.ttinclude" />
+    <None Include="DataLayer\UnitOfWork.ttinclude" />
+    <None Include="DataLayer\Dtos\DtoManagers.ttinclude" />
+    <None Include="DataLayer\Dtos\Dtos.ttinclude" />
+    <None Include="Common.ttinclude" />
     <None Include="General\T4Helper.ttinclude" />
     <None Include="General\VisualStudioHelper.ttinclude" />
     <None Include="packages.config" />
     <None Include="Server\ApiBase.ttinclude" />
     <None Include="Server\WebApi.ttinclude" />
+    <None Include="Core.ttinclude" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AngularGenerator.js">
@@ -95,14 +97,23 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AngularGenerator.js</LastGenOutput>
     </Content>
-    <Content Include="WebApisServer.js">
-      <DependentUpon>WebApisServer.tt</DependentUpon>
+    <Content Include="WebApis.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebApis.tt</DependentUpon>
+    </Content>
+    <Content Include="WebApis.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>WebApis.js</LastGenOutput>
+    </Content>
+    <Content Include="DataLayer.js">
+      <DependentUpon>DataLayer.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
-    <Content Include="WebApisServer.tt">
+    <Content Include="DataLayer.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WebApisServer.js</LastGenOutput>
+      <LastGenOutput>DataLayer.js</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +124,10 @@
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{d147e68b-6468-4298-b4e9-225bf4653083}</Project>
       <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pocos\Pocos.csproj">
+      <Project>{068a7280-9129-45b2-860f-7b454be7aafe}</Project>
+      <Name>Pocos</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

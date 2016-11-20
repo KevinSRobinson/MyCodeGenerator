@@ -18,8 +18,8 @@ namespace Api
 
  
 			<#+
-	CreateDirectoryFullPath(webapiPath + "/Apis");
-	CreateFile(webapiPath + "/Apis/ApiBase.cs");
+	CreateDirectoryFullPath(webapiPath);
+	CreateFile(webapiPath + "ApiBase.cs");
     }
 #>
 
