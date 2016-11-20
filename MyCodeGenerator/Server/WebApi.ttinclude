@@ -1,0 +1,163 @@
+﻿
+<#+ 
+  // Note: You can call this method from the outside of the template,
+  //       please add parameters as needed.	
+  // To include this templaate just drag this file on another editor
+  // then call this.Template_NewTemplate1_Render()
+  void GenerateWebApis(string webapiPath, CodeClass c, string className, string cClassname, string dto, string DtoType){			
+		#>
+		
+		using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.Cors;
+using System.Web.Http.Results;
+using Data;
+using Dtos;
+
+namespace Api
+{
+    [EnableCors("*", "*", "*")]
+    public class <#=className#>sApiController : ApiBase
+    {
+        private readonly UnitOfWork _unitOfWork;
+
+		#region "constructors"
+			 public <#=className#>sApiController()
+			{
+				_unitOfWork = new UnitOfWork();
+			}
+
+			public <#=className#>sApiController(UnitOfWork unitOfWork)
+			{
+				_unitOfWork = unitOfWork;
+			}
+		#endregion
+       
+	    private void Map<#=className#>(ref <#=className#> <#=cClassname#>, ref <#=DtoType#> <#=dto#>)
+        {
+         
+	<#+ 
+				   foreach (CodeElement meb in c.Members) {
+					if (meb.Kind == vsCMElement.vsCMElementProperty) {
+						var prop = meb as CodeProperty;
+							var type = prop.Type.AsString;
+							WriteLine(cClassname + "." + meb.Name + " = " + dto + "." + meb.Name + ";");						
+						};			
+					};#>   
+    
+        }
+
+
+	   [Route("api/GetAll<#=className#>s")]
+		  public IHttpActionResult GetAll<#=className#>s()
+        {
+            try
+            {
+               var  <#=cClassname#>s = _unitOfWork.<#=className#>s.GetAll();
+               var results =  <#=cClassname#>s.Select(x => new <#=className#>Dto()
+                {
+					<#+ 
+				   foreach (CodeElement meb in c.Members) {
+					if (meb.Kind == vsCMElement.vsCMElementProperty) {
+						var prop = meb as CodeProperty;
+							var type = prop.Type.AsString;
+							WriteLine(meb.Name  + " = x." + meb.Name + ",");						
+						};			
+					};#>
+                });
+                   
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                return new ExceptionResult(ex, this);
+            }
+
+        }
+
+		[HttpPost]
+		[Route("api/Add<#=className#>")]
+		public IHttpActionResult Add<#=className#>(<#=DtoType#> <#=dto#>)
+        {
+            try
+            {
+                var <#=cClassname#> = new <#=className#> ();
+
+				Map<#=className#>(ref  <#=cClassname#> , ref <#=dto#>);
+				 
+
+                _unitOfWork.<#=className#>s.Add(<#=cClassname#>);
+                _unitOfWork.Save();
+
+                <#=dto#>.Id = <#=cClassname#>.Id;
+                return Ok(<#=dto#>);
+            }
+            catch (Exception ex)
+            {
+                return new ExceptionResult(ex, this);
+            }
+        }
+
+		[HttpPost]
+		[Route("api/Modify<#=className#>")]
+        public IHttpActionResult Modify<#=className#>(<#=DtoType#> <#=dto#>)
+        {
+            try
+            {
+                var <#=cClassname#>= _unitOfWork.<#=className#>s.GetById(<#=dto#>.Id);
+                 Map<#=className#>(ref <#=cClassname#>, ref <#=dto#>);
+
+				<#+ 
+				   foreach (CodeElement meb in c.Members) {
+					if (meb.Kind == vsCMElement.vsCMElementProperty) {
+							var prop = meb as CodeProperty;
+							var type = prop.Type.AsString;
+							
+							WriteLine(cClassname + "." + meb.Name + " = " + dto + "." + meb.Name + ";");						
+						};			
+					};#>
+					
+                _unitOfWork.Save();
+                
+                return Ok(<#=dto#>);
+            }
+            catch (Exception ex)
+            {
+                return new ExceptionResult(ex, this);
+            }
+        }
+
+        
+		[Route("api/Get<#=className#>s/{id}")]
+        public IHttpActionResult Get<#=className#>(int id)
+        {
+            var <#=cClassname#> = _unitOfWork.<#=className#>s.GetById(id);
+
+            var <#=dto#> = new <#=className#>Dto()
+            {
+
+				<#+ 
+               foreach (CodeElement meb in c.Members) {
+				if (meb.Kind == vsCMElement.vsCMElementProperty) {
+					var prop = meb as CodeProperty;
+						var type = prop.Type.AsString;
+						WriteLine(meb.Name + "=" + cClassname + "." + meb.Name + ",");						
+					};			
+				};#>
+            };
+
+            return Ok(<#=dto#>);
+        }
+    }
+}
+	
+		
+		<#+
+
+	 CreateDirectoryFullPath(webapiPath + "/Apis");
+	CreateFile(webapiPath + "/Apis/" + className + "ApiController.cs");
+    }
+#>
+

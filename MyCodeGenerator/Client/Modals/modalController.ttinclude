@@ -1,0 +1,40 @@
+﻿<#+ 
+
+  void GeneratModalController(string appPath, string serviceName, string controllerName, string className, string cClassname){			
+		#>
+		
+
+var modify<#=className#>Controller = function ($uibModalInstance,  <#=serviceName#>, <#=cClassname#>) {
+  var vm = this;
+  vm.<#=cClassname#> = {};
+
+  vm.init = function () {
+    if (<#=cClassname#> != null) {
+      vm.<#=cClassname#> = <#=cClassname#>;
+    };
+  };
+  
+  vm.save = function () {
+    var <#=cClassname#>Promise = <#=serviceName#>.Modify(vm.<#=cClassname#>);
+    <#=cClassname#>Promise.then(function (response) {
+      $uibModalInstance.close(response);
+    });
+  };
+
+  vm.close = function () {
+    $uibModalInstance.close();
+  };
+
+  vm.init();
+
+};
+angular.module("app").controller("modify<#=className#>Controller", modify<#=className#>Controller);
+
+<#+
+
+         var path= appPath + "/" + className + "s/Modals/Controllers/";
+
+CreateDirectoryFullPath(path);
+CreateFile(path + "/" + controllerName +".js");
+  }
+#>

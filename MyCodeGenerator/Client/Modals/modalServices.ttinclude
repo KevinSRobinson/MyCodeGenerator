@@ -1,0 +1,69 @@
+﻿<#+ 
+
+  void GeneratModalService(string appPath, string modalsServiceName, string className, string cClassname){			
+		#>
+		
+
+			var <#=modalsServiceName#>  = function($uibModal){
+	 
+	  var add<#=className#> = function() {
+		return $uibModal.open({
+		  templateUrl: "/app/<#=className#>s/Modals/Views/modify<#=className#>.html",
+		  controller: 'modify<#=className#>Controller',
+		  controllerAs: "vm",
+		  resolve: {
+			<#=cClassname#>: function () {
+			  return null;
+			}
+		  }
+		});
+	};
+
+	var view<#=className#> = function (<#=cClassname#>) {
+        return $uibModal.open({
+              templateUrl: "/app/<#=className#>s/Modals/Views/view<#=className#>.html",
+			controller: function(<#=cClassname#>, $uibModalInstance){
+                var vm = this;
+                 vm.<#=cClassname#> = <#=cClassname#>;
+                
+                vm.close = function(){
+                    $uibModalInstance.close();
+                }
+            },
+            controllerAs: "vm",
+            resolve: {
+                <#=cClassname#>: function () {
+                    return <#=cClassname#>;
+                }
+            }
+        });
+    };
+
+	var edit<#=className#> = function(<#=cClassname#>) {
+		return  $uibModal.open({
+		  templateUrl: "/app/<#=className#>s/Modals/Views/modify<#=className#>.html",
+		  controller: "modify<#=className#>Controller",
+		  controllerAs: "vm",
+		  resolve: {
+			<#=cClassname#>: function () {
+			  return <#=cClassname#>;
+			}
+		  }
+		});
+	  };
+	  return {
+		Add<#=className#>: add<#=className#>,
+		Edit<#=className#>: edit<#=className#>,
+		View<#=className#>: view<#=className#>
+	  };
+}
+angular.module("app").factory("<#=modalsServiceName#>", <#=modalsServiceName#>);
+
+<#+
+        var path= appPath + "/" + className + "s/Modals/Services/";
+
+CreateDirectoryFullPath(path);
+CreateFile(path + modalsServiceName + ".js");
+
+}
+#>

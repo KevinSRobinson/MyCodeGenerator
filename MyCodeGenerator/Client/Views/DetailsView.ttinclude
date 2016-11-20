@@ -1,0 +1,39 @@
+﻿
+<#+ 
+// Note: You can call this method from the outside of the template,
+//       please add parameters as needed.	
+// To include this templaate just drag this file on another editor
+// then call this.Template_NewTemplate1_Render()
+void GenerateDetailsView(string appPath, CodeClass c, string controllerName, string className, string cClassname, string modalsServiceName){			
+#>		
+<h1>Details</h1>
+
+
+<#+ 
+foreach (CodeElement meb in c.Members) {
+	if (meb.Kind == vsCMElement.vsCMElementProperty) {
+		var prop = meb as CodeProperty;
+		var type = prop.Type.AsString;
+		if(type == "string") {
+			WriteLine("<my-display-field ng-model='vm." + cClassname + "." + meb.Name +  "' field-label='" + meb.Name  + "' field-name='" + meb.Name + "'></my-display-field>");
+        }
+		else if (type =="System.DateTime"){
+			WriteLine("<my-display-date-field ng-model='vm. " + cClassname + "." +meb.Name +  "' field-label='" + meb.Name  + "' field-name='" + meb.Name + "'></my-display-date-field>");
+		}
+		else if ( type == "bool" ){
+			WriteLine("<my-display-check-field ng-model='vm." + cClassname + "." +meb.Name +  "' field-label='" + meb.Name  + "' field-name='" + meb.Name + "'></my-display-check-field>");
+		};
+	};			
+};
+#>
+
+
+<#+
+
+
+CreateDirectoryFullPath(appPath + "Output/app/" + className + "s/Views");
+CreateFile(appPath + "Output/app/" + className + "s/Views/Details.html");
+
+
+}	
+#>

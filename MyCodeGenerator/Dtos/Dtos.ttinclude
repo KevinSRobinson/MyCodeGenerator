@@ -1,0 +1,28 @@
+﻿
+<#+ 
+  void GenerateDto(string path, CodeClass c, string className, string cClassname, string dto){			
+		#>		
+namespace Dtos
+{
+	public class <#=className#>Dto
+    {
+ 		<#+ 
+		foreach (CodeElement meb in c.Members) {
+		if (meb.Kind == vsCMElement.vsCMElementProperty) {
+			var prop = meb as CodeProperty;
+				var type = prop.Type.AsString;
+				WriteLine("public " + type + " " + meb.Name + " {get; set;}");
+			};			
+		};#>
+	};
+}
+ 
+		
+		
+		<#+
+
+	CreateDirectoryFullPath(path + "/Dtos/");
+	CreateFile(path + "/Dtos/" + className + "Dto.cs");
+    }
+#>
+

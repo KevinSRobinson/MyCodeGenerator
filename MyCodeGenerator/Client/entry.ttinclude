@@ -1,0 +1,32 @@
+﻿
+<#+ 
+
+  void GenerateEntryFile(string appPath, string className, string cClassname){				
+		#>
+		
+
+//routes
+require("./routes.js");
+
+//modals
+require("./Modals/Controllers/modify<#=className#>Controller.js");
+require("./Modals/Services/<#=cClassname#>ModalService.js");
+
+//controllers
+require("./Controllers/<#=cClassname#>DetailsController.js");
+require("./Controllers/<#=cClassname#>Controller.js");
+
+//Services
+require("./Services/<#=cClassname#>Services.js");
+		
+//Components
+require("./Components/<#=cClassname#>List.js");
+
+
+		
+		<#+
+
+	CreateFile(appPath + "Output/app/" + className + "s/entry.js");
+
+	}	
+#>

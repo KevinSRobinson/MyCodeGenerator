@@ -1,0 +1,106 @@
+﻿<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+
+<#+ 
+public string GetClassName(string className)
+    {
+        string returnString = className.ToLower();
+        returnString = returnString.Replace("_", " ");
+        TextInfo ti = CultureInfo.CurrentCulture.TextInfo;  
+        returnString = ti.ToTitleCase(returnString);
+        returnString = returnString.Replace(" ", "");
+        return returnString;
+    }
+  void GenerateUnitOfWork(string path, List<string> classNames, string efContext, string targetNamespace){			
+		#>
+
+using System;
+using Data;
+using <#=targetNamespace#>;
+
+public interface IUnitOfWork : IDisposable
+{
+   
+    <#+
+    foreach(string className in classNames)
+    {
+        var properClassName = GetClassName(className);
+        var repositoryInterfaceName = "I" + className + "Repository";
+    
+    #>
+	<#= repositoryInterfaceName + " " + className+"s" #> { get; }
+    
+	<#+
+		}
+	#>
+	void Save();
+}
+
+
+
+public class UnitOfWork : IUnitOfWork
+{
+    private <#= efContext #> _context;
+
+    public UnitOfWork(<#= efContext #> context)
+    {
+        _context = context;
+    }
+
+	//Delete this default constructor if using an IoC container
+	public UnitOfWork()
+	{
+		_context = new <#= efContext #>();
+	}
+	
+	
+   
+    <#+
+    foreach(string className in classNames)
+    {
+        var repositoryInterfaceName = "I" + className + "Repository";
+    
+    #>
+	public <#= repositoryInterfaceName + " " + className+"s"#>
+    {
+        get { return new <#= className + "Repository" #>(_context); }
+    }
+	<#+
+		}
+	#>
+
+    public void Save()
+    {
+        _context.SaveChanges();
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if (_context != null)
+            {
+                _context.Dispose();
+                _context = null;
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+<#+
+	  CreateDirectoryFullPath(path + "/Data/Repositories");
+	  CreateFile(path + "/Data/Repositories/UnitofWork.cs");
+	}	
+#>

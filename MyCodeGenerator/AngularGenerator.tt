@@ -1,0 +1,184 @@
+<#@ template language="C#" debug="false" hostspecific="true" #>
+<#@ template language="C#" debug="false" hostspecific="true" #>
+<#@ output extension=".js" #>
+<#@ assembly name="System" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="EnvDTE" #>
+<#@ include file="General/T4Helper.ttinclude" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+
+
+<#  //Set these options
+    
+    string efContext = "MvYoutContext"; //If Context is not in the same namespace rename this to the name of the context
+    string targetNamespace = "Data.Models";
+
+	string appPath = "C:/SourceCode/YouthRebuild/Youth/Youth/Youth/App/Src";
+
+
+
+    IServiceProvider serviceProvider = (IServiceProvider)this.Host;
+    DTE dte = serviceProvider.GetService(typeof(DTE)) as DTE; 
+
+
+    var project = GetActiveProject(dte);
+    var classes = FindClasses(project, targetNamespace, "");
+    var classWithDbContext = classes.FirstOrDefault(currentClass => currentClass.Bases.OfType<CodeElement>().Any(currentBase => currentBase.Name == "DbContext"));
+
+    var classNames = classes.Select(currentClass => currentClass.Name).ToList();
+
+
+    if(classWithDbContext != null)
+    {
+        efContext = classWithDbContext.Name;
+        classNames.Remove(efContext);
+    }
+
+	var includeBaseApi = true;
+
+ 
+#>
+
+<#@ include file="Client/IndexView.ttinclude" #>
+<#@ include file="Client/Controllers/angularController.ttinclude" #>
+<#@ include file="Client/Controllers/angularControllerMVC.ttinclude" #>
+<#@ include file="Client/Components/listComponent.ttinclude" #>
+<#@ include file="Client/Controllers/detailsController.ttinclude" #>
+<#@ include file="Client/DataServices/angularServices.ttinclude" #>
+
+//Tests
+<#@ include file="Client/Tests/tests.ttinclude" #>
+<#@ include file="Client/Tests/mockService.ttinclude" #>
+
+
+
+//Modals
+<#@ include file="Client/Modals/modalServices.ttinclude" #>
+<#@ include file="Client/Modals/modalController.ttinclude" #>
+<#@ include file="Client/Modals/modifyModal.ttinclude" #>
+//Views
+<#@ include file="Client/Modals/viewModal.ttinclude" #>
+<#@ include file="Client/Views/IndexView.ttinclude" #>
+<#@ include file="Client/Views/DetailsView.ttinclude" #>
+<#@ include file="Client/Views/IndexViewMVC.ttinclude" #>
+
+<#@ include file="Client/entry.ttinclude" #>
+<#@ include file="Client/webpackConfig.ttinclude" #>
+<#@ include file="Client/package.ttinclude" #>
+<#@ include file="Client/bower.ttinclude" #>
+<#@ include file="Client/Vendor/webpack.ttinclude" #>
+<#@ include file="Client/Vendor/entry.ttinclude" #>
+<#@ include file="Client/gulp.ttinclude" #>
+<#@ include file="Client/routes.ttinclude" #>
+<#@ include file="Client/e2e/protractorConfig.ttinclude" #>
+<#@ include file="Client/e2e/protractorHelpers.ttinclude" #>
+<#@ include file="Client/e2e/protractorIndex.ttinclude" #>
+
+
+
+<#
+
+
+
+
+foreach (var c in classes)
+{
+
+
+    var className= c.Name;
+	var cClassname= GetCamelcaseClassName(c.Name);
+	var controllerName = cClassname + "Controller";
+	var detailsControllerName = cClassname + "DetailsController";
+	var modifyControllerName = "modify" + cClassname + "Controller";
+	var modalsServiceName = cClassname + "ModalService";
+	var serviceName = cClassname + "Services";
+	var ServiceName = className + "Services";
+
+
+//this.GenerateAngularController(controllerName, serviceName, className, cClassname, modalsServiceName);
+//this.GenerateMVCIndexController(controllerName, serviceName, className, cClassname, modalsServiceName);
+this.GenerateListComponent(appPath, c, serviceName, className, cClassname, modalsServiceName);
+this.GenerateListComponentTemplate(appPath, c, serviceName, className, cClassname, modalsServiceName);
+//this.GenerateDetailsController(detailsControllerName, serviceName, className, cClassname, modalsServiceName);
+//
+//
+//
+///////////////////////////////////
+////Modals
+///////////////////////////////////
+//this.GenerateTests(detailsControllerName,  ServiceName, serviceName, className, cClassname, modalsServiceName);
+//this.GenerateMockServices(detailsControllerName, ServiceName, className, cClassname, modalsServiceName);
+//
+//
+///////////////////////////////////
+////Modals
+///////////////////////////////////
+this.GeneratModalService(appPath, modalsServiceName,className, cClassname);  
+this.GeneratModalController(appPath, serviceName, modifyControllerName, className, cClassname);
+this.GenerateModifyModal(appPath, c,  className, cClassname);
+//this.GenerateViewModal(c,  className, cClassname);
+//
+//this.GenerateIndexView(c, controllerName, className, cClassname, modalsServiceName);
+//this.GenerateMVCIndexView(c, controllerName, className, cClassname, modalsServiceName);
+//this.GenerateDetailsView(c, controllerName, className, cClassname, modalsServiceName);
+//
+
+/////////////////////////////////
+// Data Services
+/////////////////////////////////
+this.GenerateAngularService(appPath, serviceName, className, cClassname, includeBaseApi);	
+
+
+///////////////////////////////////
+//// Webpack
+///////////////////////////////////
+//this.GenerateEntryFile(className, cClassname);
+//this.GeneratWebPackConfig();
+//
+//
+//
+//
+//this.GeneratePackageJson();	
+//this.GenerateBowerJson();	
+//this.GenerateGulpFile();	
+//
+//
+//
+//
+//
+//this.GenerateVendorEntry();
+//this.GenerateVendorWebPackConfig();	
+		 //
+//
+//
+//
+//// Routes
+//this.GeneratRoutes(className, cClassname);
+//
+//
+//
+//
+///////////////////////////////////
+//// Protractor
+///////////////////////////////////
+//this.GenerateProtractorConfig();
+//this.GenerateProtractorHelpers();
+//this.GenerateProtractorTestIndex(className, cClassname);
+//
+//
+
+
+}
+//
+//this.GenerateMainIndexPage(classNames);
+//
+//this.GenerateAngularAppJs();
+
+#>
+

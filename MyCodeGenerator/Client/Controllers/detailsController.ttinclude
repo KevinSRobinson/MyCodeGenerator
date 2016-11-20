@@ -1,0 +1,26 @@
+﻿<#+ 
+void GenerateDetailsController(string appPath, string detailsControllerName, string serviceName, string className, string cClassname, string modalsServiceName){			
+#>
+
+
+var <#=detailsControllerName#>  = function(<#=serviceName#>, $stateParams){
+	  var vm = this;
+	  vm.<#=cClassname#> =[];
+	  vm.init= function(){
+		var <#=cClassname#>Promise = <#=serviceName#>.GetById($stateParams.Id);
+		<#=cClassname#>Promise.then(function(response){
+			vm.<#=cClassname#> = response.data;		
+		})
+	  };
+
+	  vm.init();
+}
+angular.module("app").controller("<#=detailsControllerName#>", <#=detailsControllerName#>);
+
+
+	<#+
+
+        CreateDirectoryFullPath(appPath + "Output/app/" + className + "s/Controllers");
+        CreateFile(appPath + "Output/app/" + className + "s/Controllers/" + detailsControllerName +".js");
+}	
+#>

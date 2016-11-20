@@ -1,0 +1,49 @@
+﻿
+<#+ 
+
+  void GenerateProtractorTestIndex(string appPath,string className, string cClassname){			
+		#>
+		require("protractor");
+var ph = require("../protractorHelpers.js");
+
+
+describe('<#=className#>s', function () {
+
+    var pageTitle = '<#=className#> Details';
+    var <#=cClassname#>Repeater = '<#=cClassname#> in vm.<#=cClassname#>';
+    browser.get('http://localhost:3001/#/<#=cClassname#>s');
+        
+    it('should load the <#=cClassname#>s', function () {
+        browser.get('http://localhost:3001/#/<#=cClassname#>s').then(function () {
+            ph.expectRepeaterToHaveValues(<#=cClassname#>Repeater);
+        });
+       
+      
+    });
+
+    
+
+    describe('<#=className#> Details', function () {
+
+        it('Should display the details page', function () {
+            ph.clickOnFirstDetailsLink(<#=cClassname#>Repeater);
+        });
+
+        it('Should have a Page Title', function () {
+            ph.expectPageTitle(pageTitle);
+        });
+
+    });
+
+
+});
+
+		
+		
+		<#+
+
+CreateFile(appPath + "Output/app/e2e/test" + className + "s.js");
+	
+	}	
+#>
+

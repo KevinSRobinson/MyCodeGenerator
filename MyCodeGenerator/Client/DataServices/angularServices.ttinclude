@@ -1,0 +1,57 @@
+﻿
+<#+ 
+
+  void GenerateAngularService(string appPath, string serviceName, string ClassName, string cClassName, bool  includeBaseApi){	
+    
+    if(includeBaseApi) {
+	    WriteLine("var " + serviceName  + " = function($http){");
+    }
+    else{
+	    WriteLine("var " + serviceName  + " = function($http){");
+    };
+		
+
+#>
+		
+	
+	return {
+		GetAll : function(){
+			return $http.get("/Api/<#=ClassName#>s");
+		},
+		GetById : function(id) {
+			return $http.get("/Api/<#=ClassName#>/" + id);
+		},
+		   Modify : function(<#=cClassName#>) {
+
+        var url = "";
+
+      if(<#=cClassName#>.Id !== undefined){
+        url = "/Api/<#=ClassName#>/Update";
+      }
+      else{
+        url = "/Api/<#=ClassName#>/Add";
+      }
+
+      return $http.post(url, <#=cClassName#>);
+
+    },
+		Delete : function( <#=cClassName#>) {
+			return $http.post("/Api/<#=ClassName#>s/",  +   <#=cClassName#>);
+		}
+	};
+	
+
+	angular.module("app").factory("<#=serviceName#>", <#=serviceName#>);
+
+
+		
+		
+		<#+
+
+
+	  CreateDirectoryFullPath(appPath + "/DataServices/");
+	  CreateFile(appPath + "/DataServices/" + ClassName + "Service.js");
+
+	}	
+#>
+

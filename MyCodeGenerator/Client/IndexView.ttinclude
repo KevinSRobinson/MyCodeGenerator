@@ -1,0 +1,177 @@
+﻿<#+ 
+// Note: You can call this method from the outside of the template,
+//       please add parameters as needed.	
+// To include this templaate just drag this file on another editor
+// then call this.Template_NewTemplate1_Render()
+void GenerateMainIndexPage(string appPath, List<string> classNames){			
+#>		
+
+
+
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>RDash AngularJS</title>
+  <!-- STYLES -->
+  <!-- build:css lib/css/main.min.css -->
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/rdash-ui/dist/css/rdash.min.css">
+  <!-- endbuild -->
+  <!-- SCRIPTS -->
+
+  <script type="text/javascript" src="vendor/build/bundle.js"></script>
+  <script type="text/javascript" src="core/build/bundle.js"></script>
+
+  <script type="text/javascript" src="https://cdn.auth0.com/js/lock-7.12.min.js"></script>
+  <script type="text/javascript" src="https://cdn.auth0.com/w2/auth0-angular-4.js"></script>
+  <script src="//cdn.rawgit.com/auth0/angular-storage/master/dist/angular-storage.js" type="text/javascript"> </script>
+  <script src="//cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js" type="text/javascript"> </script>
+
+
+
+</head>
+<body ng-controller="MasterCtrl">
+<div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
+
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar">
+      <li class="sidebar-main">
+        <a ng-click="toggleSidebar()">
+          Dashboard
+          <span class="menu-icon glyphicon glyphicon-transfer"></span>
+        </a>
+      </li>
+      <li class="sidebar-title"><span>NAVIGATION</span></li>
+      <li class="sidebar-list">
+        <a href="#">Dashboard <span class="menu-icon fa fa-tachometer"></span></a>
+      </li>
+  
+<#+
+    foreach(string className in classNames)
+    {
+        WriteLine("<my-site-menu-item label='" + className + "' link='" + className + "'></my-site-menu-item>");			
+     }
+    #>
+	
+
+
+    </ul>
+    <div class="sidebar-footer">
+      <div class="col-xs-4">
+        <a href="https://github.com/rdash/rdash-angular" target="_blank">
+          Github
+        </a>
+      </div>
+      <div class="col-xs-4">
+        <a href="https://github.com/rdash/rdash-angular/README.md" target="_blank">
+          About
+        </a>
+      </div>
+      <div class="col-xs-4">
+        <a href="#">
+          Support
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- End Sidebar -->
+
+  <div id="content-wrapper">
+    <div class="page-content">
+
+      <!-- Header Bar -->
+      <div class="row header">
+        <div class="col-xs-12">
+          <div class="user pull-right">
+            <div class="item dropdown" uib-dropdown>
+              <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+                <img src="img/avatar.jpg">
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li class="dropdown-header">
+                  Joe Bloggs
+                </li>
+                <li class="divider"></li>
+                <li class="link">
+                  <a href="#">
+                    Profile
+                  </a>
+                </li>
+                <li class="link">
+                  <a href="#">
+                    Menu Item
+                  </a>
+                </li>
+                <li class="link">
+                  <a href="#">
+                    Menu Item
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li class="link">
+                  <div ng-click="logout()">Logout</div>
+                </li>
+                <li class="divider"></li>
+                <li class="link">
+                  <a ui-sref="login">
+                    login
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="item dropdown" uib-dropdown>
+              <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
+                <i class="fa fa-bell-o"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li class="dropdown-header">
+                  Notifications
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="#">Server Down!</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="meta">
+            <div class="page">
+              Dashboard
+            </div>
+            <div class="breadcrumb-links">
+              Home / Dashboard
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Header Bar -->
+
+      <!-- Main Content -->
+      <div ui-view></div>
+
+    </div><!-- End Page Content -->
+  </div><!-- End Content Wrapper -->
+</div><!-- End Page Wrapper -->
+</body>
+</html>
+
+
+
+
+
+
+
+<#+
+
+
+	CreateDirectoryFullPath(appPath + "Output/app/");
+CreateFile(appPath + "Output/app/Index.html");
+
+
+}	
+#>

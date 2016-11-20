@@ -1,0 +1,26 @@
+﻿
+<#+ 
+  void GenerateApiBase(string webapiPath){			
+		#>		
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.Http;
+
+namespace Api
+{
+    public class ApiBase :  ApiController
+    {
+    }
+}
+
+ 
+			<#+
+	CreateDirectoryFullPath(webapiPath + "/Apis");
+	CreateFile(webapiPath + "/Apis/ApiBase.cs");
+    }
+#>
+
+

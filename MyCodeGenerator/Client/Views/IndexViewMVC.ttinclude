@@ -1,0 +1,90 @@
+﻿
+<#+ 
+// Note: You can call this method from the outside of the template,
+//       please add parameters as needed.	
+// To include this templaate just drag this file on another editor
+// then call this.Template_NewTemplate1_Render()
+void GenerateMVCIndexView(string appPath, CodeClass c, string controllerName, string className, string cClassname, string modalsServiceName){			
+#>		
+
+<div ng-controller="<#=controllerName#> as vm">
+
+
+<my-spinner  ng-model="vm.loading"></my-spinner>
+
+<div ng-hide="vm.loading" ng-show="vm.showlist">
+
+<h1>Index</h1>
+
+<div class="well">
+    <label for="filter">Filter</label>
+    <input type="text" id="filter" ng-model="filter"/>
+</div>
+<table class="table table-striped table-responsive">
+<tr>
+<#+ 
+foreach (CodeElement meb in c.Members) {
+	if (meb.Kind == vsCMElement.vsCMElementProperty) {
+	var prop = meb as CodeProperty;
+		var type = prop.Type.AsString;
+		if(type == "string") {
+			WriteLine("<th>" + meb.Name + ",</th>");
+		};
+	};			
+};
+#>
+</tr>
+			
+<#+ 
+	WriteLine("<tr dir-paginate='" + cClassname + " in vm." + cClassname + "s  | itemsPerPage: 3'>");
+	foreach (CodeElement meb in c.Members) {
+			if (meb.Kind == vsCMElement.vsCMElementProperty) {
+			var prop = meb as CodeProperty;
+				var type = prop.Type.AsString;
+				if(type == "string") {
+					WriteLine("<td>{{" + cClassname + "." + meb.Name + "}}</td>");
+				};
+			};			
+	};
+		
+
+	WriteLine("<td>" + 
+				" <div class='btn btn-primary' ng-click='vm.edit("+ cClassname +")'>Edit</div>"  +
+                 "<div class='btn btn-warning' ng-click='vm.delete("+ cClassname +")'>Delete</div> " + 
+			 "</td>");
+	WriteLine("</tr>");
+#>
+</table>
+ <dir-pagination-controls boundary-links="true"
+                                 ></dir-pagination-controls>
+<div class='btn btn-primary' ng-click='vm.create()'>Create</div>
+</div>
+<#+ 
+	WriteLine("<div ng-hide='vm.showlist'>");
+	foreach (CodeElement meb in c.Members) {
+			if (meb.Kind == vsCMElement.vsCMElementProperty) {
+			var prop = meb as CodeProperty;
+				var type = prop.Type.AsString;
+				if(type == "string") {
+					WriteLine("<my-text-field field-label='" + cClassname + "' field-name='" + cClassname + "'  ng-model='vm." + cClassname + "." + meb.Name + "'></my-text-field>");					
+				};
+			};			
+	};
+		
+
+	WriteLine(" <div class='btn btn-primary' ng-click='vm.save()'>Edit</div>"  +
+                 "<div class='btn btn-warning' ng-click='vm.cancel()'>Cancel</div> " +
+	"</div>");
+	WriteLine("</div>");
+#>
+
+
+<#+
+
+
+CreateDirectoryFullPath(appPath + "Output/app/" + className + "s/Views");
+CreateFile(appPath + "Output/app/" + className + "s/Views/MVCIndex.html");
+
+
+}	
+#>

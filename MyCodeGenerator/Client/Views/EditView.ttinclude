@@ -1,0 +1,39 @@
+﻿
+<#+ 
+// Note: You can call this method from the outside of the template,
+//       please add parameters as needed.	
+// To include this templaate just drag this file on another editor
+// then call this.Template_NewTemplate1_Render()
+void GenerateEditView(CodeClass c, string controllerName, string className, string cClassname, string modalsServiceName){			
+#>		
+<h1>Details</h1>
+
+<#+ 
+foreach (CodeElement meb in c.Members) {
+	if (meb.Kind == vsCMElement.vsCMElementProperty) {
+		var prop = meb as CodeProperty;
+		var type = prop.Type.AsString;
+		if(type == "string") {
+			WriteLine("<my-text-field ng-model='" + meb.Name +  "' field-label='" + meb.Name  + "' field-name='" + meb.Name + "'></my-text-field>");
+        }
+		else if (type =="System.DateTime"){
+			WriteLine("<my-date-field ng-model='" +meb.Name +  "' field-label='" + meb.Name  + "' field-name='" + meb.Name + "'></my-date-field>");
+		}
+		else if ( type == "bool" ){
+			WriteLine("<my-checkbox ng-model='" +meb.Name +  "' field-label='" + meb.Name  + "' field-name='" + meb.Name + "'></my-date-field>");
+		};
+	};			
+};
+#>
+
+	
+<div class='btn btn-primary' ng-click='vm.save()'>Save</div>
+<#+
+
+
+CreateDirectoryFullPath(webapiPath + "Output/app/" + className + "s/Views");
+CreateFile(appPath + "Output/app/" + className + "s/Views/Details.html");
+
+
+}	
+#>

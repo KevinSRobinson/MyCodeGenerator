@@ -1,0 +1,107 @@
+<#@ template language="C#" debug="false" hostspecific="true" #>
+<#@ output extension=".js" #>
+<#@ assembly name="System" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="EnvDTE" #>
+<#@ include file="General/T4Helper.ttinclude" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#  //Set these options
+    string targetNamespace = "Data";
+    string efContext = "MvYoutContext"; //If Context is not in the same namespace rename this to the name of the context
+	string basePath = "C:/SourceCode/YouthRebuild/Data";
+	string webapiPath = "C:/SourceCode/YouthRebuild/Youth/Youth/Youth/";
+
+
+    IServiceProvider serviceProvider = (IServiceProvider)this.Host;
+    DTE dte = serviceProvider.GetService(typeof(DTE)) as DTE; 
+
+    var project = GetActiveProject(dte);
+    var classes = FindClasses(project, targetNamespace, "");
+    var classWithDbContext = classes.FirstOrDefault(currentClass => currentClass.Bases.OfType<CodeElement>().Any(currentBase => currentBase.Name == "DbContext"));
+    var classNames = classes.Select(currentClass => currentClass.Name).ToList();
+
+
+	var clss = classes.ToList();
+
+    if(classWithDbContext != null)
+    {
+        efContext = classWithDbContext.Name;
+        classNames.Remove(efContext);
+    }
+
+	var includeBaseApi = true;
+
+ #>
+
+<#@ include file="Data/UnitOfWork.ttinclude" #>
+
+
+<# this.GenerateUnitOfWork(basePath, classNames, efContext, targetNamespace);  #>
+
+
+
+<#   foreach (var c in classes){
+
+if(c.Name != efContext && c.Name != "Repository") {
+
+    var className= c.Name;
+	var cClassname= GetCamelcaseClassName(c.Name);
+	var controllerName = cClassname + "Controller";
+	var detailsControllerName = cClassname + "DetailsController";
+	var modifyControllerName = "modify" + cClassname + "Controller";
+	var modalsServiceName = cClassname + "ModalService";
+	var serviceName = cClassname + "Services";
+	var ServiceName = className + "Services";
+    var dto = cClassname + "Dto";
+	var DtoType = className + "Dto";
+#>
+	
+
+
+<#
+/////////////////////////////////
+//Server
+/////////////////////////////////
+#>
+<#@ include file="Server/WebApi.ttinclude" #>
+<#@ include file="Server/ApiBase.ttinclude" #>
+<#
+	this.GenerateApiBase(webapiPath);
+	this.GenerateWebApis(webapiPath, c, className, cClassname, dto, DtoType);
+#>
+
+
+<#
+/////////////////////////////////
+// DTOs
+/////////////////////////////////
+#>
+<#@ include file="Dtos/DtoManagers.ttinclude" #>
+<#@ include file="Dtos/Dtos.ttinclude" #>
+<#
+	this.GenerateDtoManagers(basePath, c, className, cClassname, dto, DtoType);
+	this.GenerateDto(basePath, c, className, cClassname, dto);
+#>
+
+
+<#
+/////////////////////////////////
+//Data
+/////////////////////////////////
+#>
+<#@ include file="Data/Repositories.ttinclude" #>
+<#@ include file="Data/GenericRepository.ttinclude" #>
+<#
+	this.GenerateGenericRespository(basePath, targetNamespace, efContext);
+	this.GenerateRespositories(basePath, targetNamespace, className, efContext);
+#>
+
+<#}
+
+}#>

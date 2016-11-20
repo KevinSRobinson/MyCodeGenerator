@@ -1,0 +1,76 @@
+﻿
+<#+ 
+  void GenerateListComponentTemplate(string appPath, string ClassName, string cClassName, string serviceName, string modalsServiceName){			
+#>
+		
+		    <my-panel title="Tags" show-add-button="true"
+              add="vm.create()"
+              style="success" icon="tags" icon-size="2">
+
+        <my-filter-textbox  ng-model="filter"></my-filter-textbox>
+
+<table class='table table-striped table-responsive'>
+
+       <#+ 
+	   var tr = "<tr>";
+	    var trClose = "</tr>";
+	 WriteLine(tr);
+		foreach (CodeElement meb in c.Members) {
+				if (meb.Kind == vsCMElement.vsCMElementProperty) {
+				var prop = meb as CodeProperty;
+					var type = prop.Type.AsString;
+					if(type == "string") {
+						var row = "<td>" + meb.Name + "</td>";
+						WriteLine(row);
+					};
+				};			
+        };
+		WriteLine(trClose);
+
+		var line = "<tr ng-repeat='" + cClassName + " in vm." + cClassName + "s |filter:filter'>";
+		WriteLine(line);
+		foreach (CodeElement meb in c.Members) {
+				if (meb.Kind == vsCMElement.vsCMElementProperty) {
+				var row = "";
+				var prop = meb as CodeProperty;
+				var type = prop.Type.AsString;
+				
+				if(type == "string" || type=="int") {
+					row = "<td>{{" + cClassName + "." + meb.Name + "}}</td>";
+				}
+				else if(type == ("System.DateTime?") |  type == ("System.DateTime")){
+					row = "<td>{{" + cClassName + "." + meb.Name + " | date:'medium'}}</td>";
+				}
+				else if(type == ("decimal")){
+					row = "<td>{{" + cClassName + "." + meb.Name + " |  number:2}}</td>";
+				}
+				else {
+					row = "<td>" + type + "}}</td>";
+				}
+
+				WriteLine(row);
+			};			
+		};
+	#>
+	
+<td>
+<div ng-show='vm.allowEdit' class='btn btn-primary' ng-click='vm.edit(<#=cClassName#>)'>Edit</div>
+<div class='btn btn-primary' ng-click='vm.view(<#=cClassName#>)'>View</div>
+<a ng-show='vm.allowEdit' class='btn btn-success' ui-sref='client({ id: client.Id })'>Details</a>
+</td>
+</tr>
+<dir-pagination-controls boundary-links='true'></dir-pagination-controls>
+<div class='btn btn-primary' ng-show='vm.allowChanges' ng-click='vm.create()'>Create</div>
+</table>
+</div>
+</my-panel>
+
+
+<#+
+    var path= appPath + "/Features/" + ClassName + "s/Components/" + + cClassName + "List";
+    CreateDirectoryFullPath(path);
+	CreateFile(path + "/" + cClassName + "ListTempalte.html");
+	
+}	
+#>
+

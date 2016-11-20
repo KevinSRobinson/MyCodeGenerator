@@ -1,0 +1,45 @@
+﻿<#+ 
+void GenerateAngularController(string appPath, string controllerName, string serviceName, string className, string cClassname, string modalsServiceName){			
+#>
+		
+var <#=controllerName#>  = function(<#=serviceName#>, <#=modalsServiceName#>){
+var vm = this;
+vm.error = {};
+vm.<#=cClassname#>s = [];
+
+vm.init = function(){
+	vm.load<#=className#>s();
+};
+
+vm.load<#=className#>s = function(){
+	var <#=cClassname#>Promise= <#=serviceName#>.GetAll();
+	<#=cClassname#>Promise.then(function(response){
+		vm.<#=cClassname#>s = response.data;
+	}).catch(function(error){
+		vm.error = error;
+	})
+};
+	
+vm.create = function(){
+	var modal = <#=modalsServiceName#>.Add<#=className#>();
+	modal.result.then(function(response){
+		vm.<#=cClassname#>s.push(response);
+	});
+};
+
+vm.edit = function(<#=cClassname#>){
+	<#=modalsServiceName#>.Edit<#=className#>(<#=cClassname#>);
+};
+
+
+vm.init();
+
+};
+angular.module("app").controller("<#=controllerName#>", <#=controllerName#>);
+		
+	<#+
+
+	CreateDirectoryFullPath(appPath + "Output/app/" + className + "s/Controllers");
+CreateFile(appPath + "Output/app/" + className + "s/Controllers/" + controllerName + ".js");
+}	
+#>

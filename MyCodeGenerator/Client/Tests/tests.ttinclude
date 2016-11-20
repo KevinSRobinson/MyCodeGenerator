@@ -1,0 +1,36 @@
+﻿<#+ 
+void GenerateTests(string appPath,string controllerName, string ServiceName,  string serviceName, string className, string cClassname, string modalsServiceName){			
+#>
+
+
+describe("<#=className#>", function () {
+
+    describe("<#=controllerName#>", function () {
+
+        beforeEach(function () {
+
+            bard.inject(this, "$controller", "$q", "$rootScope", "<#=serviceName#>");
+
+            bard.mockService("<#=serviceName#>", mock<#=serviceName#>);
+
+            controller = $controller("<#=controllerName#>");
+
+        });
+
+        it("should instantiate the controller properly", function () {
+            expect(controller).not.toBeUndefined();
+        });
+    });
+
+
+});
+
+
+
+		
+	<#+
+
+	CreateDirectoryFullPath(appPath + "Output/app/" + className + "s/Tests/Specs");
+CreateFile(appPath + "Output/app/" + className + "s/Tests/Specs/" + controllerName + "Spec.js");
+}	
+#>

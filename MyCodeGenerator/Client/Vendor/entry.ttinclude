@@ -1,0 +1,20 @@
+﻿
+<#+ 
+
+  void GenerateVendorEntry(string appPath){				
+		#>
+		
+require("angular");
+//require("angular-cookies");
+require('angular-ui-router');
+require("angular-ui-bootstrap");
+
+
+		
+		
+		<#+
+
+	CreateFile(appPath + "Output/app/Vendor/entry.js");
+
+	}	
+#>

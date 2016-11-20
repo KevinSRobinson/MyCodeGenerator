@@ -1,0 +1,68 @@
+﻿<#+ 
+void GenerateMVCIndexController(string appPath, string controllerName, string serviceName, string className, string cClassname, string modalsServiceName){			
+#>
+		
+var <#=controllerName#>  = function(<#=serviceName#>, <#=modalsServiceName#>){
+var vm = this;
+vm.error = {};
+ vm.showlist = true;
+    vm.loading = true;
+    vm.ModifyTitle = "";
+	vm.<#=cClassname#>s = {};
+vm.<#=cClassname#>s = [];
+
+vm.init = function(){
+	vm.load<#=className#>s();
+};
+
+vm.load<#=className#>s = function(){
+	var <#=cClassname#>Promise= <#=serviceName#>.GetAll();
+	<#=cClassname#>Promise.then(function(response){
+		vm.<#=cClassname#>s = response.data;
+		    vm.loading = false;
+	}).catch(function(error){
+		vm.error = error;
+	})
+};
+	
+
+
+ vm.create = function () {
+        vm.showlist = false;
+        vm.ModifyTitle = "Add " + <#=cClassname#>;
+		vm.<#=cClassname#> = {};
+    };
+
+    vm.edit = function (<#=cClassname#>) {
+        vm.showlist = false;
+        vm.ModifyTitle = "Edit" + <#=cClassname#>;
+        vm.<#=cClassname#> = <#=cClassname#>;
+    };
+
+    vm.save = function () {
+        var promise = <#=serviceName#>.Modify(vm.<#=cClassname#>);
+        promise.then(function (response) {
+            vm.showlist = true;
+            if (vm.<#=cClassname#> == undefined) {
+                vm.<#=cClassname#>s.push(response.data);
+            }
+
+        });
+    };
+
+    vm.cancel = function () {
+        vm.showlist = true;
+    };
+
+
+vm.init();
+
+};
+angular.module("app").controller("<#=controllerName#>", <#=controllerName#>);
+		
+	<#+
+
+	CreateDirectoryFullPath(appPath + "Output/app/" + className + "s/Controllers");
+CreateFile(appPath + "Output/app/" + className + "s/Controllers/" + controllerName + "MVC.js");
+}	
+#>

@@ -1,0 +1,156 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly Name="EnvDTE" #>
+<#@ Import Namespace="EnvDTE" #>
+<#@ Import Namespace="System.IO" #>
+<#@ import namespace="System.Globalization" #>
+<#@ import namespace="EnvDTE" #>
+<#+
+
+public void CreateDirectoryFullPath(string outputFilePath){
+			var di = Directory.CreateDirectory(outputFilePath);                          
+            
+	}
+
+	
+    public void CreateFileFullPath(string fileName)
+    {
+        ProcessContent(fileName, this.GenerationEnvironment.ToString());
+        this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+    }
+
+
+	public void CreateDirectory(string outputFileName){
+			 string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+				 string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+				 var di = Directory.CreateDirectory(outputFilePath);                          
+            
+	}
+
+	 //Generating Seperate Files
+    public void ProcessContentFullPath(string path, string outputFileName, string content)
+    {
+
+			string outputFilePath = Path.Combine(path, outputFileName);
+			string outputDirectoryPath = Path.GetDirectoryName(outputFilePath);    
+
+        try 
+        {	        
+			   
+						
+			// Try to create the directory.    
+			//File.Create(outputFilePath);
+			File.WriteAllText(outputFilePath, content);
+			
+        }
+        catch (Exception ex)
+        {		
+            throw new Exception(outputFilePath, ex);
+        }
+        
+    }
+
+    public void CreateFile(string fileName)
+    {
+        ProcessContent(fileName, this.GenerationEnvironment.ToString());
+        this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+    }
+
+    //Generating Seperate Files
+    public void ProcessContent(string outputFileName, string content)
+    {
+
+		string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+			string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+			string outputDirectoryPath = Path.GetDirectoryName(outputFilePath);    
+
+        try 
+        {	        
+			   
+						
+			// Try to create the directory.    
+			//File.Create(outputFilePath);
+			File.WriteAllText(outputFilePath, content);
+			
+        }
+        catch (Exception ex)
+        {		
+            throw new Exception(outputFilePath, ex);
+        }
+        
+    }
+
+ 
+
+    //Get Projects
+    public Project GetActiveProject(DTE dte)
+    {
+        Project activeProject = null;
+ 
+        Array activeSolutionProjects = dte.ActiveSolutionProjects as Array;
+        if (activeSolutionProjects != null && activeSolutionProjects.Length > 0)
+        {
+            activeProject = activeSolutionProjects.GetValue(0) as Project;
+        }
+ 
+        return activeProject;
+    }
+
+    //
+    public List<CodeClass> FindClasses(Project project, string ns, string className) 
+    {
+        List<CodeClass> result = new List<CodeClass>();
+        FindClasses(project.CodeModel.CodeElements, className, ns, result, false);
+        return result;
+    }
+
+    private void FindClasses(CodeElements elements, string className, string searchNamespace, List<CodeClass> result, bool isNamespaceOk) 
+    {
+        if (elements == null) return;
+        foreach (CodeElement element in elements) 
+        {
+            if (element is CodeNamespace) 
+            {
+                CodeNamespace ns = element as CodeNamespace;
+                if (ns != null) 
+                {
+                    if (ns.FullName == searchNamespace)
+                        FindClasses(ns.Members, className, searchNamespace, result, true);
+                    else
+                        FindClasses(ns.Members, className, searchNamespace, result, false);
+                }
+            } 
+            else if (element is CodeClass && isNamespaceOk) 
+            {
+                CodeClass c = element as CodeClass;
+                if (c != null) 
+                {
+                    if (c.FullName.Contains(className))
+                        result.Add(c);
+
+                    FindClasses(c.Members, className, searchNamespace, result, true);
+                }
+            }
+        }
+    }
+        
+    //Naming
+    public string GetProperClassName(string className)
+    {
+        string returnString = className.ToLower();
+        returnString = returnString.Replace("_", " ");
+        TextInfo ti = CultureInfo.CurrentCulture.TextInfo;  
+        returnString = ti.ToTitleCase(returnString);
+        returnString = returnString.Replace(" ", "");
+        return returnString;
+    }
+	 public string GetCamelcaseClassName(string className)
+    {
+        string returnString = className.ToLower();
+        returnString = Char.ToLowerInvariant(className[0]) + className.Substring(1);
+        return returnString;
+    }
+    private static string CharToUpper(string input, int position)
+    {
+        return input.First().ToString().ToUpper() + input.Substring(position+1);
+    }
+#>

@@ -1,0 +1,24 @@
+﻿
+<#+ 
+void GenerateViewModal(string appPath, CodeClass c,  string className, string cClassname){			
+		#>
+		
+	<modal-header title="<#=className#> Details"></modal-header>
+<#+ 
+	foreach (CodeElement meb in c.Members) {
+	if (meb.Kind == vsCMElement.vsCMElementProperty) {
+		var prop = meb as CodeProperty;
+			var type = prop.Type.AsString;
+			if(type == "string") {
+				WriteLine("<my-display-field field-label='" + meb.Name + "' ng-model='vm." + cClassname + "." + meb.Name + "'></my-display-field>");
+			};
+		};			
+	};
+#>
+<modal-buttons close="vm.close()" save="vm.save()"></modal-buttons>
+		
+		<#+
+	CreateDirectoryFullPath(appPath + "Output/app/" + className + "s/Modals/Views");
+	CreateFile(appPath + "Output/app/" + className + "s/Modals/Views/view" + className+ ".html");
+	}	
+#>

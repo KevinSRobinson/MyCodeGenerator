@@ -1,0 +1,27 @@
+﻿<#+ 
+void GenerateMockServices(string appPath, string controllerName, string ServiceName, string className, string cClassname, string modalsServiceName){			
+#>
+
+
+var mock<#=ServiceName#> = {
+	GetAll : function(){
+			 return $q.when();
+		},
+	GetById : function(id) {
+			 return $q.when();
+	},
+    Modify : function(<#=cClassname#>) {
+	      return $q.when();
+    },
+	Delete : function(id) {
+		  return $q.when();
+	}
+};
+
+		
+	<#+
+
+	CreateDirectoryFullPath(appPath + "Output/app/" + className + "s/Tests/Specs");
+CreateFile(appPath + "Output/app/" + className + "s/Tests/Specs/Mock" + ServiceName + ".js");
+}	
+#>

@@ -1,0 +1,13 @@
+C:\SourceCode\MvYouth\CodeGenerator\bin\Debug\CodeGenerator.dll
+C:\SourceCode\MvYouth\CodeGenerator\bin\Debug\CodeGenerator.pdb
+C:\SourceCode\MvYouth\CodeGenerator\obj\Debug\CodeGenerator.csprojResolveAssemblyReference.cache
+C:\SourceCode\MvYouth\CodeGenerator\obj\Debug\CodeGenerator.dll
+C:\SourceCode\MvYouth\CodeGenerator\obj\Debug\CodeGenerator.pdb
+C:\SourceCode\YouthRebuild\CodeGenerator\bin\Debug\CodeGenerator.dll
+C:\SourceCode\YouthRebuild\CodeGenerator\bin\Debug\CodeGenerator.pdb
+C:\SourceCode\YouthRebuild\CodeGenerator\bin\Debug\Data.dll
+C:\SourceCode\YouthRebuild\CodeGenerator\bin\Debug\EntityFramework.dll
+C:\SourceCode\YouthRebuild\CodeGenerator\bin\Debug\Data.pdb
+C:\SourceCode\YouthRebuild\CodeGenerator\obj\Debug\CodeGenerator.dll
+C:\SourceCode\YouthRebuild\CodeGenerator\obj\Debug\CodeGenerator.pdb
+C:\SourceCode\YouthRebuild\CodeGenerator\obj\Debug\CodeGenerator.csprojResolveAssemblyReference.cache

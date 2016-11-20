@@ -1,0 +1,176 @@
+﻿
+<#+ 
+  // Note: You can call this method from the outside of the template,
+  //       please add parameters as needed.	
+  // To include this templaate just drag this file on another editor
+  // then call this.Template_NewTemplate1_Render()
+  void GenerateDtoManagers(string path, CodeClass c, string className, string cClassname, string dto, string DtoType){			
+		#>
+		using System;
+using System.Collections.Generic;
+using System.Linq;
+using Api;
+using Data.Models;
+using Data;
+using Dtos;
+namespace Dto.DtoRepos
+{
+    public interface I<#=DtoType#>Repo
+    {
+        void Map<#=className#>(ref <#=className#> <#=DtoType#>, ref <#=DtoType#> <#=dto#>);
+        IEnumerable<<#=DtoType#>> GetAll<#=className#>s();
+        IEnumerable<<#=DtoType#>> GetUser<#=className#>s(Guid id);
+        <#=DtoType#> Add<#=className#>(<#=DtoType#> <#=dto#>, Guid userId);
+        void Modify<#=className#>(<#=DtoType#> <#=dto#>);
+        <#=DtoType#> Get<#=className#>(int id);
+    }
+
+    public class <#=DtoType#>Repo : I<#=DtoType#>Repo
+    {
+        private readonly IUnitOfWork _unitOfWork;
+
+
+        public <#=DtoType#>Repo()
+        {
+            _unitOfWork = new UnitOfWork();
+        }
+
+        public <#=DtoType#>Repo(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        public void Map<#=className#>(ref <#=className#> <#=cClassname#>, ref <#=DtoType#> <#=dto#>)
+        {
+           	<#+ 
+				   foreach (CodeElement meb in c.Members) {
+					if (meb.Kind == vsCMElement.vsCMElementProperty) {
+						var prop = meb as CodeProperty;
+							var type = prop.Type.AsString;
+							WriteLine(cClassname + "." + meb.Name + " = " + dto + "." + meb.Name + ";");						
+						};			
+					};#>   
+        }
+
+        public void Map<#=className#>(ref <#=DtoType#> <#=cClassname#>, ref <#=className#> <#=dto#>)
+        {
+          	<#+ 
+				   foreach (CodeElement meb in c.Members) {
+					if (meb.Kind == vsCMElement.vsCMElementProperty) {
+						var prop = meb as CodeProperty;
+							var type = prop.Type.AsString;
+							WriteLine(cClassname + "." + meb.Name + " = " + dto + "." + meb.Name + ";");						
+						};			
+					};#>   
+        }
+
+        public IEnumerable<<#=DtoType#>> GetAll<#=className#>s()
+        {
+            try
+            {
+                var  <#=cClassname#>s = _unitOfWork.<#=className#>s.GetAll();
+               var results =  <#=cClassname#>s.Select(x => new <#=className#>Dto()
+                {
+					<#+ 
+				   foreach (CodeElement meb in c.Members) {
+					if (meb.Kind == vsCMElement.vsCMElementProperty) {
+						var prop = meb as CodeProperty;
+							var type = prop.Type.AsString;
+							WriteLine(meb.Name  + " = x." + meb.Name + ",");						
+						};			
+					};#>
+                });
+                return results;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Build Add<#=className#> Dto", ex);
+            }
+        }
+
+        public IEnumerable<<#=DtoType#>> GetUser<#=className#>s(Guid id)
+        {
+            try
+            {
+                var <#=className#>s = _unitOfWork.<#=className#>s.GetByUserId(id);
+                var results = <#=className#>s.Select(x => new <#=className#>Dto()
+                {
+					<#+ 
+				   foreach (CodeElement meb in c.Members) {
+					if (meb.Kind == vsCMElement.vsCMElementProperty) {
+						var prop = meb as CodeProperty;
+							var type = prop.Type.AsString;
+							WriteLine(meb.Name  + " = x." + meb.Name + ",");						
+						};			
+					};#>
+                });
+
+                return results;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Build Add<#=className#> Dto", ex);
+            }
+        }
+
+        public <#=DtoType#> Add<#=className#>(<#=DtoType#> <#=dto#>, Guid userId)
+        {
+            try
+            {
+             var <#=cClassname#> = new <#=className#> ();
+
+				Map<#=className#>(ref  <#=cClassname#> , ref <#=dto#>);
+				 
+
+                _unitOfWork.<#=className#>s.Add(<#=cClassname#>);
+                _unitOfWork.Save();
+
+                <#=dto#>.Id = <#=cClassname#>.Id;
+                return <#=dto#>;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Build Add<#=className#> Dto", ex);
+            }
+        }
+
+        public void Modify<#=className#>(<#=DtoType#> <#=dto#>)
+        {
+            try
+            {
+                var <#=cClassname#>= _unitOfWork.<#=className#>s.GetById(<#=dto#>.Id);
+                 Map<#=className#>(ref <#=cClassname#>, ref <#=dto#>);
+				 
+                _unitOfWork.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Build Modify <#=className#> Dto", ex);
+            }
+        }
+
+        public <#=DtoType#> Get<#=className#>(int id)
+        {
+            try
+            {
+                var <#=cClassname#> = _unitOfWork.<#=className#>s.GetById(id);
+               var <#=dto#> = new <#=DtoType#>();
+                Map<#=className#>(ref <#=dto#>, ref <#=cClassname#>);
+
+                return <#=dto#>;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Build Modify <#=className#> Dto", ex);
+            }
+        }
+    }
+}
+		
+		
+		<#+
+				 CreateDirectoryFullPath(path + "/Dtos/DtoManagers");  
+	CreateFile(path + "/Dtos/DtoManagers/" + className + "DtoManager.cs");
+    }
+#>
+
