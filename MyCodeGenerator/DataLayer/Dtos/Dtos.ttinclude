@@ -1,10 +1,16 @@
 ﻿
-<#+ 
-  void GenerateDto(string path, CodeClass c, string className, string cClassname, string dto){			
-		#>		
+<#+ void GenerateDto(string dtosPath, CodeClass c){ 	
+
+        var dtoName = GetDtoCamelcaseClassName(c) + "Dto";
+        var dtoType = c.Name + "Dto";
+
+        
+       
+ #>	
+
 namespace Dtos
 {
-	public class <#=className#>Dto
+	public class <#=dtoType#>
     {
  		<#+ 
 		foreach (CodeElement meb in c.Members) {
@@ -13,16 +19,18 @@ namespace Dtos
 				var type = prop.Type.AsString;
 				WriteLine("public " + type + " " + meb.Name + " {get; set;}");
 			};			
-		};#>
+		};
+        #>          
 	};
 }
  
 		
 		
-		<#+
+<#+
+    CreateDirectoryFullPath(dtosPath);  
+	CreateFile(dtosPath  + dtoType + ".cs");
 
-	CreateDirectoryFullPath(path + "/Dtos/");
-	CreateFile(path + "/Dtos/" + className + "Dto.cs");
+	
     }
 #>
 

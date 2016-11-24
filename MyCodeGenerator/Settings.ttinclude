@@ -1,0 +1,10 @@
+﻿
+<#+ 
+    string dtosReposPath = "C:/Repos/CodeGenerator/Dtos/DtoRepos/";
+    string dtosPath = "C:/Repos/CodeGenerator/Dtos/";
+
+    string efContext = "SamepleDbContext"; 
+    string dataContextNamespace = "Data";
+#>
+
+

@@ -1,0 +1,127 @@
+﻿
+<#+ 
+
+  void GenerateDtoRepos(string dotReposPath, CodeClass c) {		
+
+
+var dtoName = GetDtoCamelcaseClassName(c);
+var dtoType = GetDtoClassName(c);
+var className = GetCamelcaseClassName(c);
+var classType = c.Name;
+
+	#>
+
+
+
+		using System;
+using System.Collections.Generic;
+using System.Linq;
+using Api;
+using Data.Models;
+using Data;
+using Dtos;
+namespace Dto.DtoRepos
+{
+    public interface I<#=dtoType#>Repo
+    {
+        void Map<#=className#>(ref <#=className#> <#=dtoType#>, ref <#=dtoType#> <#=dtoName#>);
+        IEnumerable<<#=dtoType#>> GetAll<#=className#>s();
+        IEnumerable<<#=dtoType#>> GetUser<#=className#>s(Guid id);
+        <#=dtoType#> Add<#=className#>(<#=dtoType#> <#=dtoName#>, Guid userId);
+        void Modify<#=className#>(<#=dtoType#> <#=dtoName#>);
+        <#=dtoType#> Get<#=className#>(int id);
+    }
+
+    public class <#=dtoType#>Repo : I<#=dtoType#>Repo
+    {
+        private readonly IUnitOfWork _unitOfWork;
+
+
+        public <#=dtoType#>Repo()
+        {
+            _unitOfWork = new UnitOfWork();
+        }
+
+        public <#=dtoType#>Repo(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+
+        #region Mappers
+        public void Map<#=className#>(ref <#=className#> <#=classType#>, ref <#=dtoType#> <#=dtoName#>)
+        {
+           	<#+ 
+				   foreach (CodeElement meb in c.Members) {
+					if (meb.Kind == vsCMElement.vsCMElementProperty) {
+						var prop = meb as CodeProperty;
+							var type = prop.Type.AsString;
+							WriteLine(classType + "." + meb.Name + " = " + dtoName + "." + meb.Name + ";");						
+						};			
+					};#>   
+        }
+
+        public void Map<#=className#>(ref <#=dtoType#> <#=dtoName#>, ref <#=className#> <#=classType#>)
+        {
+          	<#+ foreach (CodeElement meb in c.Members) {
+					if (meb.Kind == vsCMElement.vsCMElementProperty) {
+						var prop = meb as CodeProperty;
+							var type = prop.Type.AsString;
+							WriteLine(dtoName + "." + meb.Name + " = " + dtoName + "." + meb.Name + ";");						
+						};			
+					};
+            #>          
+
+        }
+
+        #end Region 
+        
+
+
+        public <#=dtoType#> Add<#=className#>(<#=dtoType#> <#=dtoName#>, Guid userId)
+        {
+            try
+            {
+             var <#=classType#> = new <#=className#> ();
+
+				Map<#=className#>(ref  <#=classType#> , ref <#=dtoName#>);
+				 
+
+                _unitOfWork.<#=className#>s.Add(<#=classType#>);
+                _unitOfWork.Save();
+
+                <#=dtoName#>.Id = <#=classType#>.Id;
+                return <#=dtoName#>;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Build Add<#=className#> Dto", ex);
+            }
+        }
+
+        public void Modify<#=className#>(<#=dtoType#> <#=dtoName#>)
+        {
+            try
+            {
+                var <#=classType#>= _unitOfWork.<#=className#>s.GetById(<#=dtoName#>.Id);
+                 Map<#=className#>(ref <#=classType#>, ref <#=dtoName#>);
+				 
+                _unitOfWork.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to Build Modify <#=className#> Dto", ex);
+            }
+        }
+
+       
+    }
+}
+		
+		
+<#+
+				 CreateDirectoryFullPath(dotReposPath);  
+	             CreateFile(dotReposPath  + className + "DtoManager.cs");
+    }
+#>
+

@@ -41,9 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLayer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataLayer.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebApis.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebApis.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="DataLayer\Dtos\DtoCommands.ttinclude" />
+    <None Include="Settings.ttinclude" />
     <None Include="Client\app.ttinclude" />
     <None Include="Client\DataServices\angularServices.ttinclude" />
     <None Include="Client\bower.ttinclude" />
@@ -85,7 +97,6 @@
     <None Include="packages.config" />
     <None Include="Server\ApiBase.ttinclude" />
     <None Include="Server\WebApi.ttinclude" />
-    <None Include="Core.ttinclude" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AngularGenerator.js">
@@ -97,23 +108,13 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AngularGenerator.js</LastGenOutput>
     </Content>
-    <Content Include="WebApis.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>WebApis.tt</DependentUpon>
-    </Content>
     <Content Include="WebApis.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WebApis.js</LastGenOutput>
-    </Content>
-    <Content Include="DataLayer.js">
-      <DependentUpon>DataLayer.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+      <LastGenOutput>WebApis.cs</LastGenOutput>
     </Content>
     <Content Include="DataLayer.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DataLayer.js</LastGenOutput>
+      <LastGenOutput>DataLayer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

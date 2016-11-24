@@ -4,28 +4,39 @@
 <#@ Import Namespace="System.IO" #>
 <#@ import namespace="System.Globalization" #>
 <#@ import namespace="EnvDTE" #>
+<#@ include file="Settings.ttinclude" #>
 <#+
- public string GetDtoClassName(CodeClass codeClass)
-    {
-       return codeClass.Name + "Dto";
-    }
 
- public string GetDtoCamelcaseClassName(CodeClass codeClass)
-    {
-       return GetCamelcaseClassName(codeClass.Name) + "Dto";
-    }
+
+public List<CodeClass> GetClasses(){
+		
+    IServiceProvider serviceProvider = (IServiceProvider)this.Host;
+    DTE dte = serviceProvider.GetService(typeof(DTE)) as DTE; 
+
+    var project = GetActiveProject(dte);
+    return FindClasses(project, dataContextNamespace, "").Where(x=> x.Name != efContext).ToList();
+   
+       
+}
+
+
+public string GetDtoClassName(CodeClass codeClass)    {
+   return codeClass.Name + "Dto";
+}
+
+public string GetDtoCamelcaseClassName(CodeClass codeClass)  {
+   return GetCamelcaseClassName(codeClass.Name) + "Dto";
+}
 
 public void CreateDirectoryFullPath(string outputFilePath){
-			var di = Directory.CreateDirectory(outputFilePath);                          
-            
-	}
+    var di = Directory.CreateDirectory(outputFilePath);                          
+}	
 
-	
-    public void CreateFileFullPath(string fileName)
-    {
-        ProcessContent(fileName, this.GenerationEnvironment.ToString());
-        this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
-    }
+public void CreateFileFullPath(string fileName)
+{
+    ProcessContent(fileName, this.GenerationEnvironment.ToString());
+    this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+}
 
 
 	public void CreateDirectory(string outputFileName){
