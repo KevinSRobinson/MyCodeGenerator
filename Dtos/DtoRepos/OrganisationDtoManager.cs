@@ -1,20 +1,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,7 +66,7 @@ namespace Dto.DtoRepos
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Failed to Build Modify organisation Dto", ex);
+                    throw new Exception("Failed to Build Modify OrganisationDto ", ex);
                 }
             }
 
@@ -90,7 +76,7 @@ namespace Dto.DtoRepos
                 try
                 {
                    var Organisations = _unitOfWork.organisations.GetAll();
-                   var results =  Organisations.Select(x => new OrganisationDtoDto()
+                   var results =  Organisations.Select(x => new OrganisationDto()
                     {
 					    Name = x.Name,
                     });
@@ -108,5 +94,5 @@ namespace Dto.DtoRepos
 
     
 }
-		
+}		
 		

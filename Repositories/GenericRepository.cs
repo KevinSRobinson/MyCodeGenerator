@@ -1,4 +1,3 @@
-﻿<#+   void GenerateGenericRespository(string repositoriesPath){  #>
 using Data;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
 {
     private readonly DbSet<TEntity> _entities;
 
-    protected Repository(<#=efContext#> context)
+    protected Repository(SamepleDbContext context)
     {
         _entities = context.Set<TEntity>();
     }
@@ -41,8 +40,3 @@ public interface IRepository<T> where T : class
     void Add(T entity);
     void Delete(T entity);
 }
-<#+
-    CreateDirectoryFullPath(repositoriesPath);
-    CreateFile(repositoriesPath + "GenericRepository.cs");
-	}	
-#>

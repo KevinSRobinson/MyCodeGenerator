@@ -2,7 +2,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 
 <#+ 
-public string GetClassName(string className)
+    public string GetClassName(string className)
     {
         string returnString = className.ToLower();
         returnString = returnString.Replace("_", " ");
@@ -11,31 +11,27 @@ public string GetClassName(string className)
         returnString = returnString.Replace(" ", "");
         return returnString;
     }
-  void GenerateUnitOfWork(string path, List<string> classNames, string efContext, string targetNamespace){			
-		#>
 
+    public string GetInterfaceProperty(string className){
+        return "I" + className + "Repository " + className + "s"  + "{get; set;} ";
+    }
+
+void GenerateUnitOfWork(string path, List<CodeClass> codeClasses){#>
 using System;
 using Data;
-using <#=targetNamespace#>;
 
 public interface IUnitOfWork : IDisposable
 {
    
     <#+
-    foreach(string className in classNames)
-    {
-        var properClassName = GetClassName(className);
-        var repositoryInterfaceName = "I" + className + "Repository";
-    
-    #>
-	<#= repositoryInterfaceName + " " + className+"s" #> { get; }
-    
-	<#+
-		}
+        foreach(CodeClass codeClass in codeClasses)
+        {
+            WriteLine(GetInterfaceProperty(codeClass.Name));
+        }
 	#>
+
 	void Save();
 }
-
 
 
 public class UnitOfWork : IUnitOfWork
@@ -53,17 +49,19 @@ public class UnitOfWork : IUnitOfWork
 		_context = new <#= efContext #>();
 	}
 	
-	
    
     <#+
-    foreach(string className in classNames)
+        
+
+
+    foreach(CodeClass codeClass in codeClasses)
     {
-        var repositoryInterfaceName = "I" + className + "Repository";
-    
+        var repositoryInterfaceName = "I" + codeClass.Name + "Repository";    
     #>
-	public <#= repositoryInterfaceName + " " + className+"s"#>
+
+	public <#= repositoryInterfaceName + " " + codeClass.Name +"s"#>
     {
-        get { return new <#= className + "Repository" #>(_context); }
+        get { return new <#= codeClass.Name + "Repository" #>(_context); }
     }
 	<#+
 		}
@@ -92,15 +90,8 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 }
-
-
-
-
-
-
-
 <#+
-	  CreateDirectoryFullPath(path + "/Data/Repositories");
-	  CreateFile(path + "/Data/Repositories/UnitofWork.cs");
+	  CreateDirectoryFullPath(path);
+	  CreateFile(path + "UnitofWork.cs");
 	}	
 #>

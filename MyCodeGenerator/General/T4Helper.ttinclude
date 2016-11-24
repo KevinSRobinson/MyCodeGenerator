@@ -7,17 +7,15 @@
 <#@ include file="Settings.ttinclude" #>
 <#+
 
-
 public List<CodeClass> GetClasses(){
 		
     IServiceProvider serviceProvider = (IServiceProvider)this.Host;
     DTE dte = serviceProvider.GetService(typeof(DTE)) as DTE; 
 
     var project = GetActiveProject(dte);
-    return FindClasses(project, dataContextNamespace, "").Where(x=> x.Name != efContext).ToList();
-   
-       
+    return FindClasses(project, dataContextNamespace, "").Where(x=> x.Name != efContext).ToList();       
 }
+
 
 
 public string GetDtoClassName(CodeClass codeClass)    {
@@ -39,65 +37,65 @@ public void CreateFileFullPath(string fileName)
 }
 
 
-	public void CreateDirectory(string outputFileName){
-			 string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
-				 string outputFilePath = Path.Combine(templateDirectory, outputFileName);
-				 var di = Directory.CreateDirectory(outputFilePath);                          
+public void CreateDirectory(string outputFileName){
+			string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+				string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+				var di = Directory.CreateDirectory(outputFilePath);                          
             
-	}
+}
 
 	 //Generating Seperate Files
-    public void ProcessContentFullPath(string path, string outputFileName, string content)
-    {
+public void ProcessContentFullPath(string path, string outputFileName, string content)
+{
 
-			string outputFilePath = Path.Combine(path, outputFileName);
-			string outputDirectoryPath = Path.GetDirectoryName(outputFilePath);    
+		string outputFilePath = Path.Combine(path, outputFileName);
+		string outputDirectoryPath = Path.GetDirectoryName(outputFilePath);    
 
-        try 
-        {	        
+    try 
+    {	        
 			   
 						
-			// Try to create the directory.    
-			//File.Create(outputFilePath);
-			File.WriteAllText(outputFilePath, content);
+		// Try to create the directory.    
+		//File.Create(outputFilePath);
+		File.WriteAllText(outputFilePath, content);
 			
-        }
-        catch (Exception ex)
-        {		
-            throw new Exception(outputFilePath, ex);
-        }
+    }
+    catch (Exception ex)
+    {		
+        throw new Exception(outputFilePath, ex);
+    }
         
-    }
+}
 
-    public void CreateFile(string fileName)
-    {
-        ProcessContent(fileName, this.GenerationEnvironment.ToString());
-        this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
-    }
+public void CreateFile(string fileName)
+{
+    ProcessContent(fileName, this.GenerationEnvironment.ToString());
+    this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+}
 
     //Generating Seperate Files
-    public void ProcessContent(string outputFileName, string content)
-    {
+public void ProcessContent(string outputFileName, string content)
+{
 
-		string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
-			string outputFilePath = Path.Combine(templateDirectory, outputFileName);
-			string outputDirectoryPath = Path.GetDirectoryName(outputFilePath);    
+	string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+		string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+		string outputDirectoryPath = Path.GetDirectoryName(outputFilePath);    
 
-        try 
-        {	        
+    try 
+    {	        
 			   
 						
-			// Try to create the directory.    
-			//File.Create(outputFilePath);
-			File.WriteAllText(outputFilePath, content);
+		// Try to create the directory.    
+		//File.Create(outputFilePath);
+		File.WriteAllText(outputFilePath, content);
 			
-        }
-        catch (Exception ex)
-        {		
-            throw new Exception(outputFilePath, ex);
-        }
-        
     }
+    catch (Exception ex)
+    {		
+        throw new Exception(outputFilePath, ex);
+    }
+        
+}
 
  
 

@@ -1,7 +1,11 @@
 ﻿
 <#+ 
-    string dtosReposPath = "C:/Repos/CodeGenerator/Dtos/DtoRepos/";
+    const string basePath= "C:/Repos/CodeGenerator/";
+    string dtosReposPath = basePath + "/Dtos/DtoRepos/";
     string dtosPath = "C:/Repos/CodeGenerator/Dtos/";
+    string unitOfWorkPath = "C:/Repos/CodeGenerator/Repositories/";
+
+    const string repositoriesPath = basePath + "Repositories/";
 
     string efContext = "SamepleDbContext"; 
     string dataContextNamespace = "Data";

@@ -13,14 +13,15 @@
 
 using System;
 using Data;
-using Data;
 
 public interface IUnitOfWork : IDisposable
 {
    
-    	void Save();
-}
+    IOrganisationRepository Organisations{get; set;} 
+IContactRepository Contacts{get; set;} 
 
+	void Save();
+}
 
 
 public class UnitOfWork : IUnitOfWork
@@ -38,9 +39,18 @@ public class UnitOfWork : IUnitOfWork
 		_context = new SamepleDbContext();
 	}
 	
-	
    
     
+	public IOrganisationRepository Organisations
+    {
+        get { return new OrganisationRepository(_context); }
+    }
+	
+	public IContactRepository Contacts
+    {
+        get { return new ContactRepository(_context); }
+    }
+	
     public void Save()
     {
         _context.SaveChanges();
@@ -64,10 +74,3 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 }
-
-
-
-
-
-
-

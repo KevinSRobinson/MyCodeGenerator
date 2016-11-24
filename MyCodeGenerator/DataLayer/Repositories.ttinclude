@@ -1,36 +1,54 @@
 ﻿
-<#+ 
+<#+    void GenerateRespositories(string repositoriesPath, CodeClass c){
 
-  void GenerateRespositories(string path, string targetNamespace, string className, string efContext){			
-		#>
-		using System;
-		using System.Collections.Generic;
-		using System.Linq;
-		using <#=targetNamespace#>;
-public class <#= className #>Repository : Repository<<#= className #>>, I<#= className #>Repository
+        var dtoName = GetDtoCamelcaseClassName(c);
+        var dtoType = GetDtoClassName(c);
+        var className = c.Name;
+        var classType = GetCamelcaseClassName(c);
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Data;
+
+public class <#=className#>Repository : Repository<<#=className#>>, I<#=className#>Repository
 {
-    private <#= efContext #> _context;
+    private <#=        efContext #> _context;
 
-    public <#= className #>Repository(<#= efContext #> context) : base(context)
+    public <#=className#>Repository(<#=        efContext#> context) : base(context)
     {
         _context = context;
     }
 
-	public IEnumerable<<#= className #>> GetByUserId(Guid userId)
-    {
-        return _context.<#= className #>s.Where(x => x.UserId == userId);
-    }
-   
+    	<#+foreach (CodeElement meb in c.Members) {
+					if (meb.Name == "UserId") { #>
+						   public IEnumerable<<#=className#>> GetByUserId(Guid userId)
+                            {
+                                 return _context.<#=className#>s.Where(x => x.UserId == userId);
+                            }
+						<#+};			
+					};
+        #> 
+
+ 
+  
 }
-public interface I<#= className #>Repository : IRepository<<#= className #>>
+
+
+public interface I<#=className#>Repository : IRepository<<#=className#>>
 {
-    IEnumerable<<#= className #>> GetByUserId(Guid userId);
+    
+    	<#+foreach (CodeElement meb in c.Members) {
+					if (meb.Name == "UserId") { #>
+						   IEnumerable<<#=className#>> GetByUserId(Guid userId);
+						<#+};			
+					};
+        #> 
+    
 }
 
-		<#+
-
-
-	 CreateDirectoryFullPath(path + "/Data/Repositories");
-	  CreateFile(path + "/Data/Repositories/" + className + "Repository.cs");
+<#+
+ CreateDirectoryFullPath(repositoriesPath);
+	  CreateFile(repositoriesPath + className + "Repository.cs");
 	}	
 #>

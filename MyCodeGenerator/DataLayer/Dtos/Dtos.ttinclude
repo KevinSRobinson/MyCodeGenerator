@@ -3,9 +3,6 @@
 
         var dtoName = GetDtoCamelcaseClassName(c) + "Dto";
         var dtoType = c.Name + "Dto";
-
-        
-       
  #>	
 
 namespace Dtos

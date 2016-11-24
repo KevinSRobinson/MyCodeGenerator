@@ -1,7 +1,4 @@
-﻿#region
-using System.Data.Entity;
-
-#endregion
+﻿using System.Data.Entity;
 
 namespace Data
 {

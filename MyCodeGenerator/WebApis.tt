@@ -9,6 +9,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Linq" #>
 
+<#@ include file="General/T4Helper.ttinclude" #>
 <#@ include file="Server/WebApi.ttinclude" #>
 <#@ include file="Server/ApiBase.ttinclude" #>
 

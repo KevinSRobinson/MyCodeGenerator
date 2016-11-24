@@ -45,10 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContactDto.cs" />
-    <Compile Include="DtoRepos\ContactDtoManager.cs" />
-    <Compile Include="DtoRepos\OrganisationDtoManager.cs" />
-    <Compile Include="OrganisationDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

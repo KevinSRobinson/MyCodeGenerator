@@ -28,7 +28,7 @@ namespace Api
         private readonly UnitOfWork _unitOfWork;
 
 		#region "constructors"
-			 public <#=className#>sApiController()
+			 public <#=className#>sApiController() 
 			{
 				_unitOfWork = new UnitOfWork();
 			}
@@ -43,11 +43,11 @@ namespace Api
         {
          
 	<#+ 
+             
 				   foreach (CodeElement meb in c.Members) {
 					if (meb.Kind == vsCMElement.vsCMElementProperty) {
 						var prop = meb as CodeProperty;
-							var type = prop.Type.AsString;
-							WriteLine(classType + "." + meb.Name + " = " + dtoName + "." + meb.Name + ";");						
+							WriteLine(meb.Name);						
 						};			
 					};#>   
     

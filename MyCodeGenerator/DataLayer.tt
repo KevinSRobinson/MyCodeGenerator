@@ -22,17 +22,21 @@
 
 
 <#  
- foreach (var codeClass in GetClasses()) {
+
+    var classes= GetClasses();
 
 
-    
+    GenerateUnitOfWork(unitOfWorkPath, classes);
+
+ foreach (var codeClass in classes) {
+
 
     this.GenerateDtoRepos(dtosReposPath, codeClass);
 	this.GenerateDto(dtosPath, codeClass);
 
     //
-    //this.GenerateGenericRespository(basePath, targetNamespace, efContext);
-	//this.GenerateRespositories(basePath, targetNamespace, className, efContext);
+    this.GenerateGenericRespository(repositoriesPath);
+	this.GenerateRespositories(repositoriesPath, codeClass);
 
 
 

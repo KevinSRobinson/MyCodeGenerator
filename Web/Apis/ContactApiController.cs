@@ -16,7 +16,7 @@ namespace Api
         private readonly UnitOfWork _unitOfWork;
 
 		#region "constructors"
-			 public ContactsApiController()
+			 public ContactsApiController() 
 			{
 				_unitOfWork = new UnitOfWork();
 			}
