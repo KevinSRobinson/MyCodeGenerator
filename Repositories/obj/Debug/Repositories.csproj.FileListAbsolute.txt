@@ -1,0 +1,12 @@
+C:\Repos\CodeGenerator\Repositories\bin\Debug\Repositories.dll.config
+C:\Repos\CodeGenerator\Repositories\bin\Debug\Repositories.dll
+C:\Repos\CodeGenerator\Repositories\bin\Debug\Repositories.pdb
+C:\Repos\CodeGenerator\Repositories\bin\Debug\Data.dll
+C:\Repos\CodeGenerator\Repositories\bin\Debug\EntityFramework.dll
+C:\Repos\CodeGenerator\Repositories\bin\Debug\EntityFramework.SqlServer.dll
+C:\Repos\CodeGenerator\Repositories\bin\Debug\Data.pdb
+C:\Repos\CodeGenerator\Repositories\bin\Debug\EntityFramework.xml
+C:\Repos\CodeGenerator\Repositories\bin\Debug\EntityFramework.SqlServer.xml
+C:\Repos\CodeGenerator\Repositories\obj\Debug\Repositories.csprojResolveAssemblyReference.cache
+C:\Repos\CodeGenerator\Repositories\obj\Debug\Repositories.dll
+C:\Repos\CodeGenerator\Repositories\obj\Debug\Repositories.pdb

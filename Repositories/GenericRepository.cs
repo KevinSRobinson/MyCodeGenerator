@@ -6,10 +6,10 @@ using System.Linq;
 
 public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
-    private readonly SamepleDbContext _context;
+    private readonly SampleDbContext _context;
     private readonly DbSet<TEntity> _entities;
 
-    protected Repository(SamepleDbContext context)
+    protected Repository(SampleDbContext context)
     {
         _context = context;
         _entities = context.Set<TEntity>();

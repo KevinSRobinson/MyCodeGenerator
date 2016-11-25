@@ -4,155 +4,51 @@
 
     void GenerateWebApis(string webapiPath, CodeClass c){			
 
-        var dtoName = GetDtoCamelcaseClassName(c);
-        var dtoType = GetDtoClassName(c);
-        var className = c.Name;
-        var classType = GetCamelcaseClassName(c);
+       var helper = new CodeClassHelper(c);
+
+       var repoName = helper.DtoName + "Repo";
+       var repoFieldName = helper.DtoCamelCase + "Repo";
 
 		#>
 		
-		using System;
-using System.Collections.Generic;
-using System.Linq;
+using Dto.DtoRepos;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Web.Http.Results;
-using Data;
-using dtoNames;
 
 namespace Api
 {
     [EnableCors("*", "*", "*")]
-    public class <#=className#>sApiController : ApiBase
+    public class <#=helper.Name#>sApiController : ApiBase
     {
-        private readonly UnitOfWork _unitOfWork;
+        private readonly I<#=helper.DtoName#>Repo _<#=repoFieldName#>;
 
 		#region "constructors"
-			 public <#=className#>sApiController() 
+			 public <#=helper.Name#>sApiController() 
 			{
-				_unitOfWork = new UnitOfWork();
+				_<#=repoFieldName#> = new <#=repoName#>();
 			}
 
-			public <#=className#>sApiController(UnitOfWork unitOfWork)
+			public <#=helper.Name#>sApiController(I<#=repoName#> <#=helper.DtoName#>Repo)
 			{
-				_unitOfWork = unitOfWork;
+				_<#=repoFieldName#> = <#=repoName#>;
 			}
 		#endregion
        
-	    private void Map<#=className#>(ref <#=className#> <#=classType#>, ref <#=dtoType#> <#=dtoName#>)
+	    
+
+
+	   [Route("api/<#=helper.Name#>s")]
+	   public IHttpActionResult GetAll<#=helper.Name#>s()
         {
-         
-	<#+ 
-             
-				   foreach (CodeElement meb in c.Members) {
-					if (meb.Kind == vsCMElement.vsCMElementProperty) {
-						var prop = meb as CodeProperty;
-							WriteLine(meb.Name);						
-						};			
-					};#>   
-    
-        }
+              return Ok(_<#=repoFieldName#>.GetAll());
 
-
-	   [Route("api/GetAll<#=className#>s")]
-		  public IHttpActionResult GetAll<#=className#>s()
-        {
-            try
-            {
-               var  <#=classType#>s = _unitOfWork.<#=className#>s.GetAll();
-               var results =  <#=classType#>s.Select(x => new <#=className#>dtoName()
-                {
-					<#+ 
-				   foreach (CodeElement meb in c.Members) {
-					if (meb.Kind == vsCMElement.vsCMElementProperty) {
-						var prop = meb as CodeProperty;
-							var type = prop.Type.AsString;
-							WriteLine(meb.Name  + " = x." + meb.Name + ",");						
-						};			
-					};#>
-                });
-                   
-                return Ok(results);
-            }
-            catch (Exception ex)
-            {
-                return new ExceptionResult(ex, this);
-            }
-
-        }
-
-		[HttpPost]
-		[Route("api/Add<#=className#>")]
-		public IHttpActionResult Add<#=className#>(<#=dtoType#> <#=dtoName#>)
-        {
-            try
-            {
-                var <#=classType#> = new <#=className#> ();
-
-				Map<#=className#>(ref  <#=classType#> , ref <#=dtoName#>);
-				 
-
-                _unitOfWork.<#=className#>s.Add(<#=classType#>);
-                _unitOfWork.Save();
-
-                <#=dtoName#>.Id = <#=classType#>.Id;
-                return Ok(<#=dtoName#>);
-            }
-            catch (Exception ex)
-            {
-                return new ExceptionResult(ex, this);
-            }
-        }
-
-		[HttpPost]
-		[Route("api/Modify<#=className#>")]
-        public IHttpActionResult Modify<#=className#>(<#=dtoType#> <#=dtoName#>)
-        {
-            try
-            {
-                var <#=classType#>= _unitOfWork.<#=className#>s.GetById(<#=dtoName#>.Id);
-                 Map<#=className#>(ref <#=classType#>, ref <#=dtoName#>);
-
-				<#+ 
-				   foreach (CodeElement meb in c.Members) {
-					if (meb.Kind == vsCMElement.vsCMElementProperty) {
-							var prop = meb as CodeProperty;
-							var type = prop.Type.AsString;
-							
-							WriteLine(classType + "." + meb.Name + " = " + dtoName + "." + meb.Name + ";");						
-						};			
-					};#>
-					
-                _unitOfWork.Save();
-                
-                return Ok(<#=dtoName#>);
-            }
-            catch (Exception ex)
-            {
-                return new ExceptionResult(ex, this);
-            }
         }
 
         
-		[Route("api/Get<#=className#>s/{id}")]
-        public IHttpActionResult Get<#=className#>(int id)
+		[Route("api/<#=helper.Name#>s/{id}")]
+        public IHttpActionResult Get<#=helper.Name#>(int id)
         {
-            var <#=classType#> = _unitOfWork.<#=className#>s.GetById(id);
-
-            var <#=dtoName#> = new <#=className#>dtoName()
-            {
-
-				<#+ 
-               foreach (CodeElement meb in c.Members) {
-				if (meb.Kind == vsCMElement.vsCMElementProperty) {
-					var prop = meb as CodeProperty;
-						var type = prop.Type.AsString;
-						WriteLine(meb.Name + "=" + classType + "." + meb.Name + ",");						
-					};			
-				};#>
-            };
-
-            return Ok(<#=dtoName#>);
+           return Ok(_<#=repoFieldName#>.GetById(id));
         }
     }
 }
@@ -161,7 +57,7 @@ namespace Api
 		<#+
 
 	 CreateDirectoryFullPath(webapiPath);
-	CreateFile(webapiPath + className + "ApiController.cs");
+	CreateFile(webapiPath + helper.Name + "ApiController.cs");
     }
 #>
 

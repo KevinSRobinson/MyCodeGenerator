@@ -41,6 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client .cs">
+      <DependentUpon>Client .tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="DataLayer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -54,6 +59,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Client\Auth0\auth0Service.ttinclude" />
+    <None Include="Client\Auth0\auth0Variables.ttinclude" />
+    <None Include="Client\Auth0\auth0Config.ttinclude" />
     <None Include="DataLayer\Dtos\DtoCommands.ttinclude" />
     <None Include="Settings.ttinclude" />
     <None Include="Client\app.ttinclude" />
@@ -107,6 +115,10 @@
     <Content Include="AngularGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AngularGenerator.js</LastGenOutput>
+    </Content>
+    <Content Include="Client .tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Client .cs</LastGenOutput>
     </Content>
     <Content Include="WebApis.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

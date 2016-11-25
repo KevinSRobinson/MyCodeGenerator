@@ -1,13 +1,17 @@
 ﻿
 <#+ 
-    const string basePath= "C:/Repos/CodeGenerator/";
-    string dtosReposPath = basePath + "/Dtos/DtoRepos/";
-    string dtosPath = "C:/Repos/CodeGenerator/Dtos/";
-    string unitOfWorkPath = "C:/Repos/CodeGenerator/Repositories/";
+    const string applicationName = "Contacts";
+    const string applicationAuthor = "Kevin Robinson";
 
+
+    const string basePath= "C:/Repos/CodeGenerator/";
+    const string dtosReposPath = basePath + "/Dtos/DtoRepos/";
+    const string dtosPath = "C:/Repos/CodeGenerator/Dtos/";
+    const string unitOfWorkPath = "C:/Repos/CodeGenerator/Repositories/";
+    const string clientAppPath = basePath + "Web/App/Src/";
     const string repositoriesPath = basePath + "Repositories/";
 
-    string efContext = "SamepleDbContext"; 
+    string efContext = "SampleDbContext"; 
     string dataContextNamespace = "Data";
 #>
 

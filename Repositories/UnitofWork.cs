@@ -26,9 +26,9 @@ IContactRepository Contacts{ get;}
 
 public class UnitOfWork : IUnitOfWork
 {
-    private SamepleDbContext _context;
+    private SampleDbContext _context;
 
-    public UnitOfWork(SamepleDbContext context)
+    public UnitOfWork(SampleDbContext context)
     {
         _context = context;
     }
@@ -36,7 +36,7 @@ public class UnitOfWork : IUnitOfWork
 	//Delete this default constructor if using an IoC container
 	public UnitOfWork()
 	{
-		_context = new SamepleDbContext();
+		_context = new SampleDbContext();
 	}
 	
    

@@ -1,11 +1,9 @@
-﻿
-<#+  void GenerateBowerFile(){  #>
 		
 
 {
-  "name": "<#=applicationName#>,
+  "name": "Contacts,
   "version": "0.0.1",
-  "author": <#=applicationAuthor#>,
+  "author": Kevin Robinson,
   "devDependencies": {
     "auth0-lock": "10.2.2",
     "angular-jwt": ">= 0.1.3",
@@ -47,8 +45,4 @@
 
 
 		
-		<#+
-
-	  CreateFile(clientAppPath + "bower.json");
-	}	
-#>
+		

@@ -59,7 +59,8 @@ namespace Dto.DtoRepos
                    var Organisations = _unitOfWork.Organisations.GetAll();
                    var results =  Organisations.Select(x => new OrganisationDto()
                     {
-					    Name = x.Name,
+					    Id = x.Id,
+Name = x.Name,
           
                     });
                     return results;

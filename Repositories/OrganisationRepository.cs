@@ -5,9 +5,9 @@ using Data;
 
 public class OrganisationRepository : Repository<Organisation>, IOrganisationRepository
 {
-    private SamepleDbContext _context;
+    private SampleDbContext _context;
 
-    public OrganisationRepository(SamepleDbContext context) : base(context)
+    public OrganisationRepository(SampleDbContext context) : base(context)
     {
         _context = context;
     }

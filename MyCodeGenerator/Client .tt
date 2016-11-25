@@ -1,0 +1,38 @@
+<#@ template language="C#" debug="false" hostspecific="true" #>
+<#@ assembly name="System" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+
+
+<#@ include file="General/T4Helper.ttinclude" #>
+
+<#@ include file="Client/app.ttinclude" #>
+<#@ include file="Client/bower.ttinclude" #>
+
+
+<#@ include file="Client/Auth0/auth0Config.ttinclude" #>
+<#@ include file="Client/Auth0/auth0Variables.ttinclude" #>
+<#@ include file="Client/Auth0/auth0Service.ttinclude" #>
+
+
+<#  
+    //Core App
+    this.GenerateAppFile();
+    this.GenerateBowerFile();
+
+    //Auth0 
+    this.GenerateAuth0ConfigFile();
+    this.GenerateAuth0VariablesFile();
+    this.GenerateAuth0Service();
+
+   
+
+
+#>

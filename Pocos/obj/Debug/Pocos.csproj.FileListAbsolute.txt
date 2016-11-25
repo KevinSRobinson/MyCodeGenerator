@@ -1,0 +1,5 @@
+C:\Repos\CodeGenerator\Pocos\bin\Debug\Pocos.dll
+C:\Repos\CodeGenerator\Pocos\bin\Debug\Pocos.pdb
+C:\Repos\CodeGenerator\Pocos\obj\Debug\Pocos.csprojResolveAssemblyReference.cache
+C:\Repos\CodeGenerator\Pocos\obj\Debug\Pocos.dll
+C:\Repos\CodeGenerator\Pocos\obj\Debug\Pocos.pdb

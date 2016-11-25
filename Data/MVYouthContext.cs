@@ -2,26 +2,26 @@
 
 namespace Data
 {
-    public class SamepleDbContext : DbContext
+    public class SampleDbContext : DbContext
     {
-        public SamepleDbContext() : base("DefaultConnection")
+        public SampleDbContext() : base("DefaultConnection")
         {
         }
 
-        public SamepleDbContext(string connectionStrgin)
+        public SampleDbContext(string connectionString)
         {
-            Database.Connection.ConnectionString = connectionStrgin;
+            Database.Connection.ConnectionString = connectionString;
         }
 
-      
-        public DbSet<Organisation> Organisations { get; set; }      
+
+        public DbSet<Organisation> Organisations { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-    
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-         
-          
+
+
         }
     }
 }

@@ -1,5 +1,3 @@
-﻿
-<#+ void GenerateAppFile(){ #>
 
 (function () {
 
@@ -39,8 +37,3 @@
 
 
 
-<#+
-    CreateDirectoryFullPath(clientAppPath);
-    CreateFile(clientAppPath + "app.js");
-	}	
-#>
