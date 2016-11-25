@@ -12,7 +12,7 @@ public class OrganisationRepository : Repository<Organisation>, IOrganisationRep
         _context = context;
     }
 
-    	 
+     
 
  
   
@@ -22,7 +22,7 @@ public class OrganisationRepository : Repository<Organisation>, IOrganisationRep
 public interface IOrganisationRepository : IRepository<Organisation>
 {
     
-    	 
+ 
     
 }
 

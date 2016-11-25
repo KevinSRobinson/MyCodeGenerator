@@ -12,11 +12,11 @@ public class ContactRepository : Repository<Contact>, IContactRepository
         _context = context;
     }
 
-    							   public IEnumerable<Contact> GetByUserId(Guid userId)
-                            {
-                                 return _context.Contacts.Where(x => x.UserId == userId);
-                            }
-						 
+    				public IEnumerable<Contact> GetByUserId(Guid userId)
+                {
+                        return _context.Contacts.Where(x => x.UserId == userId);
+                }
+			 
 
  
   
@@ -26,8 +26,8 @@ public class ContactRepository : Repository<Contact>, IContactRepository
 public interface IContactRepository : IRepository<Contact>
 {
     
-    							   IEnumerable<Contact> GetByUserId(Guid userId);
-						 
+			IEnumerable<Contact> GetByUserId(Guid userId);
+		 
     
 }
 

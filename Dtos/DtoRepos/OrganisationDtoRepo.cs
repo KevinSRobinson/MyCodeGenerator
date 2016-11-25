@@ -10,11 +10,8 @@ namespace Dto.DtoRepos
 {
     public interface IOrganisationDtoRepo
     {
-        IEnumerable<OrganisationDto> GetAllorganisations();
-        IEnumerable<OrganisationDto> GetUserorganisations(Guid id);
-        OrganisationDto Addorganisation(OrganisationDto organisationDto, Guid userId);
-        void Modifyorganisation(OrganisationDto organisationDto);
-        OrganisationDto Getorganisation(int id);
+        OrganisationDto GetById(int id);
+        IEnumerable<OrganisationDto> GetAll();        
     }
 
     public class OrganisationDtoRepo : IOrganisationDtoRepo
@@ -32,37 +29,21 @@ namespace Dto.DtoRepos
             _unitOfWork = unitOfWork;
         }
 
-
-        #region Mappers
-        private void MapOrganisation(ref Organisation Organisation, ref OrganisationDto organisationDto)
-        {
-           	Organisation.Name = organisationDto.Name;
-   
-        }
-
-        private void Maporganisation(ref OrganisationDto organisationDto, ref Organisation organisation)
-        {
-          	organisationDto.Name = organisationDto.Name;
-          
-
-        }
-
-        #endregion 
+      
         
 
 
       #region Public Methods
 
 
-            public OrganisationDto Getorganisation(int id)
+            public OrganisationDto GetById(int id)
             {
                 try
                 {
-                    var Organisation = _unitOfWork.organisations.GetById(id);
-                    var organisationDto = new OrganisationDto();
-                    Maporganisation(ref organisationDto, ref Organisation);
-
-                    return organisationDto;
+                    var Organisation = _unitOfWork.Organisations.GetById(id);
+                    var OrganisationDto = new OrganisationDto();
+                  
+                    return OrganisationDto;
                 }
                 catch (Exception ex)
                 {
@@ -71,14 +52,15 @@ namespace Dto.DtoRepos
             }
 
 
-            public IEnumerable<OrganisationDto> GetAllOrganisations()
+            public IEnumerable<OrganisationDto> GetAll()
             {
                 try
                 {
-                   var Organisations = _unitOfWork.organisations.GetAll();
+                   var Organisations = _unitOfWork.Organisations.GetAll();
                    var results =  Organisations.Select(x => new OrganisationDto()
                     {
 					    Name = x.Name,
+          
                     });
                     return results;
                 }
@@ -88,7 +70,7 @@ namespace Dto.DtoRepos
                 }
             }
      
-
+            
       #endregion 
 
 

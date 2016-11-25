@@ -2,19 +2,12 @@
 <#@ import namespace="System.Collections.Generic" #>
 
 <#+ 
-    public string GetClassName(string className)
-    {
-        string returnString = className.ToLower();
-        returnString = returnString.Replace("_", " ");
-        TextInfo ti = CultureInfo.CurrentCulture.TextInfo;  
-        returnString = ti.ToTitleCase(returnString);
-        returnString = returnString.Replace(" ", "");
-        return returnString;
-    }
+    
 
-    public string GetInterfaceProperty(string className){
-        return "I" + className + "Repository " + className + "s"  + "{get; set;} ";
-    }
+
+    
+   
+    
 
 void GenerateUnitOfWork(string path, List<CodeClass> codeClasses){#>
 using System;
@@ -26,7 +19,7 @@ public interface IUnitOfWork : IDisposable
     <#+
         foreach(CodeClass codeClass in codeClasses)
         {
-            WriteLine(GetInterfaceProperty(codeClass.Name));
+            WriteLine(GetInterfacePropertyName(codeClass.Name, "Repository", true) + GetPropertyGetterSetters(true, false));
         }
 	#>
 
@@ -56,10 +49,10 @@ public class UnitOfWork : IUnitOfWork
 
     foreach(CodeClass codeClass in codeClasses)
     {
-        var repositoryInterfaceName = "I" + codeClass.Name + "Repository";    
+          
     #>
 
-	public <#= repositoryInterfaceName + " " + codeClass.Name +"s"#>
+	public <#= GetInterfacePropertyName(codeClass.Name, "Repository", true)#>
     {
         get { return new <#= codeClass.Name + "Repository" #>(_context); }
     }

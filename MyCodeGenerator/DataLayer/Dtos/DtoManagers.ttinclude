@@ -1,13 +1,21 @@
 ﻿
 <#+ 
-void GenerateDtoRepos(string dotReposPath, CodeClass c) {		
 
 
+    public void WriteSelectMembers(CodeClass codeClass){
+		foreach (CodeElement meb in codeClass.Members) {
+		if (meb.Kind == vsCMElement.vsCMElementProperty) {
+			var prop = meb as CodeProperty;
+				WriteLine(meb.Name  + " = x." + meb.Name + ",");						
+			};			
+		};                        
+    }
 
-var dtoName = GetDtoCamelcaseClassName(c);
-var dtoType = GetDtoClassName(c);
-var className = GetCamelcaseClassName(c);
-var classType = c.Name;
+    void GenerateDtoRepos(string dotReposPath, CodeClass c) {		
+
+    var helper = new CodeClassHelper(c);
+
+
 #>
 
 
@@ -19,105 +27,70 @@ using Data;
 using Dtos;
 namespace Dto.DtoRepos
 {
-    public interface I<#=dtoType#>Repo
+    public interface I<#=helper.DtoName#>Repo
     {
-        IEnumerable<<#=dtoType#>> GetAll<#=className#>s();
-        IEnumerable<<#=dtoType#>> GetUser<#=className#>s(Guid id);
-        <#=dtoType#> Add<#=className#>(<#=dtoType#> <#=dtoName#>, Guid userId);
-        void Modify<#=className#>(<#=dtoType#> <#=dtoName#>);
-        <#=dtoType#> Get<#=className#>(int id);
+        <#=helper.DtoName#> GetById(int id);
+        IEnumerable<<#=helper.DtoName#>> GetAll();        
     }
 
-    public class <#=dtoType#>Repo : I<#=dtoType#>Repo
+    public class <#=helper.DtoName#>Repo : I<#=helper.DtoName#>Repo
     {
         private readonly IUnitOfWork _unitOfWork;
 
 
-        public <#=dtoType#>Repo()
+        public <#=helper.DtoName#>Repo()
         {
             _unitOfWork = new UnitOfWork();
         }
 
-        public <#=dtoType#>Repo(IUnitOfWork unitOfWork)
+        public <#=helper.DtoName#>Repo(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-
-        #region Mappers
-        private void Map<#=classType#>(ref <#=classType#> <#=classType#>, ref <#=dtoType#> <#=dtoName#>)
-        {
-           	<#+ 
-				   foreach (CodeElement meb in c.Members) {
-					if (meb.Kind == vsCMElement.vsCMElementProperty) {
-						var prop = meb as CodeProperty;
-							var type = prop.Type.AsString;
-							WriteLine(classType + "." + meb.Name + " = " + dtoName + "." + meb.Name + ";");						
-						};			
-					};#>   
-        }
-
-        private void Map<#=className#>(ref <#=dtoType#> <#=dtoName#>, ref <#=classType#> <#=className#>)
-        {
-          	<#+ foreach (CodeElement meb in c.Members) {
-					if (meb.Kind == vsCMElement.vsCMElementProperty) {
-						var prop = meb as CodeProperty;
-							var type = prop.Type.AsString;
-							WriteLine(dtoName + "." + meb.Name + " = " + dtoName + "." + meb.Name + ";");						
-						};			
-					};
-            #>          
-
-        }
-
-        #endregion 
+      
         
 
 
       #region Public Methods
 
 
-            public <#=dtoType#> Get<#=className#>(int id)
+            public <#=helper.DtoName#> GetById(int id)
             {
                 try
                 {
-                    var <#=classType#> = _unitOfWork.<#=className#>s.GetById(id);
-                    var <#=dtoName#> = new <#=dtoType#>();
-                    Map<#=className#>(ref <#=dtoName#>, ref <#=classType#>);
-
-                    return <#=dtoName#>;
+                    var <#=helper.Name#> = _unitOfWork.<#=helper.Name#>s.GetById(id);
+                    var <#=helper.DtoName#> = new <#=helper.DtoName#>();
+                  
+                    return <#=helper.DtoName#>;
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Failed to Build Modify <#=dtoType#> ", ex);
+                    throw new Exception("Failed to Build Modify <#=helper.DtoName#> ", ex);
                 }
             }
 
 
-            public IEnumerable<<#=dtoType#>> GetAll<#=classType#>s()
+            public IEnumerable<<#=helper.DtoName#>> GetAll()
             {
                 try
                 {
-                   var <#=classType#>s = _unitOfWork.<#=className#>s.GetAll();
-                   var results =  <#=classType#>s.Select(x => new <#=dtoType#>()
+                   var <#=helper.Name#>s = _unitOfWork.<#=helper.Name#>s.GetAll();
+                   var results =  <#=helper.Name#>s.Select(x => new <#=helper.DtoName#>()
                     {
 					    <#+ 
-				        foreach (CodeElement meb in c.Members) {
-					    if (meb.Kind == vsCMElement.vsCMElementProperty) {
-						    var prop = meb as CodeProperty;
-							    WriteLine(meb.Name  + " = x." + meb.Name + ",");						
-						    };			
-					    };#>
+                            WriteSelectMembers(c);
+                        #>          
                     });
                     return results;
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Failed to Build Add<#=dtoType#> Dto", ex);
+                    throw new Exception("Failed to Build Add<#=helper.DtoName#> Dto", ex);
                 }
             }
      
-
+            
       #endregion 
 
 
@@ -127,7 +100,7 @@ namespace Dto.DtoRepos
 		
 <#+
 	CreateDirectoryFullPath(dotReposPath);  
-	CreateFile(dotReposPath  + classType + "DtoManager.cs");
+	CreateFile(dotReposPath  + helper.DtoName + "Repo.cs");
     }
 #>
 

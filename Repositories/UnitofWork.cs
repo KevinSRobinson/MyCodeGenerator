@@ -17,8 +17,8 @@ using Data;
 public interface IUnitOfWork : IDisposable
 {
    
-    IOrganisationRepository Organisations{get; set;} 
-IContactRepository Contacts{get; set;} 
+    IOrganisationRepository Organisations{ get;}
+IContactRepository Contacts{ get;}
 
 	void Save();
 }

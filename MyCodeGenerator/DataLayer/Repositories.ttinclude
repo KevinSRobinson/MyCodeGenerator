@@ -1,54 +1,55 @@
 ﻿
-<#+    void GenerateRespositories(string repositoriesPath, CodeClass c){
+<#+    
 
-        var dtoName = GetDtoCamelcaseClassName(c);
-        var dtoType = GetDtoClassName(c);
-        var className = c.Name;
-        var classType = GetCamelcaseClassName(c);
+    
+void GenerateRespositories(string repositoriesPath, CodeClass c){
+
+        var helper = new CodeClassHelper(c);
+
 #>
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Data;
 
-public class <#=className#>Repository : Repository<<#=className#>>, I<#=className#>Repository
+public class <#=helper.Name#>Repository : Repository<<#=helper.Name#>>, I<#=helper.Name#>Repository
 {
     private <#=        efContext #> _context;
 
-    public <#=className#>Repository(<#=        efContext#> context) : base(context)
+    public <#=helper.Name#>Repository(<#=        efContext#> context) : base(context)
     {
         _context = context;
     }
 
-    	<#+foreach (CodeElement meb in c.Members) {
-					if (meb.Name == "UserId") { #>
-						   public IEnumerable<<#=className#>> GetByUserId(Guid userId)
-                            {
-                                 return _context.<#=className#>s.Where(x => x.UserId == userId);
-                            }
-						<#+};			
-					};
-        #> 
+    <#+foreach (CodeElement meb in c.Members) {
+		if (meb.Name == "UserId") { #>
+				public IEnumerable<<#=helper.Name#>> GetByUserId(Guid userId)
+                {
+                        return _context.<#=helper.Name#>s.Where(x => x.UserId == userId);
+                }
+			<#+};			
+		};
+    #> 
 
  
   
 }
 
 
-public interface I<#=className#>Repository : IRepository<<#=className#>>
+public interface I<#=helper.Name#>Repository : IRepository<<#=helper.Name#>>
 {
     
-    	<#+foreach (CodeElement meb in c.Members) {
-					if (meb.Name == "UserId") { #>
-						   IEnumerable<<#=className#>> GetByUserId(Guid userId);
-						<#+};			
-					};
-        #> 
+<#+foreach (CodeElement meb in c.Members) {
+	if (meb.Name == "UserId") { #>
+			IEnumerable<<#=helper.Name#>> GetByUserId(Guid userId);
+		<#+};			
+	};
+#> 
     
 }
 
 <#+
  CreateDirectoryFullPath(repositoriesPath);
-	  CreateFile(repositoriesPath + className + "Repository.cs");
+	  CreateFile(repositoriesPath + helper.Name + "Repository.cs");
 	}	
 #>

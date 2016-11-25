@@ -7,10 +7,12 @@ using System.Linq;
 
 public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
+    private readonly <#=efContext#> _context;
     private readonly DbSet<TEntity> _entities;
 
     protected Repository(<#=efContext#> context)
     {
+        _context = context;
         _entities = context.Set<TEntity>();
     }
 

@@ -10,11 +10,8 @@ namespace Dto.DtoRepos
 {
     public interface IContactDtoRepo
     {
-        IEnumerable<ContactDto> GetAllcontacts();
-        IEnumerable<ContactDto> GetUsercontacts(Guid id);
-        ContactDto Addcontact(ContactDto contactDto, Guid userId);
-        void Modifycontact(ContactDto contactDto);
-        ContactDto Getcontact(int id);
+        ContactDto GetById(int id);
+        IEnumerable<ContactDto> GetAll();        
     }
 
     public class ContactDtoRepo : IContactDtoRepo
@@ -32,43 +29,21 @@ namespace Dto.DtoRepos
             _unitOfWork = unitOfWork;
         }
 
-
-        #region Mappers
-        private void MapContact(ref Contact Contact, ref ContactDto contactDto)
-        {
-           	Contact.Id = contactDto.Id;
-Contact.FirstName = contactDto.FirstName;
-Contact.LastName = contactDto.LastName;
-Contact.UserId = contactDto.UserId;
-   
-        }
-
-        private void Mapcontact(ref ContactDto contactDto, ref Contact contact)
-        {
-          	contactDto.Id = contactDto.Id;
-contactDto.FirstName = contactDto.FirstName;
-contactDto.LastName = contactDto.LastName;
-contactDto.UserId = contactDto.UserId;
-          
-
-        }
-
-        #endregion 
+      
         
 
 
       #region Public Methods
 
 
-            public ContactDto Getcontact(int id)
+            public ContactDto GetById(int id)
             {
                 try
                 {
-                    var Contact = _unitOfWork.contacts.GetById(id);
-                    var contactDto = new ContactDto();
-                    Mapcontact(ref contactDto, ref Contact);
-
-                    return contactDto;
+                    var Contact = _unitOfWork.Contacts.GetById(id);
+                    var ContactDto = new ContactDto();
+                  
+                    return ContactDto;
                 }
                 catch (Exception ex)
                 {
@@ -77,17 +52,18 @@ contactDto.UserId = contactDto.UserId;
             }
 
 
-            public IEnumerable<ContactDto> GetAllContacts()
+            public IEnumerable<ContactDto> GetAll()
             {
                 try
                 {
-                   var Contacts = _unitOfWork.contacts.GetAll();
+                   var Contacts = _unitOfWork.Contacts.GetAll();
                    var results =  Contacts.Select(x => new ContactDto()
                     {
 					    Id = x.Id,
 FirstName = x.FirstName,
 LastName = x.LastName,
 UserId = x.UserId,
+          
                     });
                     return results;
                 }
@@ -97,7 +73,7 @@ UserId = x.UserId,
                 }
             }
      
-
+            
       #endregion 
 
 

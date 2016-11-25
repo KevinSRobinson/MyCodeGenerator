@@ -6,7 +6,57 @@
 <#@ import namespace="EnvDTE" #>
 <#@ include file="Settings.ttinclude" #>
 <#+
+    public class CodeClassHelper
+    {
+        private static CodeClass _codeClass;
 
+        public CodeClassHelper(CodeClass codeClass){
+            _codeClass = codeClass;
+        }
+
+        #region Public Properties
+            public string DtoCamelCase {get{
+                return GetDtoCamelcaseClassName(_codeClass);
+            }}
+
+            public string DtoName {get{
+                return GetDtoClassName(_codeClass);
+            }}
+
+            public string Name {get{
+                return _codeClass.Name;
+            }}
+
+            public string CamelCase {
+                get{
+                     return GetCamelcaseClassName(_codeClass);
+             }}
+        #endregion
+
+       
+ 
+        #region Private Methods
+        public string GetDtoClassName(CodeClass codeClass)    {
+   return codeClass.Name + "Dto";
+}
+        private static string GetDtoCamelcaseClassName(CodeClass codeClass)  {
+            return GetCamelcaseClassName(codeClass.Name) + "Dto";
+        }
+        private static string GetCamelcaseClassName(CodeClass codeClass)
+        {
+            return GetCamelcaseClassName(codeClass.Name);
+        }
+        private static string GetCamelcaseClassName(string className)
+        {
+            string returnString = className.ToLower();
+            returnString = Char.ToLowerInvariant(className[0]) + className.Substring(1);
+            return returnString;
+        }
+
+        #endregion
+        
+    
+    }
 public List<CodeClass> GetClasses(){
 		
     IServiceProvider serviceProvider = (IServiceProvider)this.Host;
@@ -173,9 +223,48 @@ public void ProcessContent(string outputFileName, string content)
         return returnString;
     }
 
+     public string GetInterfacePropertyName(string className, string suffix, bool plural){
+        var property = "I" + className + suffix + " " + className;
+        
+        if(plural){
+            property += "s";
+        }
+
+        return property;
+    }
+
+    public string GetPropertyGetterSetters(bool getter, bool setter)
+    {
+        var gettersetter = "{ ";
+
+        if(getter){
+            gettersetter += "get;";
+        }
+        else{
+
+            gettersetter += "set;";
+        }   
+
+
+        gettersetter += "}";
+
+        return gettersetter;
+
+    }
 
     private static string CharToUpper(string input, int position)
     {
         return input.First().ToString().ToUpper() + input.Substring(position+1);
+    }
+
+
+    public string GetClassName(string className)
+    {
+        string returnString = className.ToLower();
+        returnString = returnString.Replace("_", " ");
+        TextInfo ti = CultureInfo.CurrentCulture.TextInfo;  
+        returnString = ti.ToTitleCase(returnString);
+        returnString = returnString.Replace(" ", "");
+        return returnString;
     }
 #>

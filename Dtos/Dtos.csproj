@@ -45,16 +45,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContactDto.cs" />
+    <Compile Include="DtoRepos\ContactDtoRepo.cs" />
+    <Compile Include="DtoRepos\OrganisationDtoRepo.cs" />
+    <Compile Include="OrganisationDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{d147e68b-6468-4298-b4e9-225bf4653083}</Project>
-      <Name>Data</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{D147E68B-6468-4298-B4E9-225BF4653083}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repositories\Repositories.csproj">
+      <Project>{00a685e6-6c3e-4494-8f7b-ac232c8f766c}</Project>
+      <Name>Repositories</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
