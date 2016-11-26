@@ -6,6 +6,13 @@
 <#@ import namespace="EnvDTE" #>
 <#@ include file="Settings.ttinclude" #>
 <#+
+
+
+    public string GetFeaturePath(string name){
+        return clientAppPath + "/Features/" + name + "s/";
+    }
+
+
     public class CodeClassHelper
     {
         private static CodeClass _codeClass;
@@ -25,13 +32,28 @@
                 return GetDtoClassName(_codeClass);
             }}
 
-            public string Name {get{
+
+
+
+
+            public string Plural {get{
+                return _codeClass.Name + "s";
+            }}
+
+            public string Name { get{
                 return _codeClass.Name;
             }}
 
+
+
+            public string CamelCasePlural {
+                get{
+                  return CamelCase + "s";
+             }}
+
             public string CamelCase {
                 get{
-                     return GetCamelcaseClassName(_codeClass);
+                  return GetCamelcaseClassName(_codeClass);
              }}
         #endregion
 

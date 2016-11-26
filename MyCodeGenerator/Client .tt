@@ -13,8 +13,14 @@
 
 <#@ include file="General/T4Helper.ttinclude" #>
 
+
+<#@ include file="Client/IndexPage.ttinclude" #>
 <#@ include file="Client/app.ttinclude" #>
 <#@ include file="Client/bower.ttinclude" #>
+<#@ include file="Client/package.ttinclude" #>
+<#@ include file="Client/Features/routes.ttinclude" #>
+
+<#@ include file="Client/Features/Components/listComponentTemplate.ttinclude" #>
 
 
 <#@ include file="Client/Auth0/auth0Config.ttinclude" #>
@@ -22,10 +28,24 @@
 <#@ include file="Client/Auth0/auth0Service.ttinclude" #>
 
 
+
 <#  
+
+    var classes = GetClasses();
+
+    this.GenerateMainIndexPage(classes);
+
     //Core App
     this.GenerateAppFile();
     this.GenerateBowerFile();
+    this.GeneratePackageJson();
+
+    foreach(var codeClass in classes){
+        this.GeneratRoutes(codeClass);
+        this.GenerateListComponentTemplate(codeClass);
+    }
+
+    
 
     //Auth0 
     this.GenerateAuth0ConfigFile();

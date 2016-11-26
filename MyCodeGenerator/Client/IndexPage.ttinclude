@@ -1,0 +1,60 @@
+﻿<#+ 
+/////////////////////////////////////////////////////
+//Loop Classes and Write out Menu Items For each
+void WriteSideMenuItems(List<CodeClass> codeClasses){
+    foreach(var codeClass in codeClasses)
+    {
+        WriteSideMenuItem(codeClass);
+    }
+}
+
+/////////////////////////////////////////////////////
+//Write out Side Menu Item
+void WriteSideMenuItem(CodeClass codeClass){
+    var c = new CodeClassHelper(codeClass);
+    WriteLine("<li><a ui-sref='" +  c.Plural + "'>" +  c.Plural  + "></a></li>");		
+}
+
+void GenerateMainIndexPage(List<CodeClass> codeClasses){			
+#>		
+
+
+<!doctype html>
+<html lang="en" ng-app="<#=applicationName#>">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><#=applicationTitle#></title>
+</head>
+
+<body>
+    <div class="col-md-3">
+        <ul>
+            <#+WriteSideMenuItems(codeClasses);#>
+        </ul>
+    </div>
+    <div class="col-md-8">
+        <div ui-view></div>
+    </div>
+
+
+    <script src="./dist/bundle.js"></script>
+    <script src="./dist/templateCache.js"></script>
+</body>
+
+</html>
+
+
+
+	
+
+
+
+
+
+<#+
+    CreateDirectoryFullPath(clienBasePath);
+    CreateFile(clienBasePath + "Index.html");
+	}	
+#>

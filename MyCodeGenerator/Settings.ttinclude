@@ -1,6 +1,7 @@
 ﻿
 <#+ 
     const string applicationName = "Contacts";
+    const string applicationTitle = "Sample Contacts";
     const string applicationAuthor = "Kevin Robinson";
 
 
@@ -8,7 +9,9 @@
     const string dtosReposPath = basePath + "/Dtos/DtoRepos/";
     const string dtosPath = "C:/Repos/CodeGenerator/Dtos/";
     const string unitOfWorkPath = "C:/Repos/CodeGenerator/Repositories/";
-    const string clientAppPath = basePath + "Web/App/Src/";
+
+    const string clienBasePath = basePath + "Web/App/";
+    const string clientAppPath = clienBasePath + "Src/";
     const string repositoriesPath = basePath + "Repositories/";
 
     string efContext = "SampleDbContext"; 

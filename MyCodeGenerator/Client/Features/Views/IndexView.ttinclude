@@ -1,0 +1,62 @@
+﻿
+<#+ 
+
+    
+
+
+
+
+
+void GenerateIndexView(CodeClass c){			
+
+
+var helper = new CodeClassHelper(codeClass);
+
+#>		
+
+
+<h1><#=helper.Plural#></h1>
+
+<div class="well">
+    <label for="filter">Filter</label>
+    <input type="text" id="filter" ng-model="filter"/>
+</div>
+
+<table class="table table-striped table-responsive">
+<tr>
+<#+ 
+foreach (CodeElement meb in c.Members) {
+	if (meb.Kind == vsCMElement.vsCMElementProperty) {
+	var prop = meb as CodeProperty;
+		var type = prop.Type.AsString;
+		
+			WriteLine("<th>" + meb.Name + "</th>");		
+
+	};			
+};
+#>
+</tr>
+			
+<#+ 
+	WriteLine("<tr ng-repeat='" + cClassname + " in vm." + cClassname + "s |filter:filter'>");
+	
+
+	
+
+	WriteLine("<td>" + 
+				"<div class='btn btn-primary' ng-click='vm.edit(" + cClassname + ")'>Edit</div>" +
+				" <a class='btn btn-success' ui-sref='client({ id: client.Id })'>Details</a>" +
+			 "</td>");
+	WriteLine("</tr>");
+#>
+</table>
+<div class='btn btn-primary' ng-click='vm.create()'>Create</div>
+<#+
+
+
+CreateDirectoryFullPath(appPath + "Output/app/" + className + "s/Views");
+CreateFile(appPath + "Output/app/" + className + "s/Views/Index.html");
+
+
+}	
+#>

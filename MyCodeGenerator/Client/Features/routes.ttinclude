@@ -1,0 +1,34 @@
+﻿
+<#+ 
+void GeneratRoutes(CodeClass codeClass){ 
+
+var helper = new CodeClassHelper(codeClass);
+#>
+
+
+
+var config = function ($stateProvider, requireLogin) {
+    
+$stateProvider
+    .state("<#=helper.CamelCasePlural#>", {
+        url: "/<#=helper.CamelCasePlural#>",
+        templateUrl: "Index.html"
+    })
+    .state("<#=helper.CamelCase#>", {
+        url: "/<#=helper.CamelCase#>/:id",
+        templateUrl: "Details.html"
+    });
+};
+
+angular.module("<#=applicationName#>").config(config);
+
+
+
+	
+		
+<#+
+
+	 CreateDirectoryFullPath(clientAppPath + helper.Plural);
+	 CreateFile(clientAppPath + helper.Plural + "/routes.js");
+}
+#>

@@ -20,3 +20,5 @@ C:\Repos\CodeGenerator\MyCodeGenerator\bin\Debug\Data.dll
 C:\Repos\CodeGenerator\MyCodeGenerator\bin\Debug\EntityFramework.dll
 C:\Repos\CodeGenerator\MyCodeGenerator\bin\Debug\Data.pdb
 C:\Repos\CodeGenerator\MyCodeGenerator\bin\Debug\EntityFramework.xml
+C:\Repos\CodeGenerator\MyCodeGenerator\bin\Debug\Pocos.dll
+C:\Repos\CodeGenerator\MyCodeGenerator\bin\Debug\Pocos.pdb
