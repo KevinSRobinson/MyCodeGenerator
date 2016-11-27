@@ -1,6 +1,6 @@
 ﻿
 <#+ 
-    const string applicationName = "Contacts";
+    const string applicationName = "contacts";
     const string applicationTitle = "Sample Contacts";
     const string applicationAuthor = "Kevin Robinson";
 

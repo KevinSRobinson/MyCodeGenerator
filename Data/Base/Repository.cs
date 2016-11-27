@@ -17,6 +17,7 @@ namespace Data.Repositories
     {
         private readonly DbSet<TEntity> _entities;
 
+
         protected Repository(SampleDbContext context)
         {
             _entities = context.Set<TEntity>();

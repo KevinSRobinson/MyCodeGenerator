@@ -1,7 +1,3 @@
-﻿
-<#+ 
-  void GenerateGulpFile(){			
-#>
 		var gulp = require("gulp");
 var templateCache = require("gulp-angular-templatecache");
 var webpack = require("gulp-webpack");
@@ -17,7 +13,7 @@ gulp.task("webdriver", function () {
 });
 
 
-gulp.task("default", ["build"]);
+gulp.task("default", ["build", "html-templates", "watch-templates"]);
 
 
 gulp.task("build", function() {
@@ -32,6 +28,7 @@ gulp.task("build", function() {
 var config = {
     srcTemplates:[
         'Features/**/**/**/**/*.html'
+
     ],
     base: function(file) {
         return  file.path.replace(/^.*(\\|\/|\:)/, '');   
@@ -42,11 +39,8 @@ var config = {
 };
 
 
-//////////////////////////////////////////////
-///////////   Templates   //////////////
-///////////////////////////////////////////
 gulp.task("watch-templates", function() {
-    gulp.watch('src/**/*.html', ['html-templates']);
+    gulp.watch('./Features/**/**/**/*.html', ['html-templates']);
 });
 
 gulp.task('html-templates', function() {
@@ -54,6 +48,7 @@ gulp.task('html-templates', function() {
         .pipe(templateCache('templateCache.js', config))
         .pipe(gulp.dest(config.destPartials));
 });
+
 
 
 
@@ -88,9 +83,4 @@ function getProtractorBinary(binaryName){
 
 		
 		
-			<#+
-    CreateDirectoryFullPath(clientAppPath);
-    CreateFile(clientAppPath + "gulpfile.js");
-	}	
-#>
-
+			

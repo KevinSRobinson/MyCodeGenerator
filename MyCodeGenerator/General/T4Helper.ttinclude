@@ -8,8 +8,8 @@
 <#+
 
 
-    public string GetFeaturePath(string name){
-        return clientAppPath + "/Features/" + name + "s/";
+    public string GetFeaturePath(string plural){
+        return clientAppPath + "/Features/" + plural + "/";
     }
 
 
@@ -55,6 +55,41 @@
                 get{
                   return GetCamelcaseClassName(_codeClass);
              }}
+
+
+
+             public string AngularServiceName {
+                get{
+                  return CamelCasePlural + "Service";
+             }}
+             public string AngularModalName {
+                get{
+                  return  CamelCase+ "Modals";
+             }}
+
+
+             
+             //Angular
+             //Components
+             public string AngularListComponentFilePath {
+                get{
+                  return  "/Features/" + Plural + "/Components/" +  Plural + "List/";
+             }}
+             public string AngularListComponentName {
+                get{
+                  return  CamelCase+ "List";
+             }}
+            
+             public string AngularListComponentFileName {
+                get{
+                  return   AngularListComponentName + ".js";
+             }}
+
+             public string AngularListComponentTemplateFileName {
+                get{
+                  return  AngularListComponentName + "Template.html";
+             }}
+
         #endregion
 
        

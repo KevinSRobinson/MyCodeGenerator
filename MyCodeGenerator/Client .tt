@@ -18,10 +18,14 @@
 <#@ include file="Client/app.ttinclude" #>
 <#@ include file="Client/bower.ttinclude" #>
 <#@ include file="Client/package.ttinclude" #>
+<#@ include file="Client/entry.ttinclude" #>
+<#@ include file="Client/WebpackConfig.ttinclude" #>
+<#@ include file="Client/gulp.ttinclude" #>
+
+
 <#@ include file="Client/Features/routes.ttinclude" #>
-
 <#@ include file="Client/Features/Components/listComponentTemplate.ttinclude" #>
-
+<#@ include file="Client/Features/Components/listComponent.ttinclude" #>
 
 <#@ include file="Client/Auth0/auth0Config.ttinclude" #>
 <#@ include file="Client/Auth0/auth0Variables.ttinclude" #>
@@ -38,11 +42,15 @@
     ////Core App
     //this.GenerateAppFile();
     //this.GenerateBowerFile();
-    //this.GeneratePackageJson();
+    this.GeneratePackageJson();
+    this.GenerateEntryFile(classes);
+    this.GeneratWebPackConfig();
+     this.GenerateGulpFile();
 
     foreach(var codeClass in classes){
         //this.GeneratRoutes(codeClass);
         this.GenerateListComponentTemplate(codeClass);
+        this.GenerateListComponent(codeClass);
     }
 
     

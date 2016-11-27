@@ -5,6 +5,19 @@
 
 
 
+void WriteSideMenuItems(CodeClass c){
+    var helper = new CodeClassHelper(c);
+
+    //Loop Members
+    foreach (CodeElement meb in c.Members) {
+
+        //If is a Property
+        if (meb.Kind == vsCMElement.vsCMElementProperty) {
+            WriteLine(String.Format("<li><a ui-sref='{0}'>{0}></a></li>", meb.Plural));                 
+        };
+    }
+}
+
 
 
 void GenerateIndexView(CodeClass c){			

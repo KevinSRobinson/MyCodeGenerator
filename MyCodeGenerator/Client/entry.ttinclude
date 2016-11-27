@@ -1,32 +1,54 @@
 ﻿
 <#+ 
 
-  void GenerateEntryFile(string appPath, string className, string cClassname){				
-		#>
+
+
+	#region Methods
+		/// <summary>
+		/// Writes Out a Require Statement for the Features List Component
+		/// </summary>
+		/// <param name="CodeClassHelper"></param>
+		void WriteOutRequireComponent(string plural, string path, string fileName){
 		
+			WriteLine(String.Format("\r \r ////////{0}////////", plural));
 
-//routes
-require("./routes.js");
+        WriteLine(String.Format("require('.{0}{1}');", path, fileName));
+		}
 
-//modals
-require("./Modals/Controllers/modify<#=className#>Controller.js");
-require("./Modals/Services/<#=cClassname#>ModalService.js");
+	#endregion
+	
 
-//controllers
-require("./Controllers/<#=cClassname#>DetailsController.js");
-require("./Controllers/<#=cClassname#>Controller.js");
 
-//Services
-require("./Services/<#=cClassname#>Services.js");
+
+
+
+void GenerateEntryFile( List<CodeClass> codeClasses){ #>
+
+require("angular");
+require('angular-ui-router');
+require("angular-ui-bootstrap");
+require("jquery");
+require("./node_modules/font-awesome/css/font-awesome.min.css");
+require("./node_modules/rdash-ui/dist/css/rdash.min.css");
+
+require("./app.js");
+
+<#+
+	foreach(CodeClass codeClass in codeClasses)
+	{
+		var helper = new CodeClassHelper(codeClass);
+		WriteOutRequireComponent(helper.Plural, helper.AngularListComponentFilePath, helper.AngularListComponentFileName);
+	}
+#>		
+
+
+
+
 		
-//Components
-require("./Components/<#=cClassname#>List.js");
-
-
 		
-		<#+
-
-	CreateFile(appPath + "Output/app/" + className + "s/entry.js");
-
+	
+		
+<#+
+	  CreateFile(clientAppPath + "entry.js");
 	}	
 #>

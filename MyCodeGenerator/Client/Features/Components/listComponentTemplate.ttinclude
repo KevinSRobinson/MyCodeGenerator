@@ -96,10 +96,8 @@
 
 <#+
     
-    var path= GetFeaturePath( helper.Name ) + "/Components/" +  helper.Name + "List/";
-  
-	CreateDirectoryFullPath(path);
-	CreateFile(path + helper.CamelCase + "ListTemplate.html");
+   CreateDirectoryFullPath(clientAppPath + helper.AngularListComponentFilePath);
+	CreateFile(clientAppPath + helper.AngularListComponentFilePath + helper.AngularListComponentTemplateFileName);
 }	
 #>
 

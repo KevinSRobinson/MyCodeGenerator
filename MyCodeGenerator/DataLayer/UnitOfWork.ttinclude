@@ -4,11 +4,6 @@
 <#+ 
     
 
-
-    
-   
-    
-
 void GenerateUnitOfWork(string path, List<CodeClass> codeClasses){#>
 using System;
 using Data;

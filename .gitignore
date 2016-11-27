@@ -6,3 +6,5 @@ Data/bin/
 Data/Migrations/
 packages/
 Web/bin/
+Web/App/Src/node_modules/
+Web/App/Src/dist/

@@ -1,5 +1,3 @@
-﻿
-<#+   void GeneratWebPackConfig() {	#>
 		
 'use strict';
 var buildPath = require('path').resolve(__dirname, 'build');
@@ -65,9 +63,4 @@ module.exports = config;
 
 
 		
-	<#+
-    CreateDirectoryFullPath(clientAppPath);
-    CreateFile(clientAppPath + "webpack.config.js");
-	}	
-#>
-
+	
