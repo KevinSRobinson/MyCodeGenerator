@@ -32,25 +32,25 @@
 <#  
 
     var classes = GetClasses();
-
-    this.GenerateMainIndexPage(classes);
-
-    //Core App
-    this.GenerateAppFile();
-    this.GenerateBowerFile();
-    this.GeneratePackageJson();
+//
+    //this.GenerateMainIndexPage(classes);
+//
+    ////Core App
+    //this.GenerateAppFile();
+    //this.GenerateBowerFile();
+    //this.GeneratePackageJson();
 
     foreach(var codeClass in classes){
-        this.GeneratRoutes(codeClass);
+        //this.GeneratRoutes(codeClass);
         this.GenerateListComponentTemplate(codeClass);
     }
 
     
 
-    //Auth0 
-    this.GenerateAuth0ConfigFile();
-    this.GenerateAuth0VariablesFile();
-    this.GenerateAuth0Service();
+    ////Auth0 
+    //this.GenerateAuth0ConfigFile();
+    //this.GenerateAuth0VariablesFile();
+    //this.GenerateAuth0Service();
 
    
 
