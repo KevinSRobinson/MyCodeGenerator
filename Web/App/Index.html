@@ -1,5 +1,33 @@
-﻿<!doctype html>
-<html lang="en" ng-app="Contacts">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+<!doctype html>
+<html lang="en" ng-app="contacts">
 
 <head>
     <meta charset="UTF-8">
@@ -10,8 +38,9 @@
 <body>
     <div class="col-md-3">
         <ul>
-            <li><a ui-sref='Organisations'>Organisations></a></li>
-            <li><a ui-sref='Contacts'>Contacts></a></li>
+                <a ui-sref="Contacts" href="#Contacts">About Us</a>
+             <a ui-sref="Contacts">Clients <span class="menu-icon fa fa-table"></span></a>
+            <li><a href='#Contacts'>Contacts</a></li>
         </ul>
     </div>
     <div class="col-md-8">
@@ -19,7 +48,8 @@
     </div>
 
 
-    <script src="src/dist/bundle.js"></script>
+    <script src="./src/dist/bundle.js"></script>
+    <script src="./src/dist/templateCache.js"></script>
 </body>
 
 </html>

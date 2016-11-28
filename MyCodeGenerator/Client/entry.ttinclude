@@ -4,15 +4,32 @@
 
 
 	#region Methods
+        
+        /// <summary>
+		/// Writes Out a Require Statement for the Features List Component
+		/// </summary>
+		/// <param name="CodeClassHelper"></param>
+		void WriteOutCommentHeading(string plural){
+		
+			WriteLine(String.Format("\r \r ////////{0}////////", plural));
+
+		}
+
+        ///<summary>
+		/// Writes Out a Require Statement for the Features List Component
+		/// </summary>
+		/// <param name="CodeClassHelper"></param>
+		void WriteOutRequireRoutes(string path){
+		
+		      WriteLine(String.Format("require('.{0}{1}');", path, "routes.js"));
+		}
+
 		/// <summary>
 		/// Writes Out a Require Statement for the Features List Component
 		/// </summary>
 		/// <param name="CodeClassHelper"></param>
 		void WriteOutRequireComponent(string plural, string path, string fileName){
-		
-			WriteLine(String.Format("\r \r ////////{0}////////", plural));
-
-        WriteLine(String.Format("require('.{0}{1}');", path, fileName));
+		    WriteLine(String.Format("require('.{0}{1}');", path, fileName));
 		}
 
 	#endregion
@@ -37,7 +54,14 @@ require("./app.js");
 	foreach(CodeClass codeClass in codeClasses)
 	{
 		var helper = new CodeClassHelper(codeClass);
+        
+        WriteOutCommentHeading(helper.Plural);
+        
+        WriteOutRequireRoutes(helper.AngularFeaturePath);
+
 		WriteOutRequireComponent(helper.Plural, helper.AngularListComponentFilePath, helper.AngularListComponentFileName);
+
+
 	}
 #>		
 

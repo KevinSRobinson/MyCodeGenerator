@@ -97,7 +97,7 @@
 <#+
     
    CreateDirectoryFullPath(clientAppPath + helper.AngularListComponentFilePath);
-	CreateFile(clientAppPath + helper.AngularListComponentFilePath + helper.AngularListComponentTemplateFileName);
+CreateFile(clientAppPath + helper.AngularListComponentFilePath + helper.AngularListComponentTemplateFileName);
 }	
 #>
 

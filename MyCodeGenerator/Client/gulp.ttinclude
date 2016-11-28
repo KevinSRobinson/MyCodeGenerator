@@ -2,7 +2,7 @@
 <#+ 
   void GenerateGulpFile(){			
 #>
-		var gulp = require("gulp");
+				var gulp = require("gulp");
 var templateCache = require("gulp-angular-templatecache");
 var webpack = require("gulp-webpack");
 var open = require('gulp-open');
@@ -17,7 +17,8 @@ gulp.task("webdriver", function () {
 });
 
 
-gulp.task("default", ["build"]);
+
+gulp.task("default", ["build", "html-templates", "watch-templates"]);
 
 
 gulp.task("build", function() {
@@ -36,9 +37,8 @@ var config = {
     base: function(file) {
         return  file.path.replace(/^.*(\\|\/|\:)/, '');   
     },
-    standalone: false,
-    destPartials: 'dist/',
-    module: "app"
+    destPartials: './dist/',
+    module: "<#=applicationName#>"
 };
 
 
@@ -85,6 +85,10 @@ function getProtractorBinary(binaryName){
     var protractorDir = path.resolve(path.join(path.dirname(pkgPath), '..', 'bin'));
     return path.join(protractorDir, '/'+binaryName+winExt);
 }
+
+		
+		
+			
 
 		
 		

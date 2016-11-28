@@ -12,7 +12,7 @@ void WriteSideMenuItems(List<CodeClass> codeClasses){
 //Write out Side Menu Item
 void WriteSideMenuItem(CodeClass codeClass){
     var c = new CodeClassHelper(codeClass);
-    WriteLine("<li><a ui-sref='" +  c.Plural + "'>" +  c.Plural  + "></a></li>");		
+    WriteLine("<li><a href='#" +  c.Plural + "'>" +  c.Plural  + "</a></li>");		
 }
 
 void GenerateMainIndexPage(List<CodeClass> codeClasses){			
@@ -39,8 +39,8 @@ void GenerateMainIndexPage(List<CodeClass> codeClasses){
     </div>
 
 
-    <script src="./dist/bundle.js"></script>
-    <script src="./dist/templateCache.js"></script>
+    <script src="./src/dist/bundle.js"></script>
+    <script src="./src/dist/templateCache.js"></script>
 </body>
 
 </html>

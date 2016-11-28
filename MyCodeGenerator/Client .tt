@@ -24,6 +24,7 @@
 
 
 <#@ include file="Client/Features/routes.ttinclude" #>
+<#@ include file="Client/Features/Views/IndexView.ttinclude" #>
 <#@ include file="Client/Features/Components/listComponentTemplate.ttinclude" #>
 <#@ include file="Client/Features/Components/listComponent.ttinclude" #>
 
@@ -37,10 +38,10 @@
 
     var classes = GetClasses();
 //
-    //this.GenerateMainIndexPage(classes);
+    this.GenerateMainIndexPage(classes);
 //
     ////Core App
-    //this.GenerateAppFile();
+    this.GenerateAppFile();
     //this.GenerateBowerFile();
     this.GeneratePackageJson();
     this.GenerateEntryFile(classes);
@@ -48,7 +49,8 @@
      this.GenerateGulpFile();
 
     foreach(var codeClass in classes){
-        //this.GeneratRoutes(codeClass);
+        this.GeneratRoutes(codeClass);
+        this.GenerateIndexView(codeClass);
         this.GenerateListComponentTemplate(codeClass);
         this.GenerateListComponent(codeClass);
     }

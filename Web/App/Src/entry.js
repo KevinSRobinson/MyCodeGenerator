@@ -9,9 +9,11 @@ require("./node_modules/rdash-ui/dist/css/rdash.min.css");
 require("./app.js");
 
   ////////Organisations////////
-require('./Features/Organisations/Components/OrganisationsList/organisationList.js');
+require('./Features/Organisations/routes.js');
+require('./Features/Organisations/Components/OrganisationsList/organisationsList.js');
   ////////Contacts////////
-require('./Features/Contacts/Components/ContactsList/contactList.js');
+require('./Features/Contacts/routes.js');
+require('./Features/Contacts/Components/ContactsList/contactsList.js');
 		
 
 

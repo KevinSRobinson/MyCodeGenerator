@@ -20,7 +20,7 @@
 * @desc The siteLanguageServices provides information about available languges
 * of a site.  
 */
-var <#=helper.CamelCase#>List = {
+var <#=helper.CamelCasePlural#>List = {
 bindings: {
 	allowChanges: "@"
 },
@@ -70,7 +70,7 @@ controller: function (<#=helper.AngularServiceName#>, <#=helper.AngularModalName
 }
 
 
-angular.module("app").component("<#=helper.CamelCasePlural#>List", <#=helper.CamelCasePlural#>List);
+angular.module("<#=applicationName#>").component("<#=helper.CamelCasePlural#>List", <#=helper.CamelCasePlural#>List);
 
 
 

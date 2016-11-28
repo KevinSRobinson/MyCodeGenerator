@@ -71,13 +71,26 @@
              
              //Angular
              //Components
+
+             public string AngularFeaturePath{
+                get{
+                  return  "/Features/" + Plural + "/";
+             }}
+             public string AngularViewsPath {
+                get{
+                  return AngularFeaturePath + "/Views/";
+             }}
+             public string AngularIndexViewFileName {
+                get{
+                  return CamelCasePlural + "Index.html";
+             }}
              public string AngularListComponentFilePath {
                 get{
                   return  "/Features/" + Plural + "/Components/" +  Plural + "List/";
              }}
              public string AngularListComponentName {
                 get{
-                  return  CamelCase+ "List";
+                  return  CamelCasePlural + "List";
              }}
             
              public string AngularListComponentFileName {

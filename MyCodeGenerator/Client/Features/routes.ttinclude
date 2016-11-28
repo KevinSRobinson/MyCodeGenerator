@@ -7,28 +7,22 @@ var helper = new CodeClassHelper(codeClass);
 
 
 
-var config = function ($stateProvider, requireLogin) {
+var config = function ($stateProvider) {
     
 $stateProvider
     .state("<#=helper.CamelCasePlural#>", {
         url: "/<#=helper.CamelCasePlural#>",
-        templateUrl: "Index.html"
+        templateUrl: "<#=helper.AngularIndexViewFileName#>"
     })
-    .state("<#=helper.CamelCase#>", {
-        url: "/<#=helper.CamelCase#>/:id",
-        templateUrl: "Details.html"
-    });
 };
 
 angular.module("<#=applicationName#>").config(config);
 
 
-
-	
 		
 <#+
 
-	 CreateDirectoryFullPath(clientAppPath + helper.Plural);
-	 CreateFile(clientAppPath + helper.Plural + "/routes.js");
+	 CreateDirectoryFullPath(clientAppPath + helper.AngularFeaturePath);
+	 CreateFile(clientAppPath + helper.AngularFeaturePath + "/routes.js");
 }
 #>

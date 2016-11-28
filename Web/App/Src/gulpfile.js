@@ -1,4 +1,4 @@
-		var gulp = require("gulp");
+				var gulp = require("gulp");
 var templateCache = require("gulp-angular-templatecache");
 var webpack = require("gulp-webpack");
 var open = require('gulp-open');
@@ -11,6 +11,7 @@ gulp.task("webdriver", function () {
     shell.task([
         "webdriver-manager start"]);
 });
+
 
 
 gulp.task("default", ["build", "html-templates", "watch-templates"]);
@@ -28,19 +29,20 @@ gulp.task("build", function() {
 var config = {
     srcTemplates:[
         'Features/**/**/**/**/*.html'
-
     ],
     base: function(file) {
         return  file.path.replace(/^.*(\\|\/|\:)/, '');   
     },
-    standalone: false,
-    destPartials: 'dist/',
-    module: "app"
+    destPartials: './dist/',
+    module: "contacts"
 };
 
 
+//////////////////////////////////////////////
+///////////   Templates   //////////////
+///////////////////////////////////////////
 gulp.task("watch-templates", function() {
-    gulp.watch('./Features/**/**/**/*.html', ['html-templates']);
+    gulp.watch('src/**/*.html', ['html-templates']);
 });
 
 gulp.task('html-templates', function() {
@@ -48,7 +50,6 @@ gulp.task('html-templates', function() {
         .pipe(templateCache('templateCache.js', config))
         .pipe(gulp.dest(config.destPartials));
 });
-
 
 
 
@@ -80,6 +81,10 @@ function getProtractorBinary(binaryName){
     var protractorDir = path.resolve(path.join(path.dirname(pkgPath), '..', 'bin'));
     return path.join(protractorDir, '/'+binaryName+winExt);
 }
+
+		
+		
+			
 
 		
 		

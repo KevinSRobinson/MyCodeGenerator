@@ -10,12 +10,12 @@
 * @desc The siteLanguageServices provides information about available languges
 * of a site.  
 */
-var contactList = {
+var contactsList = {
 bindings: {
 	allowChanges: "@"
 },
 controllerAs: "vm",
-templateUrl: "contactList.jsListTemplate",
+templateUrl: "contactsList.jsListTemplate",
 controller: function (contactsService, contactModals) {
     var vm = this;
     vm.error = {};
@@ -60,7 +60,7 @@ controller: function (contactsService, contactModals) {
 }
 
 
-angular.module("app").component("contactsList", contactsList);
+angular.module("contacts").component("contactsList", contactsList);
 
 
 
