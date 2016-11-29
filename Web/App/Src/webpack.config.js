@@ -18,6 +18,11 @@ var config = {
     module: {
         loaders: [
             {
+      test: /\.js$/,
+      exclude: /(node_modules|bower_components)/,
+      loader: 'babel'
+    },
+            {
                 test: /\.(jpe?g|png|gif|svg|woff|woff2|eot|ttf)(\?v=[0-9].[0-9].[0-9])?$/,
                 loader: 'file?name=/fonts/[sha512:hash:base64:7].[ext]',
                 exclude: /node_modules\/(?!font-awesome)/
@@ -49,6 +54,7 @@ var config = {
     },
     plugins: [
         new webpack.ProvidePlugin({
+             "window.Auth0Lock": "auth0-lock",
             "$": "jquery",
             "jQuery": "jquery",
             "window.jQuery": "jquery",

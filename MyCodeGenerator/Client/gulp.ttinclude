@@ -24,7 +24,7 @@ gulp.task("default", ["build", "html-templates", "watch-templates"]);
 gulp.task("build", function() {
     return gulp.src("entry.js")
         .pipe(webpack( require("./webpack.config.js") ))
-        .pipe(gulp.dest("./dist"));
+        .pipe(gulp.dest("../dist"));
 });
 
 
@@ -37,7 +37,7 @@ var config = {
     base: function(file) {
         return  file.path.replace(/^.*(\\|\/|\:)/, '');   
     },
-    destPartials: './dist/',
+    destPartials: '../dist/',
     module: "<#=applicationName#>"
 };
 

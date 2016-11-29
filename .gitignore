@@ -8,3 +8,5 @@ packages/
 Web/bin/
 Web/App/Src/node_modules/
 Web/App/Src/dist/
+Web/App/Src/electron/node_modules/
+Web/App/Src/bower_components/

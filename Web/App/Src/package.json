@@ -1,8 +1,12 @@
-	{
+{
   "name": "contacts",
   "version": "0.0.2",
   "author": "Kevin Robinson",
   "devDependencies": {
+    "auth0-angular": "^4.2.7",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-preset-es2015": "^6.18.0",
     "bower": "^1.3.9",
     "css-loader": "^0.26.0",
     "file-loader": "^0.9.0",
@@ -24,8 +28,11 @@
     "webpack": "^1.13.3"
   },
   "dependencies": {
+    "angular-lock": "^1.0.5",
+    "auth0-lock": "^10.7.1",
     "angular": "^1.5.9",
     "angular-cookies": "^1.5.9",
+    "angular-jwt": "^0.1.8",
     "angular-ui-bootstrap": "^2.2.0",
     "angular-ui-router": "^0.3.2",
     "bootstrap": "~3.2.0",
@@ -33,7 +40,3 @@
     "rdash-ui": "^1.0.1"
   }
 }
-
-
-
-		

@@ -1,0 +1,63 @@
+﻿
+<#+ 
+
+  void GenerateAngularService(CodeClass codeClass){	
+
+
+  var helper = new CodeClassHelper(codeClass);
+
+
+#>
+		
+var <#=helper.AngularServiceName#> = function() {
+	
+    var apiBase = "/Api/<#=helper.Plural#>/";
+
+
+    var getAll = function(){
+		return $http.get(apiBase);
+	};
+
+    var getById = function(id) {
+		return $http.get(apiBase + id);
+	};
+
+    var modify = function(<#=helper.CamelCase#>) {
+
+        var url = "";
+
+        if(<#=helper.CamelCase#>.Id !== undefined)
+            url = apiBase + "Update";
+        else
+            url = apiBase + "Add";
+        
+
+        return $http.post(url, <#=helper.CamelCase#>);
+    };    
+
+    var del = function( <#=helper.CamelCase#>) {
+		return $http.post(apiBase + "Delete", <#=helper.CamelCase#>);
+	};
+
+    return {
+	    GetAll : getAll,
+	    GetById : getById,
+	    Modify : modify,
+	    Delete : del
+    };
+};
+	
+
+angular.module("<#=applicationName#>").factory("<#=helper.AngularServiceName#>", <#=helper.AngularServiceName#>);
+
+
+	
+		
+			<#+
+    
+  
+  
+	CreateDirectoryFullPath(dataServicesAppPath);
+	CreateFile(dataServicesAppPath + helper.AngularServiceFileName);
+}	
+#>

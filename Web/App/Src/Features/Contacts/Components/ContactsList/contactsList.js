@@ -16,7 +16,7 @@ bindings: {
 },
 controllerAs: "vm",
 templateUrl: "contactsListTemplate.html",
-controller: function (contactsService, contactModals) {
+controller: function (contactsService) {
     var vm = this;
     vm.error = {};
     vm.contacts = [];
@@ -37,23 +37,7 @@ controller: function (contactsService, contactModals) {
 	
 
 
-    //////////////////////
-    //Modals
-    vm.create = function(){
-        var modal = contactModals.AddContact();
-        modal.result.then(function(response){
-	        vm.contacts.push(response);
-        });
-    };
-
-    vm.edit = function(contacts){
-        contacts.Edit(contact);
-    };
-
-    vm.view = function(contacts){
-		contactModals.View(contact);
-	};
-
+   
     vm.init();
 
     }
