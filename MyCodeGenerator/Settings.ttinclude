@@ -4,6 +4,7 @@
     const string applicationTitle = "Sample Contacts";
     const string applicationAuthor = "Kevin Robinson";
 
+    const string nodeServerPort = "8989";
 
     const string basePath= "C:/Repos/CodeGenerator/";
     const string dtosReposPath = basePath + "/Dtos/DtoRepos/";

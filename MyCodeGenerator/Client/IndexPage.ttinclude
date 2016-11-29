@@ -39,8 +39,8 @@ void GenerateMainIndexPage(List<CodeClass> codeClasses){
     </div>
 
 
-    <script src="./src/dist/bundle.js"></script>
-    <script src="./src/dist/templateCache.js"></script>
+    <script src="./dist/bundle.js"></script>
+    <script src="./dist/templateCache.js"></script>
 </body>
 
 </html>

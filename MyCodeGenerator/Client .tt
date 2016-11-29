@@ -15,7 +15,11 @@
 
 
 <#@ include file="Client/IndexPage.ttinclude" #>
+
+
 <#@ include file="Client/app.ttinclude" #>
+<#@ include file="Client/nodeServer.ttinclude" #>
+
 <#@ include file="Client/bower.ttinclude" #>
 <#@ include file="Client/package.ttinclude" #>
 <#@ include file="Client/entry.ttinclude" #>
@@ -42,6 +46,7 @@
 //
     ////Core App
     this.GenerateAppFile();
+    this.GenerateNodeJsSeverAppFile();
     //this.GenerateBowerFile();
     this.GeneratePackageJson();
     this.GenerateEntryFile(classes);
