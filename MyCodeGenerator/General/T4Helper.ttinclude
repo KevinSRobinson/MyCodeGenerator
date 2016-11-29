@@ -58,10 +58,7 @@
 
 
 
-             public string AngularServiceName {
-                get{
-                  return CamelCasePlural + "Service";
-             }}
+            
              public string AngularModalName {
                 get{
                   return  CamelCase+ "Modals";
@@ -92,16 +89,16 @@
                 get{
                   return  CamelCasePlural + "List";
              }}
-            
-             public string AngularListComponentFileName {
-                get{
-                  return   AngularListComponentName + ".js";
-             }}
 
-             public string AngularListComponentTemplateFileName {
-                get{
-                  return  AngularListComponentName + "Template.html";
-             }}
+
+
+            //Data Services
+            public string AngularServiceName { get{ return CamelCasePlural + "Service"; }}
+            public string AngularServiceFileName { get{ return AngularServiceName  + ".js"; }}
+
+            //List Component      
+            public string AngularListComponentFileName { get{ return   AngularListComponentName + ".js";}}
+            public string AngularListComponentTemplateFileName { get{ return  AngularListComponentName + "Template.html";}}
 
         #endregion
 

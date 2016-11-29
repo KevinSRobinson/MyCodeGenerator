@@ -15,10 +15,18 @@
 
 		}
 
+
+        
+        ///<summary>
+		/// Writes Out a Require Statement for the DataService
+		/// </summary>
+		void WriteOutRequireDataService(string name, string filename ){		
+		      WriteLine(String.Format("require('./DataServices/{1}');", name, filename));
+		}
+
         ///<summary>
 		/// Writes Out a Require Statement for the Features List Component
 		/// </summary>
-		/// <param name="CodeClassHelper"></param>
 		void WriteOutRequireRoutes(string path){
 		
 		      WriteLine(String.Format("require('.{0}{1}');", path, "routes.js"));
@@ -57,6 +65,8 @@ require("./app.js");
         
         WriteOutCommentHeading(helper.Plural);
         
+        WriteOutRequireDataService(helper.Name, helper.AngularServiceFileName);
+
         WriteOutRequireRoutes(helper.AngularFeaturePath);
 
 		WriteOutRequireComponent(helper.Plural, helper.AngularListComponentFilePath, helper.AngularListComponentFileName);

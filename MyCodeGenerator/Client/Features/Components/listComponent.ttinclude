@@ -5,7 +5,7 @@
 
         var helper = new CodeClassHelper(codeClass);
 
-        var serviceName = helper.CamelCasePlural + "Service";
+      
 
  #>
 		
@@ -13,7 +13,7 @@
 /**
 * @memberof app
 * @ngdoc service
-* @name <#=serviceName#>
+* @name <#=helper.CamelCasePlural#>
 * @param {$http} Test
 * @property {object} obj property of this service
 * @ngInject
@@ -25,7 +25,7 @@ bindings: {
 	allowChanges: "@"
 },
 controllerAs: "vm",
-templateUrl: "<#=helper.AngularListComponentFileName#>ListTemplate",
+templateUrl: "<#=helper.AngularListComponentTemplateFileName#>",
 controller: function (<#=helper.AngularServiceName#>, <#=helper.AngularModalName#>) {
     var vm = this;
     vm.error = {};

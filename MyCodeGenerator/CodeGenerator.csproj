@@ -66,7 +66,7 @@
     <None Include="DataLayer\Dtos\DtoCommands.ttinclude" />
     <None Include="Settings.ttinclude" />
     <None Include="Client\app.ttinclude" />
-    <None Include="Client\DataServices\angularServices.ttinclude" />
+    <None Include="Client\angularServices.ttinclude" />
     <None Include="Client\bower.ttinclude" />
     <None Include="Client\bowerrc.ttinclude" />
     <None Include="Client\Features\Components\listComponent.ttinclude" />
@@ -133,7 +133,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Client\DataServices\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{d147e68b-6468-4298-b4e9-225bf4653083}</Project>

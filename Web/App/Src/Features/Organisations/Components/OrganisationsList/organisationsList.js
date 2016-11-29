@@ -3,7 +3,7 @@
 /**
 * @memberof app
 * @ngdoc service
-* @name organisationsService
+* @name organisations
 * @param {$http} Test
 * @property {object} obj property of this service
 * @ngInject
@@ -15,7 +15,7 @@ bindings: {
 	allowChanges: "@"
 },
 controllerAs: "vm",
-templateUrl: "organisationsList.jsListTemplate",
+templateUrl: "organisationsListTemplate.html",
 controller: function (organisationsService, organisationModals) {
     var vm = this;
     vm.error = {};

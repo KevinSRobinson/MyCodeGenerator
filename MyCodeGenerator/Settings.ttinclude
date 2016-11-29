@@ -7,14 +7,16 @@
     const string nodeServerPort = "8989";
 
     const string basePath= "C:/Repos/CodeGenerator/";
+    
     const string dtosReposPath = basePath + "/Dtos/DtoRepos/";
     const string dtosPath = "C:/Repos/CodeGenerator/Dtos/";
     const string unitOfWorkPath = "C:/Repos/CodeGenerator/Repositories/";
 
     const string clienBasePath = basePath + "Web/App/";
     const string clientAppPath = clienBasePath + "Src/";
+    const string dataServicesAppPath = clientAppPath + "DataServices/";
     const string repositoriesPath = basePath + "Repositories/";
-
+    
     string efContext = "SampleDbContext"; 
     string dataContextNamespace = "Data";
 #>
