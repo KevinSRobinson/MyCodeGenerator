@@ -12,7 +12,7 @@ void WriteSideMenuItems(List<CodeClass> codeClasses){
 //Write out Side Menu Item
 void WriteSideMenuItem(CodeClass codeClass){
     var c = new CodeClassHelper(codeClass);
-    WriteLine("<li><a href='#" +  c.Plural + "'>" +  c.Plural  + "</a></li>");		
+    WriteLine("<li><a ui-sref='" +  c.CamelCasePlural + "'>" +  c.Plural  + "</a></li>");		
 }
 
 void GenerateMainIndexPage(List<CodeClass> codeClasses){			
@@ -55,6 +55,6 @@ void GenerateMainIndexPage(List<CodeClass> codeClasses){
 
 <#+
     CreateDirectoryFullPath(clienBasePath);
-    CreateFile(clienBasePath + "Index.html");
+    CreateFile(clienBasePath + "Src/Index.html");
 	}	
 #>
