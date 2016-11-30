@@ -28,7 +28,7 @@ gulp.task("build", function() {
 
 var config = {
     srcTemplates:[
-        'Features/**/**/**/**/*.html'
+        'Features/**/**/**/**/**/*.html'
     ],
     base: function(file) {
         return  file.path.replace(/^.*(\\|\/|\:)/, '');   

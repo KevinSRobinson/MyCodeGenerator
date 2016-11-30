@@ -28,13 +28,16 @@
     "webpack": "^1.13.3"
   },
   "dependencies": {
-    "angular-lock": "^1.0.5",
-    "auth0-lock": "^10.7.1",
     "angular": "^1.5.9",
     "angular-cookies": "^1.5.9",
     "angular-jwt": "^0.1.8",
+      "angular-lock": "~1.0.2",
+    "angular-storage": "0.0.15",
     "angular-ui-bootstrap": "^2.2.0",
     "angular-ui-router": "^0.3.2",
+    "auth0": "^2.1.0",
+    "auth0-angular": "^4.1.0",
+    "auth0-lock": "^10.1.0",
     "bootstrap": "~3.2.0",
     "font-awesome": "^4.1.0",
     "rdash-ui": "^1.0.1"

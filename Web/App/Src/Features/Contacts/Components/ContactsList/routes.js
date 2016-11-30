@@ -1,7 +1,7 @@
 
 
 
-var config = function ($stateProvider, requireLogin) {
+var config = function ($stateProvider) {
     
 $stateProvider
     .state("contacts", {
