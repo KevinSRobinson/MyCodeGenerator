@@ -1,63 +1,60 @@
-﻿
-<#+ 
+﻿<#+ 
+/////////////////////////////////////////////////////
+//Loop Classes and Write out Menu Items For each
+void WriteSideMenuItems(List<CodeClass> codeClasses){
+    foreach(var codeClass in codeClasses)
+    {
+        WriteSideMenuItem(codeClass);
+    }
+}
 
-  void GenerateAngularService(CodeClass codeClass){	
+/////////////////////////////////////////////////////
+//Write out Side Menu Item
+void WriteSideMenuItem(CodeClass codeClass){
+    var c = new CodeClassHelper(codeClass);
+    WriteLine("<li><a ui-sref='" +  c.CamelCasePlural + "'>" +  c.Plural  + "</a></li>");		
+}
+
+void GenerateElectronIndexPage(List<CodeClass> codeClasses){			
+#>		
 
 
-  var helper = new CodeClassHelper(codeClass);
+<!doctype html>
+<html lang="en" ng-app="<#=applicationName#>">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><#=applicationTitle#></title>
+</head>
+
+<body>
+    <div class="col-md-3">
+        <ul>
+            <#+WriteSideMenuItems(codeClasses);#>
+        </ul>
+    </div>
+    <div class="col-md-8">
+        <div ui-view></div>
+    </div>
 
 
-#>
-		
-var <#=helper.AngularServiceName#> = function() {
-	
-    var apiBase = "/Api/<#=helper.Plural#>/";
+    <script src="./dist/bundle.js"></script>
+    <script src="./dist/templateCache.js"></script>
+</body>
 
+</html>
 
-    var getAll = function(){
-		return $http.get(apiBase);
-	};
-
-    var getById = function(id) {
-		return $http.get(apiBase + id);
-	};
-
-    var modify = function(<#=helper.CamelCase#>) {
-
-        var url = "";
-
-        if(<#=helper.CamelCase#>.Id !== undefined)
-            url = apiBase + "Update";
-        else
-            url = apiBase + "Add";
-        
-
-        return $http.post(url, <#=helper.CamelCase#>);
-    };    
-
-    var del = function( <#=helper.CamelCase#>) {
-		return $http.post(apiBase + "Delete", <#=helper.CamelCase#>);
-	};
-
-    return {
-	    GetAll : getAll,
-	    GetById : getById,
-	    Modify : modify,
-	    Delete : del
-    };
-};
-	
-
-angular.module("<#=applicationName#>").factory("<#=helper.AngularServiceName#>", <#=helper.AngularServiceName#>);
 
 
 	
-		
-			<#+
-    
-  
-  
-	CreateDirectoryFullPath(dataServicesAppPath);
-	CreateFile(dataServicesAppPath + helper.AngularServiceFileName);
-}	
+
+
+
+
+
+<#+
+    CreateDirectoryFullPath(clienBasePath);
+    CreateFile(clienBasePath + "Src/Index.html");
+	}	
 #>
