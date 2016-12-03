@@ -153,7 +153,6 @@
     <Content Include="Apis\angular\components\login\login.controller.js" />
     <Content Include="Apis\angular\components\login\login.html" />
     <Content Include="Apis\angular\index.html" />
-    <Content Include="App\Index.html" />
     <Content Include="aurelia\index.html" />
     <Content Include="aurelia\src\app.html" />
     <Content Include="aurelia\src\app.js" />
@@ -172,7 +171,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Apis\angular\bower.json" />

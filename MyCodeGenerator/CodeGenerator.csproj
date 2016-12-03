@@ -59,6 +59,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Client\Electron\elecronIndex.ttinclude" />
     <None Include="Client\nodeServer.ttinclude" />
     <None Include="Client\Auth0\auth0Service.ttinclude" />
     <None Include="Client\Auth0\auth0Variables.ttinclude" />
