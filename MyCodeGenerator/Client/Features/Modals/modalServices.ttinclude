@@ -1,69 +1,49 @@
 ﻿<#+ 
 
-  void GeneratModalService(string appPath, string modalsServiceName, string className, string cClassname){			
+  void GeneratModalService(CodeClass codeClass){			
+ var helper = new CodeClassHelper(codeClass);
+
 		#>
 		
 
-			var <#=modalsServiceName#>  = function($uibModal){
+			var <#=helper.AngularModalServiceName#>  = function($uibModal){
 	 
-	  var add<#=className#> = function() {
+	  var add = function() {
 		return $uibModal.open({
-		  templateUrl: "/app/<#=className#>s/Modals/Views/modify<#=className#>.html",
-		  controller: 'modify<#=className#>Controller',
+		  templateUrl: "/app/<#=helper.Name#>s/Modals/Views/<#=helper.AngularModifyModalTemplateFileName#>",
+		  controller: '<#=helper.AngModifyModalController#>',
 		  controllerAs: "vm",
 		  resolve: {
-			<#=cClassname#>: function () {
+			<#=help.CamelCase#>: function () {
 			  return null;
 			}
 		  }
 		});
 	};
+	
 
-	var view<#=className#> = function (<#=cClassname#>) {
-        return $uibModal.open({
-              templateUrl: "/app/<#=className#>s/Modals/Views/view<#=className#>.html",
-			controller: function(<#=cClassname#>, $uibModalInstance){
-                var vm = this;
-                 vm.<#=cClassname#> = <#=cClassname#>;
-                
-                vm.close = function(){
-                    $uibModalInstance.close();
-                }
-            },
-            controllerAs: "vm",
-            resolve: {
-                <#=cClassname#>: function () {
-                    return <#=cClassname#>;
-                }
-            }
-        });
-    };
-
-	var edit<#=className#> = function(<#=cClassname#>) {
+	var modify = function(<#=helper.CamelCase#>) {
 		return  $uibModal.open({
-		  templateUrl: "/app/<#=className#>s/Modals/Views/modify<#=className#>.html",
-		  controller: "modify<#=className#>Controller",
-		  controllerAs: "vm",
+		  templateUrl: "<#=helper.AngModalFilePath#>,
+		  controller: '<#=helper.AngModifyModalControllerTemplateFileName#>',
+		  controllerAs: 'vm',
 		  resolve: {
-			<#=cClassname#>: function () {
-			  return <#=cClassname#>;
+			<#=helper.CamelCase#>: function () {
+			  return <#=helper.CamelCase#>;
 			}
 		  }
 		});
 	  };
 	  return {
-		Add<#=className#>: add<#=className#>,
-		Edit<#=className#>: edit<#=className#>,
-		View<#=className#>: view<#=className#>
+		Add: add,
+		Modify: modify
 	  };
 }
 angular.module("app").factory("<#=modalsServiceName#>", <#=modalsServiceName#>);
 
 <#+
-        var path= appPath + "/" + className + "s/Modals/Services/";
-
-CreateDirectoryFullPath(path);
-CreateFile(path + modalsServiceName + ".js");
+    CreateDirectoryFullPath(clientAppPath + helper.AngularModalFilePath + "Modify");
+	    CreateFile(clientAppPath + helper.AngularModalFilePath +  modalsServiceName);
 
 }
 #>

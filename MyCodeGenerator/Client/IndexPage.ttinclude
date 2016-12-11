@@ -26,6 +26,16 @@ void GenerateMainIndexPage(List<CodeClass> codeClasses){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><#=applicationTitle#></title>
+
+
+    <!-- bower:css -->
+ 
+    <!-- endbower -->
+
+    <!-- inject:css -->
+
+    <!--endinject-->
+
 </head>
 
 <body>
@@ -38,9 +48,14 @@ void GenerateMainIndexPage(List<CodeClass> codeClasses){
         <div ui-view></div>
     </div>
 
+      <!--bower:js -->
+      <!--endbower-->
 
-    <script src="./dist/bundle.js"></script>
-    <script src="./dist/templateCache.js"></script>
+ 
+        <!-- inject:js -->
+        <!--endinject-->
+
+
 </body>
 
 </html>
@@ -54,7 +69,7 @@ void GenerateMainIndexPage(List<CodeClass> codeClasses){
 
 
 <#+
-    CreateDirectoryFullPath(clienBasePath);
-    CreateFile(clienBasePath + "Src/Index.html");
+    CreateDirectoryFullPath(clientAppPath);
+    CreateFile(clientAppPath + "Index.html");
 	}	
 #>

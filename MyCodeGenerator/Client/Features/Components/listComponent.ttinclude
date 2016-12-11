@@ -25,8 +25,8 @@ bindings: {
 	allowChanges: "@"
 },
 controllerAs: "vm",
-templateUrl: "<#=helper.AngularListComponentTemplateFileName#>",
-controller: function (<#=helper.AngularServiceName#>, <#=helper.AngularModalName#>) {
+templateUrl: "<#=helper.AngularClient.ListComponentTemplateFileName#>",
+controller: function (<#=helper.AngularClient.ServiceName#>, <#=helper.AngularClient.ModalServiceName#>) {
     var vm = this;
     vm.error = {};
     vm.<#=helper.CamelCasePlural#> = [];
@@ -37,7 +37,7 @@ controller: function (<#=helper.AngularServiceName#>, <#=helper.AngularModalName
 
 
     vm.load<#=helper.CamelCasePlural#>s = function(){
-        var <#=helper.CamelCase#>Promise= <#=helper.AngularServiceName#>.GetAll();
+        var <#=helper.CamelCase#>Promise= <#=helper.AngularClient.ServiceName#>.GetAll();
         <#=helper.CamelCasePlural#>Promise.then(function(response){
 	    vm.<#=helper.CamelCasePlural#> = response.data;
         }).catch(function(error){
@@ -50,7 +50,7 @@ controller: function (<#=helper.AngularServiceName#>, <#=helper.AngularModalName
     //////////////////////
     //Modals
     vm.create = function(){
-        var modal = <#=helper.AngularModalName#>.Add<#=helper.Name#>();
+        var modal = <#=helper.AngularClient.ModalServiceName#>.Add();
         modal.result.then(function(response){
 	        vm.<#=helper.CamelCasePlural#>.push(response);
         });
@@ -61,7 +61,7 @@ controller: function (<#=helper.AngularServiceName#>, <#=helper.AngularModalName
     };
 
     vm.view = function(<#=helper.CamelCasePlural#>){
-		<#=helper.AngularModalName#>.View(<#=helper.CamelCase#>);
+		<#=helper.AngularClient.ModalServiceName#>.View(<#=helper.CamelCase#>);
 	};
 
     vm.init();
@@ -80,7 +80,7 @@ angular.module("<#=applicationName#>").component("<#=helper.CamelCasePlural#>Lis
     
   
   
-	CreateDirectoryFullPath(clientAppPath + helper.AngularListComponentFilePath);
-	CreateFile(clientAppPath + helper.AngularListComponentFilePath + helper.AngularListComponentFileName);
+	CreateDirectoryFullPath(clientAppPath + helper.AngularClient.ListComponentFilePath);
+	CreateFile(clientAppPath + helper.AngularClient.ListComponentFilePath + helper.AngularClient.ListComponentFileName);
 }	
 #>

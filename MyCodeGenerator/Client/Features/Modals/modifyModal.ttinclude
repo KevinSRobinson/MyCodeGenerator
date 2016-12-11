@@ -1,16 +1,18 @@
 ﻿
 <#+ 
-void GenerateModifyModal(string appPath, CodeClass c,  string className, string cClassname){			
+void GenerateModifyModalTemplate(CodeClass codeClass){			
+        var helper = new CodeClassHelper(codeClass);
+
 		#>
 		
-	<modal-header title="Modify <#=className#>"></modal-header>
+	<modal-header title="Modify <#=helper.Name#>"></modal-header>
 <#+ 
-	foreach (CodeElement meb in c.Members) {
+	foreach (CodeElement meb in codeClass.Members) {
 	if (meb.Kind == vsCMElement.vsCMElementProperty) {
 		var prop = meb as CodeProperty;
 			var type = prop.Type.AsString;
 			if(type == "string") {
-				WriteLine("<my-text-field field-label='" + meb.Name + "' ng-model='vm." + cClassname + "." + meb.Name + "'></my-text-field>");
+				WriteLine("<my-text-field field-label='" + meb.Name + "' ng-model='vm." + helper.CamelCase + "." + meb.Name + "'></my-text-field>");
 			};
 		};			
 	};
@@ -20,10 +22,7 @@ void GenerateModifyModal(string appPath, CodeClass c,  string className, string 
 		<#+
 
 
-         var path= appPath + "/" + className + "s/Modals/Views/";
-
-
-	CreateDirectoryFullPath(path);
-	CreateFile(path + "/" + className+ ".html");
+     	CreateDirectoryFullPath(clientAppPath + helper.AngularClient.ModalsFilePath);
+	    CreateFile(clientAppPath + helper.AngularClient.ModalsFilePath +  helper.AngularClient.ModifyModalTemplateFileName);
 	}	
 #>

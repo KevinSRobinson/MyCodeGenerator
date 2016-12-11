@@ -1,0 +1,37 @@
+﻿<#+   void GeneratModifyModalController(CodeClass codeClass){			
+      var helper = new CodeClassHelper(codeClass);
+
+#>
+		
+
+var <#=helper.AngularClient.ModifyModalController#> = function ($uibModalInstance,  <#=helper.AngularClient.ServiceName#>, <#=helper.CamelCase#>) {
+  var vm = this;
+  vm.<#=helper.CamelCase#>  = {}
+
+  vm.init = function () {
+    if (<#=helper.CamelCase#> != null) {
+      vm.<#=helper.CamelCase#> = <#=helper.CamelCase#>;
+    };
+  };
+  
+  vm.save = function () {
+    var <#=helper.CamelCase#>Promise = <#=helper.AngularClient.ServiceName#>.Modify(vm.<#=helper.CamelCase#>);
+    <#=helper.CamelCase#>Promise.then(function (response) {
+      $uibModalInstance.close(response);
+    });
+  };
+
+  vm.close = function () {
+    $uibModalInstance.close();
+  };
+
+  vm.init();
+
+};
+angular.module("app").controller("<#=helper.AngularClient.ModifyModalController#>", <#=helper.AngularClient.ModifyModalController#>);
+
+<#+
+	    CreateDirectoryFullPath(clientAppPath + helper.AngularClient.ModalsFilePath);
+	    CreateFile(clientAppPath + helper.AngularClient.ModalsFilePath + helper.AngularClient.ModifyModalControllerFileName);
+  }
+#>

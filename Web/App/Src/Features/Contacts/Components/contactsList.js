@@ -1,0 +1,69 @@
+		
+
+/**
+* @memberof app
+* @ngdoc service
+* @name contacts
+* @param {$http} Test
+* @property {object} obj property of this service
+* @ngInject
+* @desc The siteLanguageServices provides information about available languges
+* of a site.  
+*/
+var contactsList = {
+bindings: {
+	allowChanges: "@"
+},
+controllerAs: "vm",
+templateUrl: "contactsList.html",
+controller: function (contactsService, ContactsModalService) {
+    var vm = this;
+    vm.error = {};
+    vm.contacts = [];
+
+    vm.init = function(){
+        vm.loadcontactss();
+    };
+
+
+    vm.loadcontactss = function(){
+        var contactPromise= contactsService.GetAll();
+        contactsPromise.then(function(response){
+	    vm.contacts = response.data;
+        }).catch(function(error){
+	        vm.error = error;
+        })
+    };
+	
+
+
+    //////////////////////
+    //Modals
+    vm.create = function(){
+        var modal = ContactsModalService.Add();
+        modal.result.then(function(response){
+	        vm.contacts.push(response);
+        });
+    };
+
+    vm.edit = function(contacts){
+        contacts.Edit(contact);
+    };
+
+    vm.view = function(contacts){
+		ContactsModalService.View(contact);
+	};
+
+    vm.init();
+
+    }
+}
+
+
+angular.module("contacts").component("contactsList", contactsList);
+
+
+
+		
+		
+		

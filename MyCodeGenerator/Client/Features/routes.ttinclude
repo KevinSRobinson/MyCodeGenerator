@@ -12,7 +12,7 @@ var config = function ($stateProvider) {
 $stateProvider
     .state("<#=helper.CamelCasePlural#>", {
         url: "/<#=helper.CamelCasePlural#>",
-        templateUrl: "<#=helper.AngularIndexViewFileName#>"
+        templateUrl: "<#=helper.AngularClient.IndexViewFileName#>"
     })
 };
 
@@ -22,7 +22,7 @@ angular.module("<#=applicationName#>").config(config);
 		
 <#+
 
-	 CreateDirectoryFullPath(clientAppPath + helper.AngularFeaturePath);
-	 CreateFile(clientAppPath + helper.AngularFeaturePath + "/routes.js");
+	 CreateDirectoryFullPath(clientAppPath + helper.AngularClient.FeaturePath);
+	 CreateFile(clientAppPath + helper.AngularClient.FeaturePath + "/routes.js");
 }
 #>

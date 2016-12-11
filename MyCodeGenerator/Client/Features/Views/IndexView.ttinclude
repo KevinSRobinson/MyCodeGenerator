@@ -11,11 +11,14 @@ var helper = new CodeClassHelper(codeClass);
 
 <h1><#=helper.Plural#></h1>
 
+<#=helper.AngularClient.ListComponentTag#>
+
+
 <#+
 
 
-    CreateDirectoryFullPath(clientAppPath + helper.AngularViewsPath);
-	CreateFile(clientAppPath + helper.AngularViewsPath + helper.AngularIndexViewFileName);
+    CreateDirectoryFullPath(clientAppPath + helper.AngularClient.ViewsPath);
+	CreateFile(clientAppPath + helper.AngularClient.ViewsPath + helper.AngularClient.IndexViewFileName);
 
 }	
 #>

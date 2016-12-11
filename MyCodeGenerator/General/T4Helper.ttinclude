@@ -12,17 +12,118 @@
         return clientAppPath + "/Features/" + plural + "/";
     }
 
+    public class AngularClient  {
+
+        private CodeClassHelper _codeClassHelper;
+
+        public string ServiceName  = "";  
+        public string ServiceFileName   = ""; 
+        public string FeaturePath = "";
+        public string ViewsPath  = "";
+
+        //Modals
+        public string ModalsFilePath = "";
+        public string ModifyModalController = "";
+
+        public string ModifyModalControllerFileName  = "";
+        public string ModalServiceName ="";
+        public string ModifyModalTemplateFileName = "";
+
+
+        //Components
+        public string ListComponentFilePath  ="";
+        public string ListComponentName ="";
+        public string ListComponentFileName  = "";
+          public string ListComponentTag = "";
+        public string ListComponentTemplateFileName  = "";
+
+
+        public AngularClient(CodeClassHelper codeClassHelper){
+
+
+            _codeClassHelper =codeClassHelper;
+
+
+            //Main features path
+            FeaturePath = "/Features/" + _codeClassHelper.Plural + "/";
+            ViewsPath = FeaturePath + "/Views/";
+
+
+            //DataServices
+            ServiceName  = _codeClassHelper.CamelCasePlural + "Service";  
+            ServiceFileName  = ServiceName + ".js"; 
+
+
+            //Modals
+            ModalsFilePath = string.Format("{0}{1}/", FeaturePath , "Modals"); 
+            ModalServiceName    =  string.Format("{0}ModalService", codeClassHelper.Plural);
+            ModifyModalController =  string.Format("modify{0}ModalController", codeClassHelper.Name);
+            ModifyModalControllerFileName = string.Format("{0}.js", ModifyModalController);
+            ModifyModalTemplateFileName = string.Format("{0}Template.html", ModifyModalController);
+
+            //Components
+            
+            ListComponentFilePath = string.Format("{0}Components/",FeaturePath);
+            ListComponentName = string.Format("{0}List",_codeClassHelper.CamelCasePlural);
+            ListComponentFileName = string.Format("{0}.js",ListComponentName);
+            ListComponentTemplateFileName = string.Format("{0}.html", ListComponentName);
+            
+            ListComponentTag = GetComponentTag(ListComponentName);
+
+            //<organisationsList></organisationsList>
+
+        }
+
+
+        private string GetComponentTag(string componentName){
+            
+            var output = "";
+            foreach (char letter in componentName)
+            {
+               if (Char.IsUpper(letter) && output.Length > 0)
+                 output += "-" + letter;
+               else
+                 output += letter;
+            }
+            return string.Format("<{0}></{0}>", output.ToLower());
+        }  
+
+
+
+
+           
+           
+
+        
+
+
+          public string IndexViewFileName {
+                get{
+                  return _codeClassHelper.CamelCasePlural + "Index.html";
+             }}
+    }
+
+
+
+
+
 
     public class CodeClassHelper
     {
         private static CodeClass _codeClass;
+        private AngularClient _angularClient;
+
 
         public CodeClassHelper(CodeClass codeClass){
             _codeClass = codeClass;
+
+            _angularClient = new AngularClient(this);
         }
 
-        #region Public Properties
-
+     
+            public AngularClient AngularClient {get{
+                return _angularClient;
+            }}
 
             public string DtoCamelCase {get{
                 return GetDtoCamelcaseClassName(_codeClass);
@@ -58,51 +159,6 @@
 
 
 
-            
-             public string AngularModalName {
-                get{
-                  return  CamelCase+ "Modals";
-             }}
-
-
-             
-             //Angular
-             //Components
-
-             public string AngularFeaturePath{
-                get{
-                  return  "/Features/" + Plural + "/";
-             }}
-             public string AngularViewsPath {
-                get{
-                  return AngularFeaturePath + "/Views/";
-             }}
-             public string AngularIndexViewFileName {
-                get{
-                  return CamelCasePlural + "Index.html";
-             }}
-             public string AngularListComponentFilePath {
-                get{
-                  return  "/Features/" + Plural + "/Components/" +  Plural + "List/";
-             }}
-             public string AngularListComponentName {
-                get{
-                  return  CamelCasePlural + "List";
-             }}
-
-
-
-            //Data Services
-            public string AngularServiceName { get{ return CamelCasePlural + "Service"; }}
-            public string AngularServiceFileName { get{ return AngularServiceName  + ".js"; }}
-
-            //List Component      
-            public string AngularListComponentFileName { get{ return   AngularListComponentName + ".js";}}
-            public string AngularListComponentTemplateFileName { get{ return  AngularListComponentName + "Template.html";}}
-
-        #endregion
-
-       
  
         #region Private Methods
         public string GetDtoClassName(CodeClass codeClass)    {

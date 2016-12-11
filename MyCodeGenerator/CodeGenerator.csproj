@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Client\Electron\elecronIndex.ttinclude" />
+    <None Include="Client\Gulp\gulp1.ttinclude" />
     <None Include="Client\nodeServer.ttinclude" />
     <None Include="Client\Auth0\auth0Service.ttinclude" />
     <None Include="Client\Auth0\auth0Variables.ttinclude" />
@@ -67,9 +68,9 @@
     <None Include="DataLayer\Dtos\DtoCommands.ttinclude" />
     <None Include="Settings.ttinclude" />
     <None Include="Client\app.ttinclude" />
-    <None Include="Client\angularServices.ttinclude" />
-    <None Include="Client\bower.ttinclude" />
-    <None Include="Client\bowerrc.ttinclude" />
+    <None Include="Client\DataServices\angularServices.ttinclude" />
+    <None Include="Client\PackageManagers\bower.ttinclude" />
+    <None Include="Client\PackageManagers\bowerrc.ttinclude" />
     <None Include="Client\Features\Components\listComponent.ttinclude" />
     <None Include="Client\Features\Components\listComponentTemplate.ttinclude" />
     <None Include="Client\Controllers\angularController.ttinclude" />
@@ -78,14 +79,14 @@
     <None Include="Client\e2e\protractorConfig.ttinclude" />
     <None Include="Client\e2e\protractorHelpers.ttinclude" />
     <None Include="Client\e2e\protractorIndex.ttinclude" />
-    <None Include="Client\entry.ttinclude" />
-    <None Include="Client\gulp.ttinclude" />
+    <None Include="Client\WebPack\entry.ttinclude" />
+    <None Include="Client\Gulp\gulp.ttinclude" />
     <None Include="Client\IndexPage.ttinclude" />
-    <None Include="Client\Features\Modals\modalController.ttinclude" />
+    <None Include="Client\Features\Modals\modifyModalController.ttinclude" />
     <None Include="Client\Features\Modals\modalServices.ttinclude" />
     <None Include="Client\Features\Modals\modifyModal.ttinclude" />
     <None Include="Client\Features\Modals\viewModal.ttinclude" />
-    <None Include="Client\package.ttinclude" />
+    <None Include="Client\PackageManagers\package.ttinclude" />
     <None Include="Client\Features\routes.ttinclude" />
     <None Include="Client\Tests\mockService.ttinclude" />
     <None Include="Client\Tests\tests.ttinclude" />
@@ -95,7 +96,7 @@
     <None Include="Client\Features\Views\EditView.ttinclude" />
     <None Include="Client\Features\Views\IndexView.ttinclude" />
     <None Include="Client\Features\Views\IndexViewMVC.ttinclude" />
-    <None Include="Client\webpackConfig.ttinclude" />
+    <None Include="Client\WebPack\webpackConfig.ttinclude" />
     <None Include="DataLayer\GenericRepository.ttinclude" />
     <None Include="DataLayer\Repositories.ttinclude" />
     <None Include="DataLayer\UnitOfWork.ttinclude" />
@@ -134,9 +135,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Client\DataServices\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{d147e68b-6468-4298-b4e9-225bf4653083}</Project>

@@ -15,23 +15,24 @@
 
 
 <#@ include file="Client/IndexPage.ttinclude" #>
-
-
 <#@ include file="Client/app.ttinclude" #>
 <#@ include file="Client/nodeServer.ttinclude" #>
 
-<#@ include file="Client/bower.ttinclude" #>
-<#@ include file="Client/package.ttinclude" #>
-<#@ include file="Client/entry.ttinclude" #>
-<#@ include file="Client/WebpackConfig.ttinclude" #>
-<#@ include file="Client/gulp.ttinclude" #>
+<#@ include file="Client/PackageManagers/bower.ttinclude" #>
+<#@ include file="Client/PackageManagers/package.ttinclude" #> 
+<#@ include file="Client/WebPack/entry.ttinclude" #>
+<#@ include file="Client/WebPack/WebpackConfig.ttinclude" #>
+<#@ include file="Client/Gulp/gulp1.ttinclude" #>
 
 
-<#@ include file="Client/angularServices.ttinclude" #>
+<#@ include file="Client/DataServices/angularServices.ttinclude" #>
 <#@ include file="Client/Features/routes.ttinclude" #>
 <#@ include file="Client/Features/Views/IndexView.ttinclude" #>
 <#@ include file="Client/Features/Components/listComponentTemplate.ttinclude" #>
 <#@ include file="Client/Features/Components/listComponent.ttinclude" #>
+<#@ include file="Client/Features/Modals/modifyModal.ttinclude" #>
+<#@ include file="Client/Features/Modals/modifyModalController.ttinclude" #>
+
 
 <#@ include file="Client/Auth0/auth0Config.ttinclude" #>
 <#@ include file="Client/Auth0/auth0Variables.ttinclude" #>
@@ -48,7 +49,7 @@
     ////Core App
     this.GenerateAppFile();
     this.GenerateNodeJsSeverAppFile();
-    //this.GenerateBowerFile();
+    this.GenerateBowerFile();
     this.GeneratePackageJson();
     this.GenerateEntryFile(classes);
     this.GeneratWebPackConfig();
@@ -56,10 +57,15 @@
 
     foreach(var codeClass in classes){
       this.GenerateAngularService(codeClass);
-        this.GeneratRoutes(codeClass);
-        this.GenerateIndexView(codeClass);
-        this.GenerateListComponentTemplate(codeClass);
-        this.GenerateListComponent(codeClass);
+      this.GeneratRoutes(codeClass);
+      this.GenerateIndexView(codeClass);
+
+      this.GenerateListComponentTemplate(codeClass);
+      this.GenerateListComponent(codeClass);
+
+
+       this.GeneratModifyModalController(codeClass);
+       this.GenerateModifyModalTemplate(codeClass);
     }
 
     
