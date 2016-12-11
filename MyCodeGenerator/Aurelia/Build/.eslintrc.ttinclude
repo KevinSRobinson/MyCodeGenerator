@@ -1,0 +1,18 @@
+﻿
+<#+  void GenerateBuildsEsLint(){	#>
+
+
+{
+  "rules": {
+    "no-var": 0,
+    "no-console": 0
+  }
+}
+
+
+		
+<#+
+        CreateDirectoryFullPath(AureliaClientBuildPath);
+	  CreateFile(AureliaClientBuildPath + ".eslintrc.json");
+	}	
+#>

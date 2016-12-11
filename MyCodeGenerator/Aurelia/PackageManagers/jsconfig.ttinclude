@@ -1,0 +1,16 @@
+﻿
+<#+  void GenerateJsConfig(){	#>
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "system",
+    "experimentalDecorators": true
+  }
+}
+
+		
+<#+
+        CreateDirectoryFullPath(AureliaClientBasePath);
+	  CreateFile(AureliaClientBasePath + "jsconifg.json");
+	}	
+#>

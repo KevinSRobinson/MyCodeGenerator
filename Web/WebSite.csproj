@@ -153,14 +153,6 @@
     <Content Include="Apis\angular\components\login\login.controller.js" />
     <Content Include="Apis\angular\components\login\login.html" />
     <Content Include="Apis\angular\index.html" />
-    <Content Include="aurelia\index.html" />
-    <Content Include="aurelia\src\app.html" />
-    <Content Include="aurelia\src\app.js" />
-    <Content Include="aurelia\src\private-route.html" />
-    <Content Include="aurelia\src\private-route.js" />
-    <Content Include="aurelia\src\public-route.html" />
-    <Content Include="aurelia\src\public-route.js" />
-    <Content Include="aurelia\src\utils\tokenUtils.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />

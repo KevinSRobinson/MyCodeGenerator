@@ -1,0 +1,11 @@
+﻿
+<#+  void GenerateEsLintIgnore(){	#>
+
+config.js
+
+		
+<#+
+        CreateDirectoryFullPath(AureliaClientBasePath);
+	  CreateFile(AureliaClientBasePath + ".eslintignore");
+	}	
+#>

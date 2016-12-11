@@ -11,14 +11,31 @@
     const string dtosReposPath = basePath + "/Dtos/DtoRepos/";
     const string dtosPath = "C:/Repos/CodeGenerator/Dtos/";
     const string unitOfWorkPath = "C:/Repos/CodeGenerator/Repositories/";
-
-    const string clienBasePath = basePath + "Web/App/";
-    const string clientAppPath = clienBasePath + "Src/";
-    const string dataServicesAppPath = clientAppPath + "DataServices/";
     const string repositoriesPath = basePath + "Repositories/";
-    
     string efContext = "SampleDbContext"; 
     string dataContextNamespace = "Data";
+
+
+
+
+
+
+    //client
+    const string clienBasePath = basePath + "Web/App/";
+    const string clientAppPath = clienBasePath + "Src/Client/";
+
+    const string dataServicesAppPath = clientAppPath + "DataServices/";
+    
+    
+    const string AureliaClientBasePath = basePath + "Web/Aurelia/";
+    const string AureliaClientCustomStylesPath = AureliaClientBasePath + "Styles/";
+    const string AureliaClientBuildPath = AureliaClientBasePath + "Build/";
+    const string AureliaClientBuildTasksPath = AureliaClientBuildPath + "Tasks/";
+    
+    const string AureliaClientAppPath = AureliaClientBasePath + "Src/";
+    const string AureliaDataServicesAppPath = AureliaClientAppPath + "DataServices/";
+    
+
 #>
 
 

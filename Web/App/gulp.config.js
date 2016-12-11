@@ -1,7 +1,7 @@
 module.exports = function() {
 
-    var client = './src/client/';
-    var clientApp = client + 'app/';
+    var client = './src/';
+    var clientApp = client + 'Features/';
     var temp = './.tmp/';
     var server = './src/server/' ;
     var config = {

@@ -1,0 +1,14 @@
+﻿
+<#+  void GenerateEsLint(){	#>
+
+{
+  "extends": "./node_modules/aurelia-tools/.eslintrc.json"
+}
+
+
+		
+<#+
+        CreateDirectoryFullPath(AureliaClientBasePath);
+	  CreateFile(AureliaClientBasePath + ".eslintrc");
+	}	
+#>

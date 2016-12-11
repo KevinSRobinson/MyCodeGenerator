@@ -1,0 +1,13 @@
+﻿
+<#+  void GenerateNpmIgnore(){	#>
+
+jspm_packages
+bower_components
+.idea
+
+		
+<#+
+        CreateDirectoryFullPath(AureliaClientBasePath);
+	  CreateFile(AureliaClientBasePath + ".npmignore");
+	}	
+#>

@@ -70,7 +70,7 @@
             
             ListComponentTag = GetComponentTag(ListComponentName);
 
-            //<organisationsList></organisationsList>
+
 
         }
 

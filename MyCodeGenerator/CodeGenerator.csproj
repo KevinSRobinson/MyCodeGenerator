@@ -41,6 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AureliaClient.cs">
+      <DependentUpon>AureliaClient.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Client .cs">
       <DependentUpon>Client .tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -59,6 +64,43 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Aurelia\Build\paths.ttinclude" />
+    <None Include="Aurelia\Build\exports.ttinclude" />
+    <None Include="Aurelia\Build\bundles.ttinclude" />
+    <None Include="Aurelia\Build\babel-options.ttinclude" />
+    <None Include="Aurelia\Build\args.ttinclude" />
+    <None Include="Aurelia\Build\.eslintrc.ttinclude" />
+    <None Include="Aurelia\Build\Tasks\watch.ttinclude" />
+    <None Include="Aurelia\Build\Tasks\test.ttinclude" />
+    <None Include="Aurelia\Build\Tasks\serve.ttinclude" />
+    <None Include="Aurelia\Build\Tasks\prepare-release.ttinclude" />
+    <None Include="Aurelia\Build\Tasks\lint.ttinclude" />
+    <None Include="Aurelia\Build\Tasks\export-release.ttinclude" />
+    <None Include="Aurelia\Build\Tasks\e2e.ttinclude" />
+    <None Include="Aurelia\Build\Tasks\dev.ttinclude" />
+    <None Include="Aurelia\Build\Tasks\clean.ttinclude" />
+    <None Include="Aurelia\Build\Tasks\bundle.ttinclude" />
+    <None Include="Aurelia\Build\Tasks\build.ttinclude" />
+    <None Include="Aurelia\config.ttinclude" />
+    <None Include="Aurelia\.npmignore.ttinclude" />
+    <None Include="Aurelia\.gitIgnore.ttinclude" />
+    <None Include="Aurelia\EsLint\.eslintrc.ttinclude" />
+    <None Include="Aurelia\EsLint\.eslintignore.ttinclude" />
+    <None Include="Aurelia\Gulp\gulp.ttinclude" />
+    <None Include="Aurelia\IndexPage.ttinclude" />
+    <None Include="Aurelia\PackageManagers\jsconfig.ttinclude" />
+    <None Include="Aurelia\PackageManagers\package.ttinclude" />
+    <None Include="Aurelia\Styles\styles.ttinclude" />
+    <None Include="Aurelia\Views\welcome.ttinclude" />
+    <None Include="Aurelia\Views\users.ttinclude" />
+    <None Include="Aurelia\Views\welcomeTemplate.ttinclude" />
+    <None Include="Aurelia\Views\usersTemplate.ttinclude" />
+    <None Include="Aurelia\Views\childRouter.ttinclude" />
+    <None Include="Aurelia\Views\navBar.ttinclude" />
+    <None Include="Aurelia\Views\main.ttinclude" />
+    <None Include="Aurelia\Views\childRouterTemplate.ttinclude" />
+    <None Include="Aurelia\Views\appTemplate.ttinclude" />
+    <None Include="Aurelia\Views\app.ttinclude" />
     <None Include="Client\Electron\elecronIndex.ttinclude" />
     <None Include="Client\Gulp\gulp1.ttinclude" />
     <None Include="Client\nodeServer.ttinclude" />
@@ -118,6 +160,10 @@
     <Content Include="AngularGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AngularGenerator.js</LastGenOutput>
+    </Content>
+    <Content Include="AureliaClient.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AureliaClient.cs</LastGenOutput>
     </Content>
     <Content Include="Client .tt">
       <Generator>TextTemplatingFileGenerator</Generator>
