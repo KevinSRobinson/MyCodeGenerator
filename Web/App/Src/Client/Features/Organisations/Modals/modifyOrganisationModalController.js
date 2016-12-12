@@ -24,5 +24,5 @@ var modifyOrganisationModalController = function ($uibModalInstance,  organisati
   vm.init();
 
 };
-angular.module("app").controller("modifyOrganisationModalController", modifyOrganisationModalController);
+angular.module("contacts").controller("modifyOrganisationModalController", modifyOrganisationModalController);
 

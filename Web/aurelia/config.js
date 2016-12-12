@@ -1,4 +1,3 @@
-
 System.config({
   defaultJSExtensions: true,
   transpiler: false,
@@ -201,4 +200,3 @@ System.config({
     }
   }
 });
-		

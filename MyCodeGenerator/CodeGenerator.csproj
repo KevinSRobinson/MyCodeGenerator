@@ -41,6 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AngularGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AngularGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Include="AureliaClient.cs">
       <DependentUpon>AureliaClient.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -102,17 +107,19 @@
     <None Include="Aurelia\Views\appTemplate.ttinclude" />
     <None Include="Aurelia\Views\app.ttinclude" />
     <None Include="Client\Electron\elecronIndex.ttinclude" />
+    <None Include="Client\Gulp\gulpConfig.ttinclude" />
     <None Include="Client\Gulp\gulp1.ttinclude" />
-    <None Include="Client\nodeServer.ttinclude" />
+    <None Include="Client\NodeServer\nodeServer.ttinclude" />
     <None Include="Client\Auth0\auth0Service.ttinclude" />
     <None Include="Client\Auth0\auth0Variables.ttinclude" />
     <None Include="Client\Auth0\auth0Config.ttinclude" />
+    <None Include="Client\NodeServer\Routes\ErrorHandler.ttinclude" />
     <None Include="DataLayer\Dtos\DtoCommands.ttinclude" />
     <None Include="Settings.ttinclude" />
     <None Include="Client\app.ttinclude" />
     <None Include="Client\DataServices\angularServices.ttinclude" />
+    <None Include="Client\PackageManagers\bowerc.ttinclude" />
     <None Include="Client\PackageManagers\bower.ttinclude" />
-    <None Include="Client\PackageManagers\bowerrc.ttinclude" />
     <None Include="Client\Features\Components\listComponent.ttinclude" />
     <None Include="Client\Features\Components\listComponentTemplate.ttinclude" />
     <None Include="Client\Controllers\angularController.ttinclude" />
@@ -152,14 +159,9 @@
     <None Include="Server\WebApi.ttinclude" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AngularGenerator.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AngularGenerator.tt</DependentUpon>
-    </Content>
     <Content Include="AngularGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AngularGenerator.js</LastGenOutput>
+      <LastGenOutput>AngularGenerator.cs</LastGenOutput>
     </Content>
     <Content Include="AureliaClient.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -1,3 +1,7 @@
+﻿
+<#+ 
+  void GenerateGulpConfigFile(){			
+#>
 module.exports = function () {
 
     //temp location for compiled css
@@ -108,4 +112,9 @@ module.exports = function () {
 
 		
 		
-			
+			<#+
+    CreateDirectoryFullPath(clienBasePath);
+    CreateFile(clienBasePath + "gulp.Config.js");
+	}	
+#>
+

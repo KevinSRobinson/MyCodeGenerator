@@ -28,7 +28,7 @@ var <#=helper.AngularClient.ModifyModalController#> = function ($uibModalInstanc
   vm.init();
 
 };
-angular.module("app").controller("<#=helper.AngularClient.ModifyModalController#>", <#=helper.AngularClient.ModifyModalController#>);
+angular.module("<#=applicationName#>").controller("<#=helper.AngularClient.ModifyModalController#>", <#=helper.AngularClient.ModifyModalController#>);
 
 <#+
 	    CreateDirectoryFullPath(clientAppPath + helper.AngularClient.ModalsFilePath);

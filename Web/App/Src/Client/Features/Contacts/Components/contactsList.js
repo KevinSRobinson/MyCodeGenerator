@@ -16,7 +16,7 @@ bindings: {
 },
 controllerAs: "vm",
 templateUrl: "contactsList.html",
-controller: function (contactsService, ContactsModalService) {
+controller: function (contactsService, contactsModalService) {
     var vm = this;
     vm.error = {};
     vm.contacts = [];
@@ -40,7 +40,7 @@ controller: function (contactsService, ContactsModalService) {
     //////////////////////
     //Modals
     vm.create = function(){
-        var modal = ContactsModalService.Add();
+        var modal = contactsModalService.Add();
         modal.result.then(function(response){
 	        vm.contacts.push(response);
         });
@@ -51,7 +51,7 @@ controller: function (contactsService, ContactsModalService) {
     };
 
     vm.view = function(contacts){
-		ContactsModalService.View(contact);
+		contactsModalService.View(contact);
 	};
 
     vm.init();

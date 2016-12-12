@@ -24,5 +24,5 @@ var modifyContactModalController = function ($uibModalInstance,  contactsService
   vm.init();
 
 };
-angular.module("app").controller("modifyContactModalController", modifyContactModalController);
+angular.module("contacts").controller("modifyContactModalController", modifyContactModalController);
 

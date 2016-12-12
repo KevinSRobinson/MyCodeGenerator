@@ -25,8 +25,9 @@
         public string ModalsFilePath = "";
         public string ModifyModalController = "";
 
-        public string ModifyModalControllerFileName  = "";
         public string ModalServiceName ="";
+        public string ModifyModalControllerFileName  = "";
+        public string ModalServiceNameFileName ="";
         public string ModifyModalTemplateFileName = "";
 
 
@@ -34,9 +35,10 @@
         public string ListComponentFilePath  ="";
         public string ListComponentName ="";
         public string ListComponentFileName  = "";
-          public string ListComponentTag = "";
+        public string ListComponentTag = "";
         public string ListComponentTemplateFileName  = "";
 
+        
 
         public AngularClient(CodeClassHelper codeClassHelper){
 
@@ -56,7 +58,8 @@
 
             //Modals
             ModalsFilePath = string.Format("{0}{1}/", FeaturePath , "Modals"); 
-            ModalServiceName    =  string.Format("{0}ModalService", codeClassHelper.Plural);
+            ModalServiceName    =  string.Format("{0}ModalService", codeClassHelper.CamelCasePlural);
+            ModalServiceNameFileName    =  string.Format("{0}.js", ModalServiceName);
             ModifyModalController =  string.Format("modify{0}ModalController", codeClassHelper.Name);
             ModifyModalControllerFileName = string.Format("{0}.js", ModifyModalController);
             ModifyModalTemplateFileName = string.Format("{0}Template.html", ModifyModalController);
@@ -70,7 +73,7 @@
             
             ListComponentTag = GetComponentTag(ListComponentName);
 
-
+  
 
         }
 

@@ -9,32 +9,19 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
-
-
 <#@ include file="General/T4Helper.ttinclude" #>
-
-
-
 <#@ include file="Aurelia/PackageManagers/package.ttinclude" #> 
 <#@ include file="Aurelia/PackageManagers/jsconfig.ttinclude" #> 
-
-
-//Eslint
 <#@ include file="Aurelia/Eslint/.eslintignore.ttinclude" #> 
 <#@ include file="Aurelia/Eslint/.eslintrc.ttinclude" #> 
-
 <#@ include file="Aurelia/.gitIgnore.ttinclude" #> 
 <#@ include file="Aurelia/.npmignore.ttinclude" #> 
 <#@ include file="Aurelia/config.ttinclude" #> 
-
-
 <#@ include file="Aurelia/Build/.eslintrc.ttinclude" #> 
 <#@ include file="Aurelia/Build/args.ttinclude" #> 
 <#@ include file="Aurelia/Build/babel-options.ttinclude" #> 
 <#@ include file="Aurelia/Build/bundles.ttinclude" #> 
 <#@ include file="Aurelia/Build/exports.ttinclude" #> 
-<#@ include file="Aurelia/Build/paths.ttinclude" #> 
-
 <#@ include file="Aurelia/Build/Tasks/build.ttinclude" #> 
 <#@ include file="Aurelia/Build/Tasks/bundle.ttinclude" #> 
 <#@ include file="Aurelia/Build/Tasks/clean.ttinclude" #> 
@@ -46,18 +33,10 @@
 <#@ include file="Aurelia/Build/Tasks/serve.ttinclude" #> 
 <#@ include file="Aurelia/Build/Tasks/test.ttinclude" #> 
 <#@ include file="Aurelia/Build/Tasks/watch.ttinclude" #> 
-
-
-
+<#@ include file="Aurelia/Build/paths.ttinclude" #> 
 <#@ include file="Aurelia/Styles/styles.ttinclude" #> 
-
-
-
-
 <#@ include file="Aurelia/IndexPage.ttinclude" #> 
 <#@ include file="Aurelia/Gulp/gulp.ttinclude" #> 
-
-
 <#@ include file="Aurelia/Views/app.ttinclude" #> 
 <#@ include file="Aurelia/Views/appTemplate.ttinclude" #> 
 <#@ include file="Aurelia/Views/childRouter.ttinclude" #> 
@@ -66,28 +45,18 @@
 <#@ include file="Aurelia/Views/navBar.ttinclude" #> 
 <#@ include file="Aurelia/Views/users.ttinclude" #> 
 <#@ include file="Aurelia/Views/usersTemplate.ttinclude" #> 
-
 <#@ include file="Aurelia/Views/welcomeTemplate.ttinclude" #> 
 <#@ include file="Aurelia/Views/welcome.ttinclude" #> 
-
-
-
-
-
 <#  
-    //client
-    
-
     var classes = GetClasses();
 
-    ////Packages   
+    //Packages   
     this.GeneratePackageJson();
     this.GenerateEsLintIgnore();
     this.GenerateEsLint();
     this.GenerateGitIgnore();
     this.GenerateNpmIgnore();
     this.GenerateConfig();
-
 
     //build
     this.GenerateBuildsEsLint();
@@ -107,18 +76,15 @@
     this.GenerateGulpServeTasks();
     this.GenerateGulpTestTasks();
     this.GenerateGulpWatchTasks();
-
+    this.GenerateBuildPathsFile();
+    this.GenerateBuildExports();
 
     //styles
     this.GenerateCustomStyles();
 
-
-
-
     this.GenerateGulpFile();
     this.GenerateMainIndexPage();
     this.GenerateJsConfig();
-
 
     this.GenerateAppTempalte();
     this.GenerateAppJs();

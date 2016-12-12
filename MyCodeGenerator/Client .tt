@@ -16,13 +16,15 @@
 
 <#@ include file="Client/IndexPage.ttinclude" #>
 <#@ include file="Client/app.ttinclude" #>
-<#@ include file="Client/nodeServer.ttinclude" #>
+<#@ include file="Client/NodeServer/nodeServer.ttinclude" #>
+<#@ include file="Client/NodeServer/Routes/ErrorHandler.ttinclude" #>
 
 <#@ include file="Client/PackageManagers/bower.ttinclude" #>
 <#@ include file="Client/PackageManagers/package.ttinclude" #> 
-<#@ include file="Client/WebPack/entry.ttinclude" #>
-<#@ include file="Client/WebPack/WebpackConfig.ttinclude" #>
+
+
 <#@ include file="Client/Gulp/gulp1.ttinclude" #>
+<#@ include file="Client/Gulp/gulpConfig.ttinclude" #>
 
 
 <#@ include file="Client/DataServices/angularServices.ttinclude" #>
@@ -30,6 +32,8 @@
 <#@ include file="Client/Features/Views/IndexView.ttinclude" #>
 <#@ include file="Client/Features/Components/listComponentTemplate.ttinclude" #>
 <#@ include file="Client/Features/Components/listComponent.ttinclude" #>
+
+<#@ include file="Client/Features/Modals/modalServices.ttinclude" #>
 <#@ include file="Client/Features/Modals/modifyModal.ttinclude" #>
 <#@ include file="Client/Features/Modals/modifyModalController.ttinclude" #>
 
@@ -49,11 +53,11 @@
     ////Core App
     this.GenerateAppFile();
     this.GenerateNodeJsSeverAppFile();
+    this.GenerateNodeServerErrorHandler();
     this.GenerateBowerFile();
     this.GeneratePackageJson();
-    this.GenerateEntryFile(classes);
-    this.GeneratWebPackConfig();
-    this.GenerateGulpFile();
+        this.GenerateGulpFile();
+    this.GenerateGulpConfigFile();
 
     foreach(var codeClass in classes){
       this.GenerateAngularService(codeClass);
@@ -64,6 +68,7 @@
       this.GenerateListComponent(codeClass);
 
 
+        this.GeneratModalService(codeClass);
        this.GeneratModifyModalController(codeClass);
        this.GenerateModifyModalTemplate(codeClass);
     }

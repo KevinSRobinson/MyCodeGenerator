@@ -22,7 +22,10 @@
 
     //client
     const string clienBasePath = basePath + "Web/App/";
-    const string clientAppPath = clienBasePath + "Src/Client/";
+    const string clientSrcPath = clienBasePath + "src/";
+    const string clientAppPath = clientSrcPath + "/Client/";
+    const string NodeServerPath = clientSrcPath + "/Server/";
+
 
     const string dataServicesAppPath = clientAppPath + "DataServices/";
     
@@ -34,6 +37,8 @@
     
     const string AureliaClientAppPath = AureliaClientBasePath + "Src/";
     const string AureliaDataServicesAppPath = AureliaClientAppPath + "DataServices/";
+    
+    
     
 
 #>

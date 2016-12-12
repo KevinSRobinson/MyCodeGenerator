@@ -269,8 +269,8 @@ function log(msg){
 		
 		
 			<#+
-    CreateDirectoryFullPath(clientAppPath);
-    CreateFile(clientAppPath + "gulpfile.js");
+    CreateDirectoryFullPath(clienBasePath);
+    CreateFile(clienBasePath + "gulpfile.js");
 	}	
 #>
 

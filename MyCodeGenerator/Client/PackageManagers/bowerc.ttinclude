@@ -1,0 +1,33 @@
+﻿
+<#+  void GenerateBowerCCFile(){  #>
+		
+{
+  "name": "<#=applicationName#>",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Kevin Robinson"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/seamusjunior/MyCodeGenerator",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.0"
+  }
+}
+
+
+
+		
+		<#+
+
+	  CreateFile(clienBasePath + ".bowercc.json");
+	}	
+#>
+

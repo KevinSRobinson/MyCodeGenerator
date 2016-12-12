@@ -1,147 +1,108 @@
-var gulp = require("gulp");
-var templateCache = require("gulp-angular-templatecache");
-var webpack = require("gulp-webpack");
-var open = require('gulp-open');
-var protractor = require("gulp-protractor").protractor;
-var shell = require("gulp-shell");
-var jasmineBrowser = require('gulp-jasmine-browser');
-var watch = require("gulp-watch");
-var config = require('./gulp.config')();
-var wiredep = require('wiredep').stream;
+var gulp = require('gulp');
 
+//used to load any 'gulp-' plugins 
 var $ = require('gulp-load-plugins')({lazy : true});
 
-gulp.task("default", ["build", "html-templates", "watch-templates"]);
+//load the gulp config file
+var config = require('./gulp.config')();
+
+//used to allow the use of arguments with gulp commands
+var args = require('yargs').argv;
+
+//delete utility
+var del = require('del');
+
+//Wire Bower dependencies to your source code. https://github.com/taptapship/wiredep
+var wiredep = require('wiredep').stream;
+
+//BrowserSync
+var browserSync = require('browser-sync');
 
 
-gulp.task("build", function() {
-    return gulp.src("entry.js")
-        .pipe(webpack( require("./webpack.config.js") ))
-        .pipe(gulp.dest("./dist"));
-});
+////////////////////////////////
+// Analyze code
+gulp.task('vet', function(){
+    
+    log ('Analyzing Code');
 
+    return gulp
 
-//Webpack
-gulp.task('client', function() {
-   return gulp.src('./webpack/clientEntry.js')
-    .pipe(webpack( require('./webpack/client.config.js') ))
-    .pipe(gulp.dest('dist/'));                     
-});
-gulp.task('vendor', function() {
-  return gulp.src('webpack/vendorEntry.js')
-   .pipe(webpack( require('./webpack/vendor.config.js') ))
-    .pipe(gulp.dest('dist/'));      
-});
+            //load all the source js files
+            .src(config.alljs)
 
+            //print out files being Analyzed
+            //use gulp-if & yargs to allow switching this
+            .pipe($.if(args.verbose, $.print())) 
 
+            //code linter
+            .pipe($.jscs()) // check codestyling - config = .jscsrc
+            .pipe($.jshint()) // check for code issues - config = .jshintrc
 
+            //use a reporter for nicer output
+            .pipe($.jshint.reporter('jshint-stylish'), {verbose: true})
 
-
-gulp.task('serve-dev', function(){
-    var isDev= true;
-
-    var nodeOptions = {
-        script: config.nodeServer,
-        delayTime: 1,
-        env: {
-            'PORT': config.defaultPort,
-            'NODE_ENV': isDev ? 'dev' : 'build'
-        },
-        watch: [config.server]
-    };
-
-    return $.nodemon(nodeOptions)
-        .on('restart', function(ev) {
-            log('node server restarted');            
-            log(ev);
-
-            setTimeout(function(){
-                browserSync.notify('reloading now ...');
-                browserSync.reload({stream: false});
-            }, config.browserReloadDelay);
-        })
-        .on('start', function() {
-            log('noode server started');
-            startBrowserSync();
-        })
-        .on('crash', function() {
-            log('noode server crashed');
-        })
-        .on('exit', function() {
-           log('noode server exit');
-        });
+            //fail if any there are any codind issues
+            .pipe($.jshint.reporter('fail'));
 
 });
 
 
-
-
-
-
-gulp.task('wiredep', function(){
+////////////////////////////////
+// wiredep
+gulp.task('wiredep',  function(){
 
     log('wiredep starting');
-
-    var options = config.getWiredepDefaultOptions();
-
+   
     return gulp
-            .src(config.index)
-            .pipe(wiredep(options))
-            .pipe($.inject(gulp.src(config.js)))
-            .pipe(gulp.dest(config.client));
+            //use the client index.html file 
+            .src(config.clientIndexFile)
+
+            //add the wiredep config using the options from config
+            //uses the bower.json file to file the app dependencies
+            .pipe(wiredep(config.getWiredepDefaultOptions()))
+
+            //inject the client js files
+            .pipe($.inject(gulp.src(config.appJsFiles)))
+
+            //inject the css
+            .pipe($.inject(gulp.src(config.compiledLess))
+)
+            // the desination is the same location as the index.html file 
+            .pipe(gulp.dest(config.clientFolder));
 });
 
-gulp.task('inject', ['wiredep', 'styles'], function(){
-
-    log('inject starting');
-
-    return gulp
-            .src(config.index)
-            .pipe($.inject(gulp.src(config.css)))
-            .pipe(gulp.dest(config.client));
-});
-
-function changeEvent(event){
-    var srcPattern = new RegExp('./.*(?=/' + config.source + ')/');
-
-    log('file ' + event.path.replace(srcPattern, '') + ' ' + event.type);
-
-
-}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-function  startBrowserSync(){
+////////////////////////////////
+// Browser Sync
+////////////////////////////////
+function  startBrowserSync(isDev){
     if(args.nosync || browserSync.active){
         return;
     }
 
     log('starting browser-sync');
 
-gulp.watch([config.less], ['styles'])
-    .on('change', function(event) { changeEvent(event); });
+    if(isDev)
+    {
+        gulp.watch([config.less], ['styles'])
+            .on('change', function(event) { changeEvent(event); });
+    }
+    else{
+         gulp.watch([config.less, config.js, config.html], ['optimize', browserSync.reload])
+            .on('change', function(event) { changeEvent(event); });
+    }
 
     var options = {
-            proxy: 'localhost:' + port,
-            port: 4000,
-            files:[
+            proxy: 'localhost:' + 7203,
+            port: 3000,
+            files:isDev ? [
                     config.client + '**/*.*',
                     '!' + config.less,
                     config.temp + '**/*.css'
-                ],
-
+                ] : [],
             ghostMode:{
                 clicks: true,
                 location: false,
@@ -159,73 +120,131 @@ gulp.watch([config.less], ['styles'])
 
     browserSync(options);    
 } 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Styles
+gulp.task('styles', ['clean-styles'], function(){
 
-//////////////////////////////////////////////
-///////////   Templates   //////////////
-///////////////////////////////////////////
-gulp.task("watch-templates", function() {
-    gulp.watch('src/**/*.html', ['html-templates']);
-});
+    log('Compiling Less ->> Css');
 
-gulp.task('html-templates', function() {
-    return gulp.src(config.srcTemplates)
-        .pipe(templateCache('templateCache.js', config))
-        .pipe(gulp.dest(config.destPartials));
-});
+    return gulp
+                //loads the less file
+                .src(config.less)
+                
+                .pipe($.plumber())               
+                
+                //add less compiler
+                .pipe($.less())
 
+                //PostCSS plugin to parse CSS and add vendor prefixes to CSS rules
+                // using values from Can I Use. It is recommended by Google 
+                //and used in Twitter, and Taobao. https://github.com/postcss/autoprefixer
+                .pipe($.autoprefixer({browsers: ['last 2 version', '> 5%']}))
 
-
-//////////////////////////////////////////////
-///////////   Protractor   //////////////
-///////////////////////////////////////////
-gulp.task("all", ["e2e", "open"]);
-
-    
-
-gulp.task("e2e", function() {
-
-    gulp.src(["app/Tests/testClients.js"])
-        .pipe(protractor({
-            "configFile": "Tests/conf.js",
-        }));
+                //write compiled files to temp folder
+                .pipe(gulp.dest(config.temp));
 
 });
 
-gulp.task('protractor-run', function (done) {
-    var argv = process.argv.slice(3); // forward args to protractor
-    child_process.spawn(getProtractorBinary('protractor'), argv, {
-        stdio: 'inherit'
-    }).once('close', done);
+
+gulp.task('less-watcher', function(){
+    log('Watching ' + config.less);
+    gulp.watch([config.less], ['styles']);
 });
-function getProtractorBinary(binaryName){
-    var winExt = /^win/.test(process.platform)? '.cmd' : '';
-    var pkgPath = require.resolve('protractor');
-    var protractorDir = path.resolve(path.join(path.dirname(pkgPath), '..', 'bin'));
-    return path.join(protractorDir, '/'+binaryName+winExt);
+
+
+gulp.task('clean-styles', function () {
+
+  return gulp
+    .src(config.compiledLess, {read: false})
+
+    //clean using gulp-clean https://www.npmjs.com/package/gulp-clean
+    .pipe($.clean());
+});
+
+
+
+
+
+
+
+
+
+////////////////////////////////
+// Build
+gulp.task('serve-build', ['optimize'], function(){
+   serve(false);
+});
+
+gulp.task('serve-dev', ['wiredep'], function(){
+   serve(true);
+});
+
+
+
+function serve(isDev){
+   
+    return $.nodemon(config.nodeServerOptions)
+
+        .on('restart', function(ev) {
+            log('noode server restarted');            
+            log(ev);
+
+                
+             setTimeout(function(){
+                browserSync.notify('reloading now ...');
+                browserSync.reload({stream: false});
+            }, config.browserReloadDelay);
+        })
+        .on('start', function() {
+            log('noode server started');
+            startBrowserSync(isDev);
+        })
+        .on('crash', function() {
+            log('noode server crashed');
+        })
+        .on('exit', function() {
+           log('noode server exit');
+        });
+}
+//////////////////////////////////////////////////
+
+
+
+
+gulp.task('fonts', function(){
+    log('Copying our fonts');
+
+    return gulp
+            .src(config.fonts)
+            .pipe(gulp.dest(config.temp + 'fonts'));
+
+});
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////
+// Common Functions
+///////////////////////////////////////
+function changeEvent(event){
+    var srcPattern = new RegExp('./.*(?=/' + config.source + ')/');
+
+    log('file ' + event.path.replace(srcPattern, '') + ' ' + event.type);
 }
 
-		
-		
-			
-
-	
-//////////////////////////////////////////////
-///////////   Protractor   //////////////
-///////////////////////////////////////////	
-		
-			function errorLogger(error){
-    log(' *** Start of Error ***' );
-    log(error);
-    log(' *** Start of Error ***' );
-    this.emit('end');
-
-}
 
 function log(msg){
     if(typeof(msg) === 'object'){
@@ -239,3 +258,10 @@ function log(msg){
         $.util.log($.util.colors.red(msg));
     }
 }
+
+		
+			
+
+		
+		
+			

@@ -16,7 +16,7 @@ bindings: {
 },
 controllerAs: "vm",
 templateUrl: "organisationsList.html",
-controller: function (organisationsService, OrganisationsModalService) {
+controller: function (organisationsService, organisationsModalService) {
     var vm = this;
     vm.error = {};
     vm.organisations = [];
@@ -40,7 +40,7 @@ controller: function (organisationsService, OrganisationsModalService) {
     //////////////////////
     //Modals
     vm.create = function(){
-        var modal = OrganisationsModalService.Add();
+        var modal = organisationsModalService.Add();
         modal.result.then(function(response){
 	        vm.organisations.push(response);
         });
@@ -51,7 +51,7 @@ controller: function (organisationsService, OrganisationsModalService) {
     };
 
     vm.view = function(organisations){
-		OrganisationsModalService.View(organisation);
+		organisationsModalService.View(organisation);
 	};
 
     vm.init();

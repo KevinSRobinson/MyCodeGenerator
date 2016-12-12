@@ -1,5 +1,3 @@
-﻿
-<#+  void GenerateBuildExports(){	#>
 
 
 // this file provides a list of unbundled files that
@@ -43,8 +41,3 @@ module.exports = {
 
 
 		
-<#+
-        CreateDirectoryFullPath(AureliaClientBuildPath);
-	  CreateFile(AureliaClientBuildPath + "export.js");
-	}	
-#>

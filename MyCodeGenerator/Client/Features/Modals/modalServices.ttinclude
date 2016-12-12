@@ -6,15 +6,15 @@
 		#>
 		
 
-			var <#=helper.AngularModalServiceName#>  = function($uibModal){
+			var <#=helper.AngularClient.ModalServiceName#>  = function($uibModal){
 	 
 	  var add = function() {
 		return $uibModal.open({
-		  templateUrl: "/app/<#=helper.Name#>s/Modals/Views/<#=helper.AngularModifyModalTemplateFileName#>",
-		  controller: '<#=helper.AngModifyModalController#>',
+		  templateUrl: '<#=helper.AngularClient.ModifyModalTemplateFileName#>',
+		  controller: '<#=helper.AngularClient.ModifyModalController#>',
 		  controllerAs: "vm",
 		  resolve: {
-			<#=help.CamelCase#>: function () {
+			<#=helper.CamelCase#>: function () {
 			  return null;
 			}
 		  }
@@ -24,8 +24,8 @@
 
 	var modify = function(<#=helper.CamelCase#>) {
 		return  $uibModal.open({
-		  templateUrl: "<#=helper.AngModalFilePath#>,
-		  controller: '<#=helper.AngModifyModalControllerTemplateFileName#>',
+		  templateUrl: '<#=helper.AngularClient.ModifyModalTemplateFileName#>',
+		  controller: '<#=helper.AngularClient.ModifyModalController#>',
 		  controllerAs: 'vm',
 		  resolve: {
 			<#=helper.CamelCase#>: function () {
@@ -39,11 +39,11 @@
 		Modify: modify
 	  };
 }
-angular.module("app").factory("<#=modalsServiceName#>", <#=modalsServiceName#>);
+angular.module("<#=applicationName#>").factory("<#=helper.AngularClient.ModalServiceName#>", <#=helper.AngularClient.ModalServiceName#>);
 
 <#+
-    CreateDirectoryFullPath(clientAppPath + helper.AngularModalFilePath + "Modify");
-	    CreateFile(clientAppPath + helper.AngularModalFilePath +  modalsServiceName);
+   CreateDirectoryFullPath(clientAppPath + helper.AngularClient.ModalsFilePath);
+	    CreateFile(clientAppPath + helper.AngularClient.ModalsFilePath +  helper.AngularClient.ModalServiceNameFileName);
 
 }
 #>

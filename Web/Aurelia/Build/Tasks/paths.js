@@ -1,5 +1,3 @@
-﻿
-<#+  void GenerateBuildPathsFile(){	#>
 
 var appRoot = 'src/';
 var outputRoot = 'dist/';
@@ -19,9 +17,5 @@ module.exports = {
 };
 
 
+
 		
-<#+
-        CreateDirectoryFullPath(AureliaClientBuildPath);
-	  CreateFile(AureliaClientBuildPath + "paths.js");
-	}	
-#>
