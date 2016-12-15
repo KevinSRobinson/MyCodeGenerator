@@ -1,5 +1,5 @@
 		
-var organisationsService = function() {
+var organisationsService = function($http) {
 	
     var apiBase = "/Api/Organisations/";
 

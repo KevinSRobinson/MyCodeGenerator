@@ -25,7 +25,7 @@
 
             //If is a Property
             if (meb.Kind == vsCMElement.vsCMElementProperty) {
-                WriteLine("<td>" +    c.Name + "</td>");                 
+                WriteLine("<td>" +  meb.Name + "</td>");                 
              };
         }
     }
@@ -47,19 +47,22 @@
 
                     switch(type){
                        case "string":
-                            WriteLine(GetTableTD(helper.Name, meb.Name, ""));
+                            WriteLine(GetTableTD(helper.CamelCase, meb.Name, ""));
                             break;
 				        case ("System.DateTime?"):
-                            WriteLine(GetTableTD(helper.Name, meb.Name, " date:'medium'"));					    
+                            WriteLine(GetTableTD(helper.CamelCase, meb.Name, " date:'medium'"));					    
                             break;
                         case ("System.DateTime"):
-                            WriteLine(GetTableTD(helper.Name, meb.Name, " date:'medium'"));					    
+                            WriteLine(GetTableTD(helper.CamelCase, meb.Name, " date:'medium'"));					    
                             break;
 				        case("int"):
-					          WriteLine(GetTableTD(helper.Name, meb.Name, ""));
+					          WriteLine(GetTableTD(helper.CamelCase, meb.Name, ""));
                             break;
 				        case "decimal":
-                            WriteLine(GetTableTD(helper.Name, meb.Name, " number:2 "));					    
+                            WriteLine(GetTableTD(helper.CamelCase, meb.Name, " number:2 "));					    
+                            break;
+                        case "System.Guid":
+                           				    
                             break;
 				        default:
 					        WriteLine("<td>" + type + "</td>");
@@ -76,7 +79,7 @@
 #>
 		
 <my-panel title="Tags" show-add-button="true" add="vm.create()" style="success" icon="tags" icon-size="2">
-
+ <my-filter-textbox  ng-model="filter"></my-filter-textbox>
 <table>
 
     <thead>
@@ -85,13 +88,13 @@
         </tr>
     </thead>
 
-    <tr>
+    <tr  ng-repeat='<#= helper.CamelCase #> in <#= helper.CamelCasePlural #> '>
         <#+WriteTableCells(codeClass);#>
     </tr>
 </table>
 
 
-        <my-filter-textbox  ng-model="filter"></my-filter-textbox>
+       
 
 
 <#+

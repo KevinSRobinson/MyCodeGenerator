@@ -109,6 +109,7 @@
     <None Include="Client\Electron\elecronIndex.ttinclude" />
     <None Include="Client\Gulp\gulpConfig.ttinclude" />
     <None Include="Client\Gulp\gulp1.ttinclude" />
+    <None Include="Client\NodeServer\Apis\ServerApis.ttinclude" />
     <None Include="Client\NodeServer\nodeServer.ttinclude" />
     <None Include="Client\Auth0\auth0Service.ttinclude" />
     <None Include="Client\Auth0\auth0Variables.ttinclude" />

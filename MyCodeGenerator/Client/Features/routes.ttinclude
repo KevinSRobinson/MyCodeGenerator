@@ -12,8 +12,8 @@ var config = function ($stateProvider) {
 $stateProvider
     .state("<#=helper.CamelCasePlural#>", {
         url: "/<#=helper.CamelCasePlural#>",
-        templateUrl: "<#=helper.AngularClient.IndexViewFileName#>"
-    })
+        templateUrl: "<#=helper.AngularClient.IndexTemplateUrl#>"
+    }) 
 };
 
 angular.module("<#=applicationName#>").config(config);

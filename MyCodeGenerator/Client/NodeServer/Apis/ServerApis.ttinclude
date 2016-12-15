@@ -1,0 +1,23 @@
+﻿
+<#+ void GenerateNodeServerApisForFeatures(CodeClass codeClass){
+
+      var helper = new CodeClassHelper(codeClass);
+
+ #>
+
+
+var express = require('express');
+var app = express();
+
+app.get('api/<#=helper.CamelCasePlural#>', function(req, res, next) {
+    
+var <#=helper.CamelCasePlural#>  = [];
+    res.send( <#=helper.CamelCasePlural#> );
+});
+
+
+<#+
+    CreateDirectoryFullPath(NodeServerPath + "Routes/Apis/");
+    CreateFile(NodeServerPath + "Routes/Apis/" + helper.CamelCase + ".js");
+	}	
+#>

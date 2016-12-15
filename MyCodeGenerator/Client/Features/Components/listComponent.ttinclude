@@ -37,7 +37,7 @@ controller: function (<#=helper.AngularClient.ServiceName#>, <#=helper.AngularCl
 
 
     vm.load<#=helper.CamelCasePlural#>s = function(){
-        var <#=helper.CamelCase#>Promise= <#=helper.AngularClient.ServiceName#>.GetAll();
+        var <#=helper.CamelCasePlural#>Promise= <#=helper.AngularClient.ServiceName#>.GetAll();
         <#=helper.CamelCasePlural#>Promise.then(function(response){
 	    vm.<#=helper.CamelCasePlural#> = response.data;
         }).catch(function(error){

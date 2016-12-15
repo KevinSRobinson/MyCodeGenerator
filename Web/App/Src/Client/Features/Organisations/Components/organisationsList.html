@@ -1,22 +1,22 @@
 		
 <my-panel title="Tags" show-add-button="true" add="vm.create()" style="success" icon="tags" icon-size="2">
-
+ <my-filter-textbox  ng-model="filter"></my-filter-textbox>
 <table>
 
     <thead>
         <tr>
-             <td>Organisation</td>
-<td>Organisation</td>
+             <td>Id</td>
+<td>Name</td>
         </tr>
     </thead>
 
-    <tr>
-        <td>{{ Organisation.Id }}</td>
-<td>{{ Organisation.Name }}</td>
+    <tr  ng-repeat='organisation in organisations '>
+        <td>{{ organisation.Id }}</td>
+<td>{{ organisation.Name }}</td>
     </tr>
 </table>
 
 
-        <my-filter-textbox  ng-model="filter"></my-filter-textbox>
+       
 
 

@@ -27,7 +27,7 @@ controller: function (contactsService, contactsModalService) {
 
 
     vm.loadcontactss = function(){
-        var contactPromise= contactsService.GetAll();
+        var contactsPromise= contactsService.GetAll();
         contactsPromise.then(function(response){
 	    vm.contacts = response.data;
         }).catch(function(error){

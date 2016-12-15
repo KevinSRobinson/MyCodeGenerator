@@ -17,7 +17,8 @@
 <#@ include file="Client/IndexPage.ttinclude" #>
 <#@ include file="Client/app.ttinclude" #>
 <#@ include file="Client/NodeServer/nodeServer.ttinclude" #>
-<#@ include file="Client/NodeServer/Routes/ErrorHandler.ttinclude" #>
+<#@ include file="Client/NodeServer/Apis/ServerApis.ttinclude" #>
+
 
 <#@ include file="Client/PackageManagers/bower.ttinclude" #>
 <#@ include file="Client/PackageManagers/package.ttinclude" #> 
@@ -53,13 +54,17 @@
     ////Core App
     this.GenerateAppFile();
     this.GenerateNodeJsSeverAppFile();
-    this.GenerateNodeServerErrorHandler();
+ 
+    //this.GenerateNodeServerErrorHandler();
     this.GenerateBowerFile();
     this.GeneratePackageJson();
         this.GenerateGulpFile();
     this.GenerateGulpConfigFile();
 
     foreach(var codeClass in classes){
+      this.GenerateNodeServerApisForFeatures(codeClass);
+
+
       this.GenerateAngularService(codeClass);
       this.GeneratRoutes(codeClass);
       this.GenerateIndexView(codeClass);

@@ -9,7 +9,7 @@
 
 #>
 		
-var <#=helper.AngularClient.ServiceName#> = function() {
+var <#=helper.AngularClient.ServiceName#> = function($http) {
 	
     var apiBase = "/Api/<#=helper.Plural#>/";
 

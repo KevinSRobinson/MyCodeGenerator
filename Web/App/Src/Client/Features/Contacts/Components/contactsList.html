@@ -1,26 +1,25 @@
 		
 <my-panel title="Tags" show-add-button="true" add="vm.create()" style="success" icon="tags" icon-size="2">
-
+ <my-filter-textbox  ng-model="filter"></my-filter-textbox>
 <table>
 
     <thead>
         <tr>
-             <td>Contact</td>
-<td>Contact</td>
-<td>Contact</td>
-<td>Contact</td>
+             <td>Id</td>
+<td>FirstName</td>
+<td>LastName</td>
+<td>UserId</td>
         </tr>
     </thead>
 
-    <tr>
-        <td>{{ Contact.Id }}</td>
-<td>{{ Contact.FirstName }}</td>
-<td>{{ Contact.LastName }}</td>
-<td>System.Guid</td>
+    <tr  ng-repeat='contact in contacts '>
+        <td>{{ contact.Id }}</td>
+<td>{{ contact.FirstName }}</td>
+<td>{{ contact.LastName }}</td>
     </tr>
 </table>
 
 
-        <my-filter-textbox  ng-model="filter"></my-filter-textbox>
+       
 
 

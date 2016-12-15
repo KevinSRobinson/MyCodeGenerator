@@ -18,7 +18,7 @@ var helper = new CodeClassHelper(codeClass);
 
 
     CreateDirectoryFullPath(clientAppPath + helper.AngularClient.ViewsPath);
-	CreateFile(clientAppPath + helper.AngularClient.ViewsPath + helper.AngularClient.IndexViewFileName);
+	CreateFile(clientAppPath + helper.AngularClient.ViewsPath + "Index.html");
 
 }	
 #>

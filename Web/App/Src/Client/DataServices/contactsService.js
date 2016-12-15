@@ -1,5 +1,5 @@
 		
-var contactsService = function() {
+var contactsService = function($http) {
 	
     var apiBase = "/Api/Contacts/";
 

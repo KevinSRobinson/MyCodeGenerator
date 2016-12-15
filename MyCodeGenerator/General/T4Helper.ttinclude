@@ -8,11 +8,8 @@
 <#+
 
 
-    public string GetFeaturePath(string plural){
-        return clientAppPath + "/Features/" + plural + "/";
-    }
-
     public class AngularClient  {
+
 
         private CodeClassHelper _codeClassHelper;
 
@@ -38,6 +35,8 @@
         public string ListComponentTag = "";
         public string ListComponentTemplateFileName  = "";
 
+        //Index View
+        public string IndexTemplateUrl = "";
         
 
         public AngularClient(CodeClassHelper codeClassHelper){
@@ -73,12 +72,13 @@
             
             ListComponentTag = GetComponentTag(ListComponentName);
 
-  
+            //main index view
+            IndexTemplateUrl = string.Format("src/client/Features/{0}/Views/index.html", codeClassHelper.Plural);
+            
 
         }
 
-
-        private string GetComponentTag(string componentName){
+     private string GetComponentTag(string componentName){
             
             var output = "";
             foreach (char letter in componentName)
@@ -90,20 +90,7 @@
             }
             return string.Format("<{0}></{0}>", output.ToLower());
         }  
-
-
-
-
-           
-           
-
-        
-
-
-          public string IndexViewFileName {
-                get{
-                  return _codeClassHelper.CamelCasePlural + "Index.html";
-             }}
+   
     }
 
 
