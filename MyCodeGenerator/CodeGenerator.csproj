@@ -125,6 +125,7 @@
     <None Include="Aurelia\Views\appTemplate.ttinclude" />
     <None Include="Aurelia\Views\app.ttinclude" />
     <None Include="Client\Electron\elecronIndex.ttinclude" />
+    <None Include="Client\Styles\lessStyles.ttinclude" />
     <None Include="Client\Gulp\gulpConfig.ttinclude" />
     <None Include="Client\Gulp\gulp1.ttinclude" />
     <None Include="Client\NodeServer\Apis\ServerApis.ttinclude" />

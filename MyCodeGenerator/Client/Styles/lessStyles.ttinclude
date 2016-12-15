@@ -1,0 +1,15 @@
+﻿
+<#+ 
+void GeneratLessStyles(){ 
+
+#>
+
+@import "../../../bower_components/bootstrap/less/bootstrap.less";
+
+		
+<#+
+
+	 CreateDirectoryFullPath(clientAppPath + "Styles/");
+	 CreateFile(clientAppPath + "Styles/" + "styles.less");
+}
+#>

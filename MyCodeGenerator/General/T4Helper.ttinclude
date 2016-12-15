@@ -16,6 +16,7 @@
         public string ServiceName  = "";  
         public string ServiceFileName   = ""; 
         public string FeaturePath = "";
+        public string StylesPath = "";
         public string ViewsPath  = "";
 
         //Modals
@@ -49,7 +50,7 @@
             //Main features path
             FeaturePath = "/Features/" + _codeClassHelper.Plural + "/";
             ViewsPath = FeaturePath + "/Views/";
-
+            
 
             //DataServices
             ServiceName  = _codeClassHelper.CamelCasePlural + "Service";  

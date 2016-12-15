@@ -25,7 +25,7 @@
     const string clientSrcPath = clienBasePath + "src/";
     const string clientAppPath = clientSrcPath + "/Client/";
     const string NodeServerPath = clientSrcPath + "/Server/";
-
+    const string StylesPath = clientSrcPath + "styles/";
 
     const string dataServicesAppPath = clientAppPath + "DataServices/";
     

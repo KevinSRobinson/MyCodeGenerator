@@ -30,6 +30,7 @@
 
 
 <#@ include file="Client/DataServices/angularServices.ttinclude" #>
+<#@ include file="Client/Styles/lessStyles.ttinclude" #>
 <#@ include file="Client/Features/routes.ttinclude" #>
 <#@ include file="Client/Features/Views/IndexView.ttinclude" #>
 <#@ include file="Client/Features/Components/listComponentTemplate.ttinclude" #>
@@ -60,8 +61,9 @@
     //this.GenerateNodeServerErrorHandler();
     this.GenerateBowerFile();
     this.GeneratePackageJson();
-        this.GenerateGulpFile();
+    this.GenerateGulpFile();
     this.GenerateGulpConfigFile();
+   
 
     foreach(var codeClass in classes){
       this.GenerateNodeServerApisForFeatures(codeClass);
@@ -81,7 +83,7 @@
        this.GenerateModifyModalTemplate(codeClass);
     }
 
-    
+     this.GeneratLessStyles();
 
     ////Auth0 
     //this.GenerateAuth0ConfigFile();
