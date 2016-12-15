@@ -34,6 +34,7 @@
         public string ListComponentFileName  = "";
         public string ListComponentTag = "";
         public string ListComponentTemplateFileName  = "";
+        public string ListComponentTemplateUrl = "";
 
         //Index View
         public string IndexTemplateUrl = "";
@@ -69,7 +70,7 @@
             ListComponentName = string.Format("{0}List",_codeClassHelper.CamelCasePlural);
             ListComponentFileName = string.Format("{0}.js",ListComponentName);
             ListComponentTemplateFileName = string.Format("{0}.html", ListComponentName);
-            
+            ListComponentTemplateUrl = string.Format("src/client/Features/{0}/Components/{1}", codeClassHelper.Plural, ListComponentTemplateFileName);
             ListComponentTag = GetComponentTag(ListComponentName);
 
             //main index view

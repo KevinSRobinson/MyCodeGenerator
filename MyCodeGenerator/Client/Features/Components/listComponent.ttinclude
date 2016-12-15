@@ -25,7 +25,7 @@ bindings: {
 	allowChanges: "@"
 },
 controllerAs: "vm",
-templateUrl: "<#=helper.AngularClient.ListComponentTemplateFileName#>",
+templateUrl: "<#=helper.AngularClient.ListComponentTemplateUrl#>",
 controller: function (<#=helper.AngularClient.ServiceName#>, <#=helper.AngularClient.ModalServiceName#>) {
     var vm = this;
     vm.error = {};
