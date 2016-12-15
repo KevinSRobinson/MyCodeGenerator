@@ -1,0 +1,20 @@
+﻿
+<#+ void GenerateTestDataJsonFile(CodeClass codeClass){ 
+
+         var helper = new CodeClassHelper(codeClass);
+#>
+
+
+
+<#+ 
+    var collection = GenerateSampleJsonCollection(helper.CamelCasePlural, codeClass, 5);
+    WriteLine(collection);
+#>    
+
+
+
+<#+
+    CreateDirectoryFullPath(NodeServerPath + "Data/");
+    CreateFile(NodeServerPath + "Data/" + helper.CamelCasePlural + ".json");
+	}	
+#>

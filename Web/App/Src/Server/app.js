@@ -1,4 +1,5 @@
 
+
 /*jshint node:true*/
 'use strict';
 
@@ -25,8 +26,10 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(errorHandler.init);
 
-//routes = require('./routes/index')(app);
-
+var organisations = require('./routes/organisationsapi')(app);
+var contacts = require('./routes/contactsapi')(app);
+ 
+   
 console.log('About to crank up node');
 console.log('PORT=' + port);
 console.log('NODE_ENV=' + environment);
@@ -35,6 +38,9 @@ app.get('/ping', function(req, res, next) {
     console.log(req.body);
     res.send('pong');
 });
+
+
+
 
 switch (environment) {
     case 'build':

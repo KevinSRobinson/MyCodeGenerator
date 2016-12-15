@@ -10,7 +10,6 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
 
-
 <#@ include file="General/T4Helper.ttinclude" #>
 
 
@@ -18,7 +17,9 @@
 <#@ include file="Client/app.ttinclude" #>
 <#@ include file="Client/NodeServer/nodeServer.ttinclude" #>
 <#@ include file="Client/NodeServer/Apis/ServerApis.ttinclude" #>
-
+<#@ include file="Client/NodeServer/Routes/Utils/JsonFileService.ttinclude" #>
+<#@ include file="Client/NodeServer/Routes/RoutesIndex.ttinclude" #>
+<#@ include file="Client/NodeServer/Data/TestJsonData.ttinclude" #>
 
 <#@ include file="Client/PackageManagers/bower.ttinclude" #>
 <#@ include file="Client/PackageManagers/package.ttinclude" #> 
@@ -53,7 +54,8 @@
 //
     ////Core App
     this.GenerateAppFile();
-    this.GenerateNodeJsSeverAppFile();
+    this.GenerateNodeJsSeverAppFile(classes);
+    this.GenerateJsonFileService();
  
     //this.GenerateNodeServerErrorHandler();
     this.GenerateBowerFile();
@@ -63,7 +65,8 @@
 
     foreach(var codeClass in classes){
       this.GenerateNodeServerApisForFeatures(codeClass);
-
+        this.GenerateRoutesIndexFile(codeClass);
+            this.GenerateTestDataJsonFile(codeClass);
 
       this.GenerateAngularService(codeClass);
       this.GeneratRoutes(codeClass);

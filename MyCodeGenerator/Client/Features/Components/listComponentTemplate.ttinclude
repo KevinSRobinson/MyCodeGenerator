@@ -4,7 +4,7 @@
     string GetTableTD(string className, string property, string angularSuffix )
     {
 
-        var td = String.Format("<td>{0} {1}.{2} ", "{{", className, property);
+        var td = String.Format("<td>{0} {1}.{2} ", "{{", className.ToLower(), GetCamelcaseClassName(property));
 
         if(angularSuffix!= "")
         {
@@ -88,7 +88,7 @@
         </tr>
     </thead>
 
-    <tr  ng-repeat='<#= helper.CamelCase #> in <#= helper.CamelCasePlural #> '>
+    <tr  ng-repeat='<#= helper.CamelCase #> in vm.<#= helper.CamelCasePlural #> '>
         <#+WriteTableCells(codeClass);#>
     </tr>
 </table>

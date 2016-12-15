@@ -162,6 +162,7 @@
         {
             return GetCamelcaseClassName(codeClass.Name);
         }
+
         private static string GetCamelcaseClassName(string className)
         {
             string returnString = className.ToLower();
@@ -361,7 +362,6 @@ public void ProcessContent(string outputFileName, string content)
             gettersetter += "set;";
         }   
 
-
         gettersetter += "}";
 
         return gettersetter;
@@ -382,5 +382,93 @@ public void ProcessContent(string outputFileName, string content)
         returnString = ti.ToTitleCase(returnString);
         returnString = returnString.Replace(" ", "");
         return returnString;
+    }
+
+
+
+
+
+
+
+
+    //////////////////////////////////////
+    ////JSON
+    string GenerateSampleJsonCollection(string name, CodeClass codeclass, int numberOfItems){
+        
+        var jsonCollection= "[";
+
+        //create 
+        for(int i=1; i<numberOfItems; i++){
+            jsonCollection += GeneratJsonObject(i, codeclass);
+        }
+
+        //remove last commma
+        jsonCollection = jsonCollection.Substring(0, jsonCollection.Length -1);
+
+        //close colleciton
+        jsonCollection += "]";
+
+        return jsonCollection;
+    }
+
+    
+
+    bool IsProperty(string memberType){
+        return memberType == "vsCMElementProperty";
+    }   
+    
+    string GeneratJsonObject(int count, CodeClass codeClass){
+       
+        var jsonObject = "{";
+           
+        //write a property with test value for each
+        foreach (CodeElement meb in codeClass.Members) {
+            if (IsProperty(meb.Kind.ToString())) {			
+                jsonObject += GetJsonProperty(meb, GetTestValue(count, meb));
+            };
+        }
+        
+        jsonObject = jsonObject.Substring(0, jsonObject.Length -1);
+        jsonObject += "},";
+
+        return jsonObject;
+
+    }
+  
+
+    
+    string GetTestValue(int count, CodeElement member){
+        
+        var prop = member as CodeProperty;	
+
+        //Get the property Type
+	    var type = prop.Type.AsString;
+
+        switch(type){
+            case "string":
+                return WrapInDoubleQuotes("Test Value");  
+                break;      
+            case "int":
+                return count.ToString();
+                break;
+            case "System.Guid":
+                return WrapInDoubleQuotes(Guid.NewGuid().ToString());
+                break;
+		    default:
+                    return type;
+                break;
+		    }
+    }
+
+    string WrapInDoubleQuotes(string val){
+        return String.Format("{0}{1}{0}", Convert.ToChar(34), val);
+    }
+
+
+
+
+    string GetJsonProperty(CodeElement member, string val){
+        var prop = member as CodeProperty;		
+        return String.Format("{0}{1}{0}:{2},", Convert.ToChar(34), GetCamelcaseClassName(prop.Name), val);
     }
 #>

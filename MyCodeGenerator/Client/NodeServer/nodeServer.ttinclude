@@ -1,5 +1,9 @@
 ﻿
-<#+ void GenerateNodeJsSeverAppFile(){ #>
+<#+ void GenerateNodeJsSeverAppFile(List<CodeClass> codeClasses){ 
+
+
+#>
+
 
 /*jshint node:true*/
 'use strict';
@@ -27,8 +31,17 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(errorHandler.init);
 
-//routes = require('./routes/index')(app);
+<#+        
+foreach(CodeClass codeClass in codeClasses){
+            var helper = new CodeClassHelper(codeClass);
+          
+            var apiReference = String.Format("var {0} = require('./routes/{0}api')(app);", helper.CamelCasePlural);
 
+            WriteLine(apiReference);
+        }
+#>
+ 
+   
 console.log('About to crank up node');
 console.log('PORT=' + port);
 console.log('NODE_ENV=' + environment);
@@ -37,6 +50,9 @@ app.get('/ping', function(req, res, next) {
     console.log(req.body);
     res.send('pong');
 });
+
+
+
 
 switch (environment) {
     case 'build':

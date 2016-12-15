@@ -30,6 +30,7 @@ controller: function (organisationsService, organisationsModalService) {
         var organisationsPromise= organisationsService.GetAll();
         organisationsPromise.then(function(response){
 	    vm.organisations = response.data;
+console.log(response.data);
         }).catch(function(error){
 	        vm.error = error;
         })

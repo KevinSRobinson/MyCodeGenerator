@@ -33,6 +33,6 @@ module.exports = function() {
 
 <#+
     CreateDirectoryFullPath(NodeServerPath + "Routes/Utils/");
-    CreateFile(NodeServerPath + "Routes/Utils/" + "errorHandler.js");
+    CreateFile(NodeServerPath + "Routes/Utils/errorHandler.js");
 	}	
 #>

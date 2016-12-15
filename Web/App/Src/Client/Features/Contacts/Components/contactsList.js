@@ -30,6 +30,7 @@ controller: function (contactsService, contactsModalService) {
         var contactsPromise= contactsService.GetAll();
         contactsPromise.then(function(response){
 	    vm.contacts = response.data;
+console.log(response.data);
         }).catch(function(error){
 	        vm.error = error;
         })
