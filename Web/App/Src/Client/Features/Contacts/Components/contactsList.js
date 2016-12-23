@@ -47,8 +47,8 @@ console.log(response.data);
         });
     };
 
-    vm.edit = function(contacts){
-        contacts.Edit(contact);
+    vm.edit = function(contact){
+        contactsModalService.Modify(contact);
     };
 
     vm.view = function(contacts){

@@ -1,0 +1,29 @@
+﻿
+<#+ 
+    
+ void GenerateSideComponentTemplate(List<CodeClass> codeClasses){	
+		
+         var ClientCommon = new ClientCommon();
+       
+#>
+		
+<ul>
+   <#+
+        foreach(CodeClass codeClass in codeClasses)
+        {
+             var helper = new CodeClassHelper(codeClass);
+            WriteLine(String.Format("<li><a ui-sref='{0}'>{1}</a></li>", helper.CamelCasePlural, helper.Plural));
+        }
+	#>
+</ul>
+
+        
+
+
+<#+
+    
+  	CreateDirectoryFullPath(clientAppPath + ClientCommon.SideNavigationComponentFilePath);
+	CreateFile(clientAppPath + ClientCommon.SideNavigationComponentFilePath + ClientCommon.SideNavigationComponentTemplateFileName);
+}	
+#>
+

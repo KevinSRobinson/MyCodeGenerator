@@ -36,9 +36,12 @@
 <#@ include file="Client/Features/Components/listComponentTemplate.ttinclude" #>
 <#@ include file="Client/Features/Components/listComponent.ttinclude" #>
 
+
 <#@ include file="Client/Features/Modals/modalServices.ttinclude" #>
 <#@ include file="Client/Features/Modals/modifyModal.ttinclude" #>
 <#@ include file="Client/Features/Modals/modifyModalController.ttinclude" #>
+<#@ include file="Client/Features/Navigation/sideMenuComponent.ttinclude" #>
+<#@ include file="Client/Features/Navigation/sideMenuComponentTemplate.ttinclude" #>
 
 
 <#@ include file="Client/Auth0/auth0Config.ttinclude" #>
@@ -63,6 +66,8 @@
     this.GeneratePackageJson();
     this.GenerateGulpFile();
     this.GenerateGulpConfigFile();
+    this.GenerateSideMenuNavigationComponent(classes);
+    this.GenerateSideComponentTemplate(classes);
    
 
     foreach(var codeClass in classes){

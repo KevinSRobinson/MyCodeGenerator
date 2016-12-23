@@ -1,14 +1,13 @@
 		
 <my-panel title="Tags" show-add-button="true" add="vm.create()" style="success" icon="tags" icon-size="2">
  <my-filter-textbox  ng-model="filter"></my-filter-textbox>
-<table>
+<table class="table table-striped">
 
     <thead>
         <tr>
              <td>Id</td>
 <td>FirstName</td>
 <td>LastName</td>
-<td>UserId</td>
         </tr>
     </thead>
 
@@ -16,6 +15,7 @@
         <td>{{ contact.id }}</td>
 <td>{{ contact.firstName }}</td>
 <td>{{ contact.lastName }}</td>
+        <td><div class="btn btn-success" ng-click='vm.edit(contact)'>Edit</div></td>
     </tr>
 </table>
 

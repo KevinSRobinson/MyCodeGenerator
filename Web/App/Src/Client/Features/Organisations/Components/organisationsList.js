@@ -47,8 +47,8 @@ console.log(response.data);
         });
     };
 
-    vm.edit = function(organisations){
-        organisations.Edit(organisation);
+    vm.edit = function(organisation){
+        organisationsModalService.Modify(organisation);
     };
 
     vm.view = function(organisations){

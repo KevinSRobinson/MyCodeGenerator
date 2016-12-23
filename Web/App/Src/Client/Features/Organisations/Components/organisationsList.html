@@ -1,7 +1,7 @@
 		
 <my-panel title="Tags" show-add-button="true" add="vm.create()" style="success" icon="tags" icon-size="2">
  <my-filter-textbox  ng-model="filter"></my-filter-textbox>
-<table>
+<table class="table table-striped">
 
     <thead>
         <tr>
@@ -13,6 +13,7 @@
     <tr  ng-repeat='organisation in vm.organisations '>
         <td>{{ organisation.id }}</td>
 <td>{{ organisation.name }}</td>
+        <td><div class="btn btn-success" ng-click='vm.edit(contact)'>Edit</div></td>
     </tr>
 </table>
 

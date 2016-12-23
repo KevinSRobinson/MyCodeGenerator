@@ -1,0 +1,9 @@
+{
+  "analytics": false,
+  "timeout": 120000,
+  "directory": "bower_components",
+  "registry": {"search": [
+    "http://bower.herokuapp.com",
+    "https://seamusjunior:Eastwood44@www.myget.org/F/volunteernow/bower/"
+  ]}
+}

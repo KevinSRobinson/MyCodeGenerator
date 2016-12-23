@@ -7,6 +7,17 @@
 <#@ include file="Settings.ttinclude" #>
 <#+
 
+    public class ClientCommon
+    {
+          //SideNavigation
+          public string   SideNavigationComponentFilePath = "/Features/Navigation/SideNavigation/";
+          public string   SideNavigationComponentName = "sideNavigation";
+          public string   SideNavigationComponentFileName = "sideNavigation.js";
+          public string   SideNavigationComponentTemplateFileName = "sideNavigation.html";
+          public string   SideNavigationComponentTemplateUrl = "src/client/Features/Navigation/SideNavigation/sideNavigation.html";
+          public string   SideNavigationComponentTag = "<side-navigation></side-navigation>";
+
+    }
 
     public class AngularClient  {
 
@@ -65,8 +76,9 @@
             ModifyModalControllerFileName = string.Format("{0}.js", ModifyModalController);
             ModifyModalTemplateFileName = string.Format("{0}Template.html", ModifyModalController);
 
+           
+
             //Components
-            
             ListComponentFilePath = string.Format("{0}Components/",FeaturePath);
             ListComponentName = string.Format("{0}List",_codeClassHelper.CamelCasePlural);
             ListComponentFileName = string.Format("{0}.js",ListComponentName);
@@ -127,8 +139,6 @@
 
 
 
-
-
             public string Plural {get{
                 return _codeClass.Name + "s";
             }}
@@ -136,20 +146,17 @@
             public string Name { get{
                 return _codeClass.Name;
             }}
-
-
-
             public string CamelCasePlural {
                 get{
                   return CamelCase + "s";
              }}
-
             public string CamelCase {
                 get{
                   return GetCamelcaseClassName(_codeClass);
              }}
 
 
+       
 
  
         #region Private Methods

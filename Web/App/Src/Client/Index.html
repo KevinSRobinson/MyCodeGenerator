@@ -34,6 +34,9 @@
 
 
 
+
+
+
 		
 
 
@@ -61,10 +64,7 @@
 
 <body>
     <div class="col-md-3">
-        <ul>
-            <li><a ui-sref='organisations'>Organisations</a></li>
-<li><a ui-sref='contacts'>Contacts</a></li>
-        </ul>
+      <side-navigation></side-navigation>
     </div>
     <div class="col-md-8">
         <div ui-view></div>
@@ -91,6 +91,7 @@
         <script src="/src/client/Features/Contacts/Components/contactsList.js"></script>
         <script src="/src/client/Features/Contacts/Modals/contactsModalService.js"></script>
         <script src="/src/client/Features/Contacts/Modals/modifyContactModalController.js"></script>
+        <script src="/src/client/Features/Navigation/SideNavigation/sideNavigation.js"></script>
         <script src="/src/client/Features/Organisations/Components/organisationsList.js"></script>
         <script src="/src/client/Features/Organisations/Modals/modifyOrganisationModalController.js"></script>
         <script src="/src/client/Features/Organisations/Modals/organisationsModalService.js"></script>
