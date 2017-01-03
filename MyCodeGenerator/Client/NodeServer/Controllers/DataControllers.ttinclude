@@ -46,7 +46,6 @@
 
 
    exports.findById = function (req, res) {
-    console.log(req.params.id);
     var query = <#=helper.Name#>.findById(req.params.id).then(function (results) {
         res.json({
             data: results
