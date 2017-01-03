@@ -65,13 +65,13 @@
     </Compile>
     <Compile Include="Client .cs">
       <DependentUpon>Client .tt</DependentUpon>
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Client 1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>Client .tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="DataLayer.cs">
       <AutoGen>True</AutoGen>
@@ -127,6 +127,8 @@
     <None Include="Client\Electron\elecronIndex.ttinclude" />
     <None Include="Client\Features\Navigation\sideMenuComponent.ttinclude" />
     <None Include="Client\Features\Navigation\sideMenuComponentTemplate.ttinclude" />
+    <None Include="Client\NodeServer\Controllers\DataControllers.ttinclude" />
+    <None Include="Client\NodeServer\Data\MongoDbSchema.ttinclude" />
     <None Include="Client\Styles\lessStyles.ttinclude" />
     <None Include="Client\Gulp\gulpConfig.ttinclude" />
     <None Include="Client\Gulp\gulp1.ttinclude" />
@@ -136,7 +138,6 @@
     <None Include="Client\Auth0\auth0Service.ttinclude" />
     <None Include="Client\Auth0\auth0Variables.ttinclude" />
     <None Include="Client\Auth0\auth0Config.ttinclude" />
-    <None Include="Client\NodeServer\Routes\RoutesIndex.ttinclude" />
     <None Include="Client\NodeServer\Routes\Utils\JsonFileService.ttinclude" />
     <None Include="Client\NodeServer\Routes\Utils\ErrorHandler.ttinclude" />
     <None Include="DataLayer\Dtos\DtoCommands.ttinclude" />

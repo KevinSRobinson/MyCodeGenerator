@@ -1,36 +1,14 @@
 ﻿
 <#+  void GenerateBowerCCFile(){  #>
-		
 {
-  "name": "<#=applicationName#>",
-  "description": "",
-  "main": "",
-  "authors": [
-    "Kevin Robinson"
-  ],
-  "license": "MIT",
-  "homepage": "https://github.com/seamusjunior/MyCodeGenerator",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-   "jquery": "~2.1.1",
-    "bootstrap": "~3.3.1",
-    "extras.angular.plus": "~0.9.2",
-    "font-awesome": "~4.2.0",
-    "moment": "~2.8.4",
-    "toastr": "~2.1.0",
-    "angular-ui-router": "^0.3.2",
-    "angular-bootstrap": "^2.3.1",
-    "angular": "1.5.8"
-  }
+    "directory": "bower_components",
+     "registry": 
+     {"search": ["https://seamusjunior:Eastwood44@www.myget.org/F/my-angular-components/bower/",
+     "http://bower.herokuapp.com"]},
+    "scripts": {
+        "postinstall": "gulp wiredep"
+    }    
 }
-
-
 
 		
 		<#+

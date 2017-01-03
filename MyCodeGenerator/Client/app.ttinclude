@@ -6,7 +6,7 @@
   'use strict';
 
   angular
-    .module('<#=applicationName#>', ['ui.router', 'ui.bootstrap'])
+    .module('<#=applicationName#>', ['ui.router', 'ui.bootstrap','my-angular-components'])
     .config(config);
 
 

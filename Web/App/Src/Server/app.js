@@ -26,8 +26,13 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(errorHandler.init);
 
-var organisations = require('./routes/organisationsapi')(app);
-var contacts = require('./routes/contactsapi')(app);
+//Mongoose 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://user1:Eastwood44@ds013206.mlab.com:13206/contacts');
+
+
+var organisations = require('./Apis/organisationsApi.js')(app);
+var contacts = require('./Apis/contactsApi.js')(app);
  
    
 console.log('About to crank up node');
@@ -38,6 +43,7 @@ app.get('/ping', function(req, res, next) {
     console.log(req.body);
     res.send('pong');
 });
+
 
 
 
@@ -63,5 +69,7 @@ app.listen(port, function() {
                 '\n__dirname = ' + __dirname +
                 '\nprocess.cwd = ' + process.cwd());
 });
+
+
 
 

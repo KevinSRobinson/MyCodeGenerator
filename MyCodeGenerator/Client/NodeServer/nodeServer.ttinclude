@@ -31,11 +31,16 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(errorHandler.init);
 
+//Mongoose 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://user1:Eastwood44@ds013206.mlab.com:13206/contacts');
+
+
 <#+        
 foreach(CodeClass codeClass in codeClasses){
             var helper = new CodeClassHelper(codeClass);
           
-            var apiReference = String.Format("var {0} = require('./routes/{0}api')(app);", helper.CamelCasePlural);
+            var apiReference = String.Format("var {0} = require('./Apis/{0}Api.js')(app);", helper.CamelCasePlural);
 
             WriteLine(apiReference);
         }
@@ -50,6 +55,7 @@ app.get('/ping', function(req, res, next) {
     console.log(req.body);
     res.send('pong');
 });
+
 
 
 
@@ -75,6 +81,8 @@ app.listen(port, function() {
                 '\n__dirname = ' + __dirname +
                 '\nprocess.cwd = ' + process.cwd());
 });
+
+
 
 
 <#+

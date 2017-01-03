@@ -32,7 +32,8 @@
     "angular-ui-router": "^0.3.2",
     "angular": "^1.6.0",
     "angular-animate": "^1.6.0",
-    "angular-bootstrap": "^2.3.1"
+    "angular-bootstrap": "^2.3.1",
+    "my-angular-components": "*"
   }
 }
 

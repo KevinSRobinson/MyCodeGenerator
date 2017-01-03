@@ -1,0 +1,22 @@
+﻿<#+ void GenerateMongoDbSchemaFile(CodeClassHelper helper){ 
+
+#>
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var <#=helper.CamelCasePlural#>Schema = new Schema({
+
+    <#+
+        WriteLine(GetMongoDbSchema(helper));
+        WriteLine(GetDateSchemaProperty("CreatedOn"));    
+        WriteLine(");");
+    #>  
+
+
+
+module.exports =  mongoose.model('<#=helper.Name#>', <#=helper.CamelCasePlural#>Schema);
+<#+
+    CreateDirectoryFullPath(NodeApiSchemasPath);
+    CreateFile(NodeApiSchemasPath + helper.CamelCasePlural + "Model.js");
+	}	
+#>

@@ -16,10 +16,13 @@
 <#@ include file="Client/IndexPage.ttinclude" #>
 <#@ include file="Client/app.ttinclude" #>
 <#@ include file="Client/NodeServer/nodeServer.ttinclude" #>
-<#@ include file="Client/NodeServer/Apis/ServerApis.ttinclude" #>
+
 <#@ include file="Client/NodeServer/Routes/Utils/JsonFileService.ttinclude" #>
-<#@ include file="Client/NodeServer/Routes/RoutesIndex.ttinclude" #>
+<#@ include file="Client/NodeServer/Routes/Utils/ErrorHandler.ttinclude" #>
+<#@ include file="Client/NodeServer/Apis/ServerApis.ttinclude" #>
 <#@ include file="Client/NodeServer/Data/TestJsonData.ttinclude" #>
+<#@ include file="Client/NodeServer/Data/MongoDbSchema.ttinclude" #>
+<#@ include file="Client/NodeServer/Controllers/DataControllers.ttinclude" #>
 
 <#@ include file="Client/PackageManagers/bower.ttinclude" #>
 <#@ include file="Client/PackageManagers/package.ttinclude" #> 
@@ -59,8 +62,11 @@
     ////Core App
     this.GenerateAppFile();
     this.GenerateNodeJsSeverAppFile(classes);
+  
+
     this.GenerateJsonFileService();
- 
+    this.GenerateNodeServerErrorHandler();
+
     //this.GenerateNodeServerErrorHandler();
     this.GenerateBowerFile();
     this.GeneratePackageJson();
@@ -71,9 +77,16 @@
    
 
     foreach(var codeClass in classes){
-      this.GenerateNodeServerApisForFeatures(codeClass);
-        this.GenerateRoutesIndexFile(codeClass);
-            this.GenerateTestDataJsonFile(codeClass);
+      
+      var helper  = new CodeClassHelper(codeClass);
+
+      //Node Server
+      //this.GenerateNodeServerApisForFeatures(codeClass);
+      //this.GenerateRoutesIndexFile(codeClass);
+      this.GenerateApis(helper);
+      this.GenerateTestDataJsonFile(codeClass);
+      this.GenerateMongoDbSchemaFile(helper);
+      this.GenerateApisDataControllers(helper);
 
       this.GenerateAngularService(codeClass);
       this.GeneratRoutes(codeClass);
@@ -83,7 +96,7 @@
       this.GenerateListComponent(codeClass);
 
 
-        this.GeneratModalService(codeClass);
+       this.GeneratModalService(codeClass);
        this.GeneratModifyModalController(codeClass);
        this.GenerateModifyModalTemplate(codeClass);
     }

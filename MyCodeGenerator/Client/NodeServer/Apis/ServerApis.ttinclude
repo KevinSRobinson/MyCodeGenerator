@@ -1,21 +1,28 @@
 ﻿
-<#+ 
- 
+<#+ void GenerateApis(CodeClassHelper helper){ #>     
+
+
+module.exports = function(app) {
+    var express = require('express');
+    var Controller = require('../controllers/<#=helper.CamelCasePlural#>.server.controller.js');
     
+    app.get('/api/<#=helper.CamelCasePlural#>', function(req, res, next) {
+       return Controller.list(req, res);
+    });
+    app.post('/api/<#=helper.CamelCase#>', function(req, res) {
+       return Controller.create(req, res);
+    });
 
- void GenerateNodeServerApisForFeatures(CodeClass codeClass){
 
-   var helper = new CodeClassHelper(codeClass);
+    module.exports = app;
 
-
-
- #>
+};
 
 
 
 
 <#+
-    CreateDirectoryFullPath(NodeServerPath + "Routes/Apis/");
-    CreateFile(NodeServerPath + "Routes/Apis/" + helper.CamelCase + ".js");
+    CreateDirectoryFullPath(NodeApisPath);
+    CreateFile(NodeApisPath + helper.CamelCasePlural + "Api.js");
 	}	
 #>

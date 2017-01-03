@@ -114,16 +114,19 @@
 
     public class CodeClassHelper
     {
-        private static CodeClass _codeClass;
-        private AngularClient _angularClient;
+            private static CodeClass _codeClass;
+            private AngularClient _angularClient;
 
 
-        public CodeClassHelper(CodeClass codeClass){
-            _codeClass = codeClass;
+            public CodeClassHelper(CodeClass codeClass){
+                _codeClass = codeClass;
 
-            _angularClient = new AngularClient(this);
-        }
+                _angularClient = new AngularClient(this);
+            }
 
+            public CodeClass CodeClass {get{
+                return _codeClass;
+            }}
      
             public AngularClient AngularClient {get{
                 return _angularClient;
@@ -160,64 +163,66 @@
 
  
         #region Private Methods
-        public string GetDtoClassName(CodeClass codeClass)    {
-   return codeClass.Name + "Dto";
-}
-        private static string GetDtoCamelcaseClassName(CodeClass codeClass)  {
-            return GetCamelcaseClassName(codeClass.Name) + "Dto";
-        }
-        private static string GetCamelcaseClassName(CodeClass codeClass)
-        {
-            return GetCamelcaseClassName(codeClass.Name);
-        }
-
-        private static string GetCamelcaseClassName(string className)
-        {
-            string returnString = className.ToLower();
-            returnString = Char.ToLowerInvariant(className[0]) + className.Substring(1);
-            return returnString;
-        }
-
+            public string GetDtoClassName(CodeClass codeClass)    {
+               return codeClass.Name + "Dto";
+            }
+            private static string GetDtoCamelcaseClassName(CodeClass codeClass)  {
+                return GetCamelcaseClassName(codeClass.Name) + "Dto";
+            }
+            private static string GetCamelcaseClassName(CodeClass codeClass)
+            {
+                return GetCamelcaseClassName(codeClass.Name);
+            }
+            private static string GetCamelcaseClassName(string className)
+            {
+                string returnString = className.ToLower();
+                returnString = Char.ToLowerInvariant(className[0]) + className.Substring(1);
+                return returnString;
+            }
         #endregion
         
     
     }
-public List<CodeClass> GetClasses(){
+
+
+
+
+    public List<CodeClass> GetClasses(){
 		
-    IServiceProvider serviceProvider = (IServiceProvider)this.Host;
-    DTE dte = serviceProvider.GetService(typeof(DTE)) as DTE; 
+        IServiceProvider serviceProvider = (IServiceProvider)this.Host;
+        DTE dte = serviceProvider.GetService(typeof(DTE)) as DTE; 
 
-    var project = GetActiveProject(dte);
-    return FindClasses(project, dataContextNamespace, "").Where(x=> x.Name != efContext).ToList();       
-}
-
-
-
-public string GetDtoClassName(CodeClass codeClass)    {
-   return codeClass.Name + "Dto";
-}
-
-public string GetDtoCamelcaseClassName(CodeClass codeClass)  {
-   return GetCamelcaseClassName(codeClass.Name) + "Dto";
-}
-
-public void CreateDirectoryFullPath(string outputFilePath){
-    var di = Directory.CreateDirectory(outputFilePath);                          
-}	
-
-public void CreateFileFullPath(string fileName)
-{
-    ProcessContent(fileName, this.GenerationEnvironment.ToString());
-    this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
-}
+        var project = GetActiveProject(dte);
+        return FindClasses(project, dataContextNamespace, "").Where(x=> x.Name != efContext).ToList();       
+    }
 
 
-public void CreateDirectory(string outputFileName){
-			string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
-				string outputFilePath = Path.Combine(templateDirectory, outputFileName);
-				var di = Directory.CreateDirectory(outputFilePath);                          
+
+    public string GetDtoClassName(CodeClass codeClass)    {
+       return codeClass.Name + "Dto";
+    }
+
+    public string GetDtoCamelcaseClassName(CodeClass codeClass)  {
+       return GetCamelcaseClassName(codeClass.Name) + "Dto";
+    }
+
+    public void CreateDirectoryFullPath(string outputFilePath){
+        var di = Directory.CreateDirectory(outputFilePath);                          
+    }	
+
+    public void CreateFileFullPath(string fileName)
+    {
+        ProcessContent(fileName, this.GenerationEnvironment.ToString());
+        this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+    }
+
+
+    public void CreateDirectory(string outputFileName){
+			    string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+				    string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+				    var di = Directory.CreateDirectory(outputFilePath);                          
             
-}
+    }
 
 	 //Generating Seperate Files
 public void ProcessContentFullPath(string path, string outputFileName, string content)
@@ -479,4 +484,53 @@ public void ProcessContent(string outputFileName, string content)
         var prop = member as CodeProperty;		
         return String.Format("{0}{1}{0}:{2},", Convert.ToChar(34), GetCamelcaseClassName(prop.Name), val);
     }
+
+    //////////////////////////////////
+    //Mongo DB
+    string GetMongoDbSchema(CodeClassHelper helper){
+        var schema = "";
+        foreach (CodeElement meb in helper.CodeClass.Members) {
+            if (IsProperty(meb.Kind.ToString())) {	
+                schema += GetJsonSchemaProperty(meb);      
+            };           
+        }
+        return schema;
+    }
+    string GetJsonSchemaProperty(CodeElement member){
+        var prop = member as CodeProperty;	
+
+        //Get the property Type
+	    var type = prop.Type.AsString;
+
+        var mongooseSchemaType = "";
+
+        switch(type)
+            {   
+               case "string"  :
+                    mongooseSchemaType = "String";
+                    break;
+               case "int"  :
+                    mongooseSchemaType = "Number";
+                    break;
+               case "System.Guid"  :
+                    mongooseSchemaType = "String";
+                    break;
+               default:
+                    mongooseSchemaType = "String";
+                    break;
+            }
+
+
+        return String.Format("{0} : {1}, ", member.Name, mongooseSchemaType);
+    }
+
+    string GetDateSchemaProperty(string fieldName){
+        var property =  fieldName + ": {" ;
+        property += " type: Date," ;
+        property += " default: Date.now"  ;
+        property += " }} "  ;
+        return property;   
+    }
+
+  
 #>

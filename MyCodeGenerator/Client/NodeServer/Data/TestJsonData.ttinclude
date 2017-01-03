@@ -14,7 +14,7 @@
 
 
 <#+
-    CreateDirectoryFullPath(NodeServerPath + "Data/");
-    CreateFile(NodeServerPath + "Data/" + helper.CamelCasePlural + ".json");
+    CreateDirectoryFullPath(NodeServerPath + "TESTData/");
+    CreateFile(NodeServerPath + "TESTData/" + helper.CamelCasePlural + ".json");
 	}	
 #>

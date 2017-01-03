@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-    .module('contacts', ['ui.router', 'ui.bootstrap'])
+    .module('contacts', ['ui.router', 'ui.bootstrap','my-angular-components'])
     .config(config);
 
 
