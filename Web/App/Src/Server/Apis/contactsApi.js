@@ -8,6 +8,11 @@ module.exports = function(app) {
     app.get('/api/contacts', function(req, res, next) {
        return Controller.list(req, res);
     });
+
+    app.get('/api/contacts/:id', function (req, res, next) {
+          return Controller.findById(req, res);
+    });
+
     app.post('/api/contact', function(req, res) {
        return Controller.create(req, res);
     });

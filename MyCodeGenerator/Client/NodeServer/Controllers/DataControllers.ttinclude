@@ -36,7 +36,7 @@
 
 
     exports.list = function (req, res) { 
-         var query = Organisation.find({}).then(function (results) {
+         var query = <#=helper.Name#>.find({}).then(function (results) {
          res.json({data: results});
     });
 
@@ -45,9 +45,14 @@
 
 
 
-    exports.get = function (req, res) { 
-        res.render('newnote', { title: 'Standup - New Note'});
-    };
+   exports.findById = function (req, res) {
+    console.log(req.params.id);
+    var query = <#=helper.Name#>.findById(req.params.id).then(function (results) {
+        res.json({
+            data: results
+        });
+    });
+};
 
  
 
