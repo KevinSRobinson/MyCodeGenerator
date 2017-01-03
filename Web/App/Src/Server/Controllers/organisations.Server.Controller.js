@@ -1,36 +1,36 @@
+var Organisation = require('../Models/organisationsModel.js');
 
-    
-    var Organisation = require('../Models/organisationsModel.js');
+exports.create = function (req, res) {
+    var entry = new Organisation({
 
-    exports.create = function (req, res) {
-        var entry = new Organisation({
-            
-            Id: req.body.Id,Name: req.body.Name
-          
+        Id: req.body.Id,
+        Name: req.body.Name
 
-            
+
+
+    });
+
+    entry.save();
+
+    res.redirect(301, '/');
+};
+
+
+exports.list = function (req, res) {
+    var query = Organisation.find({}).then(function (results) {
+        res.json({
+            data: results
         });
-
-        entry.save();
-
-        res.redirect(301, '/');
-    };
+    });
+};
 
 
-    exports.list = function (req, res) { 
-        var query = Organisation.find();
-        query.sort({createdOnDate: 'desc'})
-        .limit(10)
-        .exec(function(err, results){
-            res.render({Organisations: results});
+
+exports.findById = function (req, res) {
+    console.log(req.params.id);
+    var query = Organisation.findById(req.params.id).then(function (results) {
+        res.json({
+            data: results
         });
-
-    };
-
-
-    exports.get = function (req, res) { 
-        res.render('newnote', { title: 'Standup - New Note'});
-    };
-
- 
-
+    });
+};

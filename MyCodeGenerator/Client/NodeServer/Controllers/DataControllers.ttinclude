@@ -36,14 +36,13 @@
 
 
     exports.list = function (req, res) { 
-        var query = <#=helper.Name#>.find();
-        query.sort({createdOnDate: 'desc'})
-        .limit(10)
-        .exec(function(err, results){
-            res.render({<#=helper.Plural#>: results});
-        });
+         var query = Organisation.find({}).then(function (results) {
+         res.json({data: results});
+    });
+
 
     };
+
 
 
     exports.get = function (req, res) { 
