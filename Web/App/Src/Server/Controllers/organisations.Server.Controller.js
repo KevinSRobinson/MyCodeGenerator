@@ -19,7 +19,7 @@
 
     exports.list = function (req, res) { 
          var query = Organisation.find({}).then(function (results) {
-         res.json({data: results});
+         res.send({data: results});
     });
 
 
@@ -28,7 +28,6 @@
 
 
    exports.findById = function (req, res) {
-    console.log(req.params.id);
     var query = Organisation.findById(req.params.id).then(function (results) {
         res.json({
             data: results

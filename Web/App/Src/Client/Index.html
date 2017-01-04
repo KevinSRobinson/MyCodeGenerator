@@ -2,39 +2,27 @@
 <html lang="en" ng-app="contacts">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sample Contacts</title>
-      <style>
-        /* This helps the ng-show/ng-hide animations start at the right place. */
-        /* Since Angular has this but needs to load, this gives us the class early. */
-        
-        .ng-hide {
-            display: none!important;
-        }
-
-    </style>
+     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+   <title>Sample Contacts</title>
+     <base href="/">
+     <link rel="stylesheet" href="/bower_components/my-angular-components/build/assets/styles/lib.css"/>
+     <link rel="stylesheet" href="/bower_components/my-angular-components/build/assets/styles/main.css"/>
     <!-- bower:css -->
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="/bower_components/toastr/toastr.css" />
     <link rel="stylesheet" href="/bower_components/angular-ui-select/dist/select.css" />
     <link rel="stylesheet" href="/bower_components/angular-ui-grid/ui-grid.css" />
     <!-- endbower -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="/.tmp/styles.css">
     <!--endinject-->
 </head>
 
 <body>
-    <admin-layout></admin-layout>
-    <!--<div class="col-md-3">
-        <ul>
-            <li><a ui-sref='organisations'>Organisations</a></li>
-            <li><a ui-sref='contacts'>Contacts</a></li>
-        </ul>
-    </div>
-    <div class="col-md-8">
-        <div ui-view></div>
-    </div>-->
+    <h1>sdfsdfsdf</h1>
+    <admin-layout1></admin-layout1>
+   <script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
     <!--bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
@@ -66,20 +54,34 @@
     <script src="/bower_components/my-angular-components/build/js/app.js"></script>
     <!--endbower-->
     <!-- inject:js -->
+ 
     <script src="/src/client/app.js"></script>
+ 
     <script src="/src/client/Features/Contacts/routes.js"></script>
+ 
     <script src="/src/client/Features/Organisations/routes.js"></script>
+ 
     <script src="/src/client/Features/Contacts/Components/contactsList.js"></script>
+ 
     <script src="/src/client/Features/Contacts/Modals/contactsModalService.js"></script>
+ 
     <script src="/src/client/Features/Contacts/Modals/modifyContactModalController.js"></script>
+ 
     <script src="/src/client/Features/Navigation/SideNavigation/sideNavigation.js"></script>
+ 
     <script src="/src/client/Features/Organisations/Components/organisationsList.js"></script>
+ 
+    <script src="/src/client/Features/Navigation/Layout/adminLayout.js"></script>
+ 
     <script src="/src/client/Features/Organisations/Modals/modifyOrganisationModalController.js"></script>
+ 
     <script src="/src/client/Features/Organisations/Modals/organisationsModalService.js"></script>
+ 
     <script src="/src/client/DataServices/contactsService.js"></script>
+ 
     <script src="/src/client/DataServices/organisationsService.js"></script>
+ 
     <!--endinject-->
-    <script src="bower_components/my-angular-components/.tmp/templates.js"></script>
 </body>
 
 </html>

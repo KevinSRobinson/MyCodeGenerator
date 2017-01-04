@@ -1,0 +1,114 @@
+<#@ template language="C#" debug="false" hostspecific="true" #>
+<#@ assembly name="System" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+
+<#@ include file="General/T4Helper.ttinclude" #>
+
+
+<#@ include file="Client/IndexPage.ttinclude" #>
+<#@ include file="Client/app.ttinclude" #>
+<#@ include file="Client/NodeServer/nodeServer.ttinclude" #>
+
+<#@ include file="Client/NodeServer/Routes/Utils/JsonFileService.ttinclude" #>
+<#@ include file="Client/NodeServer/Routes/Utils/ErrorHandler.ttinclude" #>
+<#@ include file="Client/NodeServer/Apis/ServerApis.ttinclude" #>
+<#@ include file="Client/NodeServer/Data/TestJsonData.ttinclude" #>
+<#@ include file="Client/NodeServer/Data/MongoDbSchema.ttinclude" #>
+<#@ include file="Client/NodeServer/Controllers/DataControllers.ttinclude" #>
+
+<#@ include file="Client/PackageManagers/bower.ttinclude" #>
+<#@ include file="Client/PackageManagers/package.ttinclude" #> 
+
+
+<#@ include file="Client/Gulp/gulp1.ttinclude" #>
+<#@ include file="Client/Gulp/gulpConfig.ttinclude" #>
+
+
+<#@ include file="Client/DataServices/angularServices.ttinclude" #>
+<#@ include file="Client/Styles/lessStyles.ttinclude" #>
+<#@ include file="Client/Features/routes.ttinclude" #>
+<#@ include file="Client/Features/Views/IndexView.ttinclude" #>
+<#@ include file="Client/Features/Components/listComponentTemplate.ttinclude" #>
+<#@ include file="Client/Features/Components/listComponent.ttinclude" #>
+
+
+<#@ include file="Client/Features/Modals/modalServices.ttinclude" #>
+<#@ include file="Client/Features/Modals/modifyModal.ttinclude" #>
+<#@ include file="Client/Features/Modals/modifyModalController.ttinclude" #>
+<#@ include file="Client/Features/Navigation/sideMenuComponent.ttinclude" #>
+<#@ include file="Client/Features/Navigation/sideMenuComponentTemplate.ttinclude" #>
+
+
+<#@ include file="Client/Auth0/auth0Config.ttinclude" #>
+<#@ include file="Client/Auth0/auth0Variables.ttinclude" #>
+<#@ include file="Client/Auth0/auth0Service.ttinclude" #>
+
+
+
+<#  
+
+    var classes = GetClasses();
+//
+    this.GenerateMainIndexPage(classes);
+//
+    ////Core App
+    this.GenerateAppFile();
+    this.GenerateNodeJsSeverAppFile(classes);
+  
+
+    this.GenerateJsonFileService();
+    this.GenerateNodeServerErrorHandler();
+
+    //this.GenerateNodeServerErrorHandler();
+    this.GenerateBowerFile();
+    this.GeneratePackageJson();
+    this.GenerateGulpFile();
+    this.GenerateGulpConfigFile();
+    this.GenerateSideMenuNavigationComponent(classes);
+    this.GenerateSideComponentTemplate(classes);
+   
+
+    foreach(var codeClass in classes){
+      
+      var helper  = new CodeClassHelper(codeClass);
+
+      //Node Server
+      //this.GenerateNodeServerApisForFeatures(codeClass);
+      //this.GenerateRoutesIndexFile(codeClass);
+      this.GenerateApis(helper);
+      this.GenerateTestDataJsonFile(codeClass);
+      this.GenerateMongoDbSchemaFile(helper);
+      this.GenerateApisDataControllers(helper);
+
+      this.GenerateAngularService(codeClass);
+      this.GeneratRoutes(codeClass);
+      this.GenerateIndexView(codeClass);
+
+      this.GenerateListComponentTemplate(codeClass);
+      this.GenerateListComponent(codeClass);
+
+
+       this.GeneratModalService(codeClass);
+       this.GeneratModifyModalController(codeClass);
+       this.GenerateModifyModalTemplate(codeClass);
+    }
+
+     this.GeneratLessStyles();
+
+    ////Auth0 
+    //this.GenerateAuth0ConfigFile();
+    //this.GenerateAuth0VariablesFile();
+    //this.GenerateAuth0Service();
+
+   
+
+
+#>
