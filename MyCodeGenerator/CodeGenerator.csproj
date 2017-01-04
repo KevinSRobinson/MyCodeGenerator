@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AngularClient .cs" />
+    <Compile Include="AngularClient 1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AngularClient .tt</DependentUpon>
+    </Compile>
     <Compile Include="AngularGenerator.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -62,16 +68,6 @@
       <DependentUpon>AureliaClient.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Client .cs">
-      <DependentUpon>Client .tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Client 1.cs">
-      <DependentUpon>Client .tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="DataLayer.cs">
       <AutoGen>True</AutoGen>
@@ -125,8 +121,8 @@
     <None Include="Aurelia\Views\appTemplate.ttinclude" />
     <None Include="Aurelia\Views\app.ttinclude" />
     <None Include="Client\Electron\elecronIndex.ttinclude" />
-    <None Include="Client\Features\Navigation\sideMenuComponent.ttinclude" />
-    <None Include="Client\Features\Navigation\sideMenuComponentTemplate.ttinclude" />
+    <None Include="Client\Features\Navigation\mainLayoutComponent.ttinclude" />
+    <None Include="Client\Features\Navigation\mainLayoutComponentTemplate.ttinclude" />
     <None Include="Client\NodeServer\Controllers\DataControllers.ttinclude" />
     <None Include="Client\NodeServer\Data\MongoDbSchema.ttinclude" />
     <None Include="Client\Styles\lessStyles.ttinclude" />
@@ -186,6 +182,10 @@
     <None Include="Server\WebApi.ttinclude" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AngularClient .tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AngularClient 1.cs</LastGenOutput>
+    </Content>
     <Content Include="AngularGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AngularGenerator.cs</LastGenOutput>
@@ -193,10 +193,6 @@
     <Content Include="AureliaClient.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AureliaClient.cs</LastGenOutput>
-    </Content>
-    <Content Include="Client .tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Client 1.cs</LastGenOutput>
     </Content>
     <Content Include="WebApis.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -37,7 +37,7 @@
 
     exports.list = function (req, res) { 
          var query = <#=helper.Name#>.find({}).then(function (results) {
-         res.json({data: results});
+         res.json(results);
     });
 
 
@@ -47,9 +47,7 @@
 
    exports.findById = function (req, res) {
     var query = <#=helper.Name#>.findById(req.params.id).then(function (results) {
-        res.json({
-            data: results
-        });
+        res.json(results);
     });
 };
 

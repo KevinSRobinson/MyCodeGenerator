@@ -7,15 +7,11 @@
 <#@ include file="Settings.ttinclude" #>
 <#+
 
-    public class ClientCommon
+    public static class ClientCommon
     {
           //SideNavigation
-          public string   SideNavigationComponentFilePath = "/Features/Navigation/SideNavigation/";
-          public string   SideNavigationComponentName = "sideNavigation";
-          public string   SideNavigationComponentFileName = "sideNavigation.js";
-          public string   SideNavigationComponentTemplateFileName = "sideNavigation.html";
-          public string   SideNavigationComponentTemplateUrl = "src/client/Features/Navigation/SideNavigation/sideNavigation.html";
-          public string   SideNavigationComponentTag = "<side-navigation></side-navigation>";
+          public static string   MainLayoutComponentFilePath = "/Features/Navigation/";
+          public static string   MainLayout = "<main-layout></main-layout>";
 
     }
 

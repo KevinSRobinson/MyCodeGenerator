@@ -19,7 +19,7 @@
 
     exports.list = function (req, res) { 
          var query = Contact.find({}).then(function (results) {
-         res.send({data: results});
+         res.json(results);
     });
 
 
@@ -29,9 +29,7 @@
 
    exports.findById = function (req, res) {
     var query = Contact.findById(req.params.id).then(function (results) {
-        res.json({
-            data: results
-        });
+        res.json(results);
     });
 };
 

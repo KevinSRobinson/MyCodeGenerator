@@ -15,7 +15,7 @@ bindings: {
 	allowChanges: "@"
 },
 controllerAs: "vm",
-template: "src/client/Features/Contacts/Components/contactsList.html",
+templateUrl: "src/client/Features/Contacts/Components/contactsList.html",
 controller: function (contactsService, contactsModalService) {
     var vm = this;
     vm.error = {};

@@ -39,14 +39,7 @@ void GenerateMainIndexPage(List<CodeClass> codeClasses){
 </head>
 
 <body>
-    <div class="col-md-3">
-        <ul>
-            <#+WriteSideMenuItems(codeClasses);#>
-        </ul>
-    </div>
-    <div class="col-md-8">
-        <div ui-view></div>
-    </div>
+    <main-layout></main-layout>
 
       <!--bower:js -->
       <!--endbower-->
